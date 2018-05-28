@@ -1,0 +1,23 @@
+﻿@model Maslshop.Models.ViewModels.CategoryFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+
+<h2>@Model.Heading</h2>
+
+@Html.ActionLink("<< Powrót", "Index")
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => Model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Nazwa")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

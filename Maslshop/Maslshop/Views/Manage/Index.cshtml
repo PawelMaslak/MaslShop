@@ -1,0 +1,26 @@
+﻿@model Maslshop.Models.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Ustawienia Konta";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Hasło:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Zmień Hasło", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Utwórz Hasło", "SetPassword")
+            }
+            ]
+        </dd>
+    </dl>
+</div>

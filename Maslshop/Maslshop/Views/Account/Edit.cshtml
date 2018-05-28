@@ -1,0 +1,56 @@
+﻿@using Newtonsoft.Json
+@model Maslshop.Models.DTOs.UserDTO
+
+@{
+    ViewBag.Title = @Model.Heading;
+}
+
+<h2>@ViewBag.Title</h2>
+<p class="alert alert-info">Wszystkie pola są <strong>wymagane</strong>.</p>
+@using (Html.BeginForm("Edit", "Account"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => Model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, "Imię")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Surname, "Nazwisko")
+        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = @Model.Surname })
+        @Html.ValidationMessageFor(m => m.Surname)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, "Adres")
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = @Model.Address })
+        @Html.ValidationMessageFor(m => m.Address)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.City, "Miasto")
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = @Model.City })
+        @Html.ValidationMessageFor(m => m.City)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostCode, "Kod Pocztowy")
+        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", placeholder = @Model.PostCode })
+        @Html.ValidationMessageFor(m => m.PostCode)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, "Email")
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.Email })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role_Name, "Rola")
+        @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), "", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@section scripts
+{
+
+}

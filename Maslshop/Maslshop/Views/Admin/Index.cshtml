@@ -1,0 +1,59 @@
+﻿@using System.Web.Services.Protocols
+@model Maslshop.Models.ViewModels.UserListViewModel
+
+@{
+    ViewBag.Title = "Maslshop - Panel Administracyjny";
+}
+
+@if (User.IsInRole("Administrator"))
+{
+    <h2>Panel Administracyjny</h2>
+    using (Html.BeginForm("SearchUser", "Admin"))
+    {
+        if (Model.SearchTerm != null)
+        {
+            @Html.ActionLink("<<Powrót", "Index")
+        }
+
+        <div class="form-group">
+            <div class="input-group" style="width: 300px">
+                @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder = "Wyszukaj według imienia etc..."})
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+            </div>
+        </div>
+    }
+
+        <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary" role="button">Dodaj Użytkownika</a></p>
+
+        <table id="table" class="table table-striped table-bordered text-center">
+            <thead>
+            <tr class="active text-info">
+                <th>Imię i Nazwisko</th>
+                <th>Adres</th>
+                <th>Email</th>
+                <th>Data Rejestracji</th>
+                <th>Rola</th>
+                <th>Edycja użytkownika</th>            
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Name @user.Surname</td>
+                    <td>@user.Address @user.PostCode @user.City</td>
+                    <td>@user.Email</td>
+                    <td>@user.RegistrationDate</td>
+                    <td>@user.Role_Name</td>
+                    <td><a href="@Url.Action("Edit", "Account", new {userId = user.Id})" class="btn btn-default glyphicon glyphicon-pencil" role="button"></a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+    Response.Redirect("~/Home");
+}

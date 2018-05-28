@@ -1,0 +1,34 @@
+﻿@model Maslshop.Models.ViewModels.RolesListViewModel
+@{
+    ViewBag.Title = Model.Heading;
+}
+
+<h2>@Model.Heading</h2>
+
+<p><a href="@Url.Action("Create", "Roles")" class="btn btn-primary" role="button">Dodaj nową rolę</a></p>
+
+<hr />
+
+<table id="table" class="table table-striped table-bordered text-center">
+    <thead>
+        <tr class="active text-info">
+            <th>Nazwa</th>
+            <th>Ilość Użytkowników</th>
+            <th>Edycja</th>
+            <th>Usuń</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>@role.Name</td>
+                <td>
+                    @role.Users.Count
+                </td>
+                <td><a href="@Url.Action("Edit", "Roles", new {roleId = role.Id})" class="btn btn-primary" role="button">Edytuj</a></td>
+                <td><a href="@Url.Action("Delete", "Roles", new {roleId = role.Id})" class="btn btn-primary" role="button">Usuń</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

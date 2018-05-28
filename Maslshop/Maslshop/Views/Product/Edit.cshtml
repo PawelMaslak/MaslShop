@@ -1,0 +1,107 @@
+﻿@model Maslshop.Models.ViewModels.ProductFormViewModel
+
+@{
+    ViewBag.Title = @Model.Heading;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="alert alert-info">Wszystkie pola są <strong>wymagane</strong>.</p>
+
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => Model.Id)
+    <p>
+        @Html.LabelFor(m => m.Name, "Nazwa")
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
+        @Html.ValidationMessageFor(m => m.Name)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Price, "Cena")
+        @Html.TextBoxFor(m => m.Price, new { @class = "form-control", placeholder = @Model.Price })
+        @Html.ValidationMessageFor(m => m.Price)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.StockAmount, "Ilość")
+        @Html.TextBoxFor(m => m.StockAmount, new { @class = "form-control", placeholder = @Model.StockAmount })
+        @Html.ValidationMessageFor(m => m.StockAmount)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Description, "Opis")
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = @Model.Description })
+        @Html.ValidationMessageFor(m => m.Description)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Year, "Rok Produkcji")
+        @Html.TextBoxFor(m => m.Year, new { @class = "form-control", placeholder = @Model.Description })
+        @Html.ValidationMessageFor(m => m.Year)
+    </p>
+    @*<p>
+        @Html.LabelFor(m => m.Weight, "Waga(gramy)")
+        @Html.TextBoxFor(m => m.Weight, new { @class = "form-control", placeholder = @Model.Weight })
+        @Html.ValidationMessageFor(m => m.Weight)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Fineness, "Próba")
+        @Html.TextBoxFor(m => m.Fineness, new { @class = "form-control", placeholder = @Model.Fineness })
+        @Html.ValidationMessageFor(m => m.Fineness)
+    </p>*@
+    <p>
+        @Html.LabelFor(m => m.Dimensions, "Wymiary")
+        @Html.TextBoxFor(m => m.Dimensions, new { @class = "form-control", placeholder = @Model.Dimensions })
+        @Html.ValidationMessageFor(m => m.Dimensions)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Manufacturer, "Wytwórca")
+        @Html.TextBoxFor(m => m.Manufacturer, new { @class = "form-control", placeholder = @Model.Manufacturer })
+        @Html.ValidationMessageFor(m => m.Manufacturer)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Category, "Kategoria")
+        @Html.DropDownListFor(m => m.Category, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Category)
+    </p>
+    <p>
+        @if (Model.Products != null && Model.Products.Count > 0)
+        {
+            <img src="~/Content/Images/Thumbnails/@Model.Products[0].FileName" alt="photo" />
+            <a href="@Url.Action("DeletePhoto", "Product", new {photoId = Model.Products[0].FileId})" class="btn btn-primary" role="button">Usuń Zdjęcie</a>
+        }
+        else
+        {
+            @Html.LabelFor(m => m.UploadedFiles, "Zdjęcie produktu nr 1")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        }
+    </p>
+    <p>
+        @if (Model.Products != null && Model.Products.Count > 1)
+        {
+            <img src="~/Content/Images/Thumbnails/@Model.Products[1].FileName" alt="photo" />
+            <a href="@Url.Action("DeletePhoto", "Product", new {photoId = Model.Products[1].FileId})" class="btn btn-primary" role="button">Usuń Zdjęcie</a>
+        }
+        else
+        {
+            @Html.LabelFor(m => m.UploadedFiles, "Zdjęcie produktu nr 2")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        }
+    </p>
+    <p>
+        @if (Model.Products != null && Model.Products.Count > 2)
+        {
+            <img src="~/Content/Images/Thumbnails/@Model.Products[2].FileName" alt="photo" />
+            <a href="@Url.Action("DeletePhoto", "Product", new {photoId = Model.Products[2].FileId})" class="btn btn-primary" role="button">Usuń Zdjęcie</a>
+        }
+        else
+        {
+            @Html.LabelFor(m => m.UploadedFiles, "Zdjęcie produktu nr 3")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        }
+    </p>
+    <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/maslshop")
+}

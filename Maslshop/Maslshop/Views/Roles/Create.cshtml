@@ -1,0 +1,27 @@
+﻿@model Maslshop.Models.ViewModels.RoleFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+
+
+<h2>@Model.Heading</h2>
+@Html.ActionLink("Lista Ról", "Index")
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        @Html.LabelFor(m => m.RoleName, "Nazwa")
+        @Html.TextBoxFor(m => m.RoleName, new { @class = "form-control", placeholder = "np. Administrator"})
+        @Html.ValidationMessageFor(m => m.RoleName)
+    </p>
+    <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
+}
+
+@section scripts
+{
+
+}

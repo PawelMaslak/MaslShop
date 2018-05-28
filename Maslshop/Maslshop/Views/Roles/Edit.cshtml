@@ -1,0 +1,22 @@
+﻿@model Maslshop.Models.ViewModels.RoleFormViewModel
+@{
+    ViewBag.Title = @Model.Heading;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("<< Powrót", "Index")
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => Model.RoleId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RoleName, "Nazwa")
+        @Html.TextBoxFor(m => m.RoleName, new { @class = "form-control", placeholder = @Model.RoleName })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}

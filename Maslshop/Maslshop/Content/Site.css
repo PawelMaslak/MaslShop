@@ -1,0 +1,179 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Bootstrap Overrides*/
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.list-group {
+    padding-left: 0;
+    width: 150px;
+    margin-bottom: 1px;
+}
+
+td {
+    height: 20px;
+    vertical-align: bottom;
+}
+
+.abc {
+    text-align: center;
+}
+
+.table {
+    list-style: none;
+}
+
+.table thead > tr > th {
+    text-align: center;
+    font-size: 16px;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.btn2 {
+    display: inline-block;
+    padding: 5px 15px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    user-select: none;
+}
+
+.category-panel {
+    height: 260px;
+}
+
+.medium-box {
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #d5d5d5;
+    overflow: hidden;
+    margin: 0 4px 20px;
+    padding: 0;
+}
+
+.image {
+    height: 145px;
+    padding: 10px 42px;
+    line-height: 115px;
+    text-align: center;
+}
+
+.inner-box {
+    position: relative;
+    padding: 4px;
+    height: 118px;
+}
+
+.bottom {
+    bottom: 10px;
+    position: absolute;
+    width: 96%;
+}
+
+.grey-background {
+    position: relative;
+    padding: 4px;
+    height: 115px;
+    background-color: #f1f1f1;
+}
+
+p {
+    margin: -4px 0 10px;
+}
+
+#accounts-referrals .category-panel .referral-panel p.name a, #accounts-referrals .category-panel .referral-panel-home p.name a, .category-panel #accounts-referrals .referral-panel p.name a, .category-panel #accounts-referrals .referral-panel-home p.name a, .category-panel .grey-background p.name a, .category-panel .horizontal-table tr th p.name a, .horizontal-table tr .category-panel th p.name a {
+    font-size: 16px;
+    line-height: 1.3em;
+    overflow: hidden;
+    display: block;
+    max-height: 48px;
+    color: #474747;
+    text-align: center;
+    padding-top: 1px;
+}
+
+.category-panel .grey-background p.from, .category-panel .horizontal-table tr th p.from, .horizontal-table tr .category-panel th p.from {
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.category-panel .grey-background p.stock-message, .category-panel .horizontal-table tr th p.stock-message, .horizontal-table tr .category-panel th p.stock-message {
+    margin-bottom: 8px;
+    line-height: 10px;
+    pointer-events: none;
+    text-align: center;
+}
+
+.category-panel .grey-background .btn, .category-panel .horizontal-table tr th .btn, .horizontal-table tr .category-panel th .btn {
+    padding: 2px 15px;
+    height: 26px;
+    width: 60%;
+}
+
+.center-block {
+    display: block;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.center-block2 {
+    display: block;
+    margin: 10% auto auto;
+}
