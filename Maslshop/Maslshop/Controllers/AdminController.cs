@@ -5,7 +5,6 @@ namespace Maslshop.Controllers
     using Models.ViewModels;
     using System.Web.Mvc;
 
-    //[Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IAdminRepository _adminRepository;
@@ -14,19 +13,6 @@ namespace Maslshop.Controllers
         {
             _adminRepository = adminRepository;
         }
-
-        //public ActionResult Index(string query = null)
-        //{
-        //    var users = _adminRepository.GetUsersWithoutAdmin();
-
-        //    var viewModel = new UserListViewModel()
-        //    {
-        //        Users = users,
-        //        SearchTerm = query
-        //    };
-
-        //    return View(viewModel);
-        //}
 
         public ActionResult Index(string query = null)
         {

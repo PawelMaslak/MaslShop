@@ -13,6 +13,11 @@ namespace Maslshop.Repositories
             _context = context;
         }
 
+        public List<File> GetPhotos()
+        {
+            return _context.Files.ToList();
+        }
+
         public List<File> GetPhotosByProductId(int id)
         {
             return _context.Files.Where(i => i.ProductId == id).ToList();

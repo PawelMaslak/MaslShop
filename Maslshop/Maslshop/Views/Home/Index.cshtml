@@ -1,5 +1,5 @@
 ﻿@using Maslshop.Models.Core
-@model Maslshop.Models.ViewModels.ProductsViewModel
+@model Maslshop.Models.ViewModels.ProductsListViewModel
 
 @{
     ViewBag.Title = Model.Heading;
@@ -37,49 +37,15 @@
                 </div>
             </div>
         }
-        @*<table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Ilość produktów</th>
-                    <th scope="col">Kategoria</th>
-                    <th scope="col">Cena</th>
-                    <th scope="col">Zdjęcie</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var product in Model.Products)
-                {
-                    <tr>
-                        <td>@product.Name</td>
-                        <td>@product.StockAmount</td>
-                        <td>@product.Category.Name</td>
-                        <td>@product.Price.ToString("C")</td>
-                        @if (product.Files != null && product.Files.Count > 0)
-                        {
-                            <td>
-                                <img src="~/Content/Images/Thumbnails/@product.Files[0].FileName" alt="photo"/>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <img src="~/Content/Images/Thumbnails/no-pic.png" alt="photo" />
-                            </td>
-                        }
-                    </tr>
-                }
-                </tbody>
-            </table>*@
 
         @foreach (var product in Model.Products)
         {
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <div class="medium-box category-panel">
                     <div class="image">
-                        @if (product.Files != null && product.Files.Count > 0)
+                        @if (product.FileName != null)
                         {
-                            <img src="~/Content/Images/Thumbnails/@product.Files[0].FileName" alt="photo" title="One Ounce Gold Coins" class="center-block2 img-responsive" />
+                            <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" title="One Ounce Gold Coins" class="center-block2 img-responsive" />
 
                         }
                         else
@@ -92,14 +58,14 @@
                             <a href="one-ounce-gold-coins/">@product.Name</a>
                         </p>
                         <p class="stock-message">
-                                @if (product.StockAmount > 0)
-                                {
-                                    <small>Produkt dostępny</small>
-                                }
-                                else
-                                {
-                                    <small>Niedługo dostawa</small>
-                                }
+                            @if (product.StockAmount > 0)
+                            {
+                                <small>Produkt dostępny</small>
+                            }
+                            else
+                            {
+                                <small>Niedługo dostawa</small>
+                            }
                         </p>
                         <div class="bottom">
                             <p class="from" id="price-inc-vat-454">
@@ -111,28 +77,6 @@
                 </div>
             </div>
         }
-        @*<div class="col-md-3 col-sm-4 col-xs-6">
-                <div class="medium-box category-panel">
-                    <div class="image">
-                        <a href="one-ounce-gold-coins/">
-                            <img src="https://www.bullionbypost.co.uk/media/cache/21/ef/21efeb42f73611a410a1d2ee3ebc2e96.jpg" alt="One Ounce Gold Coins" title="One Ounce Gold Coins" class="center-block2 img-responsive">
-                        </a>
-                    </div>
-                    <div class="inner-box grey-background">
-                        <p class="name">
-                            <a href="one-ounce-gold-coins/">One Ounce Gold Coins</a>
-                        </p>
-                        <p class="stock-message"><small>In Stock</small></p>
-                        <div class="bottom">
-                            <p class="from" id="price-inc-vat-454">
-                                <small>from</small> <span class="json">£989</span>
-                            </p>
-                            <a class="btn2 btn-primary center-block" href="one-ounce-gold-coins">View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
-
     </div>
 </div>
 

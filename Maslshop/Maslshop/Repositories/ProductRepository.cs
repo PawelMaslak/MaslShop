@@ -1,6 +1,8 @@
 ﻿using Maslshop.Models.Core;
+using Maslshop.Models.ViewModels;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace Maslshop.Repositories
@@ -29,19 +31,19 @@ namespace Maslshop.Repositories
                 .ToList();
         }
 
-        public IEnumerable<Product> GetSearchedProducts(string searchTerm = null)
-        {
-            var products = GetProductsInStockList();
+        //public IEnumerable<Product> GetSearchedProducts(string searchTerm = null)
+        //{
+        //    var products = GetProductsInStockList();
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                return products.Where(
-                    s => s.Name.ToLower().Contains(searchTerm.ToLower()) ||
-                         s.Category.Name.ToLower().Contains(searchTerm.ToLower()));
-            }
+        //    if (!string.IsNullOrWhiteSpace(searchTerm))
+        //    {
+        //        return products.Where(
+        //            s => s.Name.ToLower().Contains(searchTerm.ToLower()) ||
+        //                 s.Category.Name.ToLower().Contains(searchTerm.ToLower()));
+        //    }
 
-            return products;
-        }
+        //    return products;
+        //}
 
         //public IEnumerable<Product> GetProducts()
         //{
@@ -54,12 +56,35 @@ namespace Maslshop.Repositories
         //    return products;
         //}
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<ProductsViewModel> GetSearchedProducts(string query, string searchTerm = null)
         {
-            var products = _context.Database.SqlQuery<Product>("dbo.GetProducts").ToList().Take(3);
+            var products = GetProducts();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                var term = new SqlParameter("@query", query);
+
+                return _context.Database.SqlQuery<ProductsViewModel>("dbo.FilteredProducts @query", term).ToList();
+            }
 
             return products;
         }
+
+        public IEnumerable<ProductsViewModel> GetProducts()
+        {
+            var products = _context.Database.SqlQuery<ProductsViewModel>("dbo.GetProducts").ToList();
+
+            return products;
+        }
+
+        public IEnumerable<ProductsViewModel> GetLatestThreeProducts()
+        {
+            var products = _context.Database.SqlQuery<ProductsViewModel>("dbo.GetLatestThreeProducts").ToList().Take(3);
+
+            return products;
+        }
+
+
 
         public Product SelectProductMatchingPhotoId(File photo)
         {

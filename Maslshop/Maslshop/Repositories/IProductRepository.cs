@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.Core;
+using Maslshop.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace Maslshop.Repositories
@@ -9,8 +10,9 @@ namespace Maslshop.Repositories
         void AddProduct(Product product);
         IEnumerable<Category> GetCategories();
         IEnumerable<Product> GetProductsInStockList();
-        IEnumerable<Product> GetSearchedProducts(string searchTerm = null);
-        IEnumerable<Product> GetProducts();
+        IEnumerable<ProductsViewModel> GetSearchedProducts(string query, string searchTerm = null);
+        IEnumerable<ProductsViewModel> GetProducts();
+        IEnumerable<ProductsViewModel> GetLatestThreeProducts();
         Product SelectProductMatchingPhotoId(File photo);
         Product GetProductById(int id);
     }

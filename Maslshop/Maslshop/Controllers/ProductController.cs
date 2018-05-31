@@ -115,15 +115,31 @@ namespace Maslshop.Controllers
 
         public ActionResult Index(string query = null)
         {
-            var viewModel = new ProductsViewModel()
+            if (query != null)
             {
-                Heading = "Lista produktów",
-                Categories = _unitOfWork.Product.GetCategories(),
-                Products = _unitOfWork.Product.GetSearchedProducts(query),
-                SearchTerm = query
-            };
+                var viewModel = new ProductsListViewModel()
+                {
+                    Heading = "Lista wyszukanych produktów",
+                    Categories = _unitOfWork.Product.GetCategories(),
+                    Products = _unitOfWork.Product.GetSearchedProducts(query),
+                    Files = _unitOfWork.File.GetPhotos(),
+                    SearchTerm = query
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            else
+            {
+                var viewModel = new ProductsListViewModel()
+                {
+                    Heading = "Lista produktów",
+                    Categories = _unitOfWork.Product.GetCategories(),
+                    Products = _unitOfWork.Product.GetProducts(),
+                    Files = _unitOfWork.File.GetPhotos()
+                };
+
+                return View(viewModel);
+            }
         }
 
         public ActionResult DeletePhoto(int photoId)
@@ -231,8 +247,6 @@ namespace Maslshop.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
-
 
             if (product.Files.Count == 0)
             {

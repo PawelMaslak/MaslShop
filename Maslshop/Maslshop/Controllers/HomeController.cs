@@ -25,11 +25,12 @@ namespace Maslshop.Controllers
         {
             if (query != null)
             {
-                var viewModel = new ProductsViewModel()
+                var viewModel = new ProductsListViewModel()
                 {
                     Heading = "Lista wyszukanych produktów",
                     Categories = _unitOfWork.Product.GetCategories(),
                     Products = _unitOfWork.Product.GetSearchedProducts(query),
+                    Files = _unitOfWork.File.GetPhotos(),
                     SearchTerm = query
                 };
 
@@ -37,11 +38,12 @@ namespace Maslshop.Controllers
             }
             else
             {
-                var viewModel = new ProductsViewModel()
+                var viewModel = new ProductsListViewModel()
                 {
                     Heading = "Lista produktów - ostatnio dodane",
                     Categories = _unitOfWork.Product.GetCategories(),
-                    Products = _unitOfWork.Product.GetProducts()
+                    Products = _unitOfWork.Product.GetLatestThreeProducts(),
+                    Files = _unitOfWork.File.GetPhotos()
                 };
 
                 return View("Index", viewModel);

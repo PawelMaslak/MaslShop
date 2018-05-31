@@ -1,4 +1,4 @@
-﻿@model Maslshop.Models.ViewModels.ProductsViewModel
+﻿@model Maslshop.Models.ViewModels.ProductsListViewModel
 
 @{
     ViewBag.Title = Model.Heading;
@@ -25,27 +25,6 @@
     </div>
 }
 
-
-@*@using (Ajax.BeginForm(
-        new AjaxOptions
-        {
-            HttpMethod = "get",
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "ProductsList"
-        }))
-    {
-    using (Html.BeginForm("SearchProduct", "Product"))
-     {
-         <div class="form-group">
-             <div class="input-group" style="width: 300px">
-                 @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Wyszukaj według nazwy etc..." })
-                 <span class="input-group-addon">
-                     <i class="glyphicon glyphicon-search"></i>
-                 </span>
-             </div>
-         </div>
-     }
-    }*@
 <div id="ProductsList">
     <table id="table" class="table table-striped table-bordered text-center">
         <thead>
@@ -70,12 +49,12 @@
                     <td>@product.Name</td>
                     <td>@product.Price.ToString("C")</td>
                     <td>@product.StockAmount</td>
-                    <td>@product.Category.Name</td>
-                    @if (product.Files != null && product.Files.Count > 0)
-                {
-                        <td>
-                            <img src="~/Content/Images/Thumbnails/@product.Files[0].FileName" alt="photo" />
-                        </td>
+                    <td>@product.CategoryName</td>
+                    @if (product.FileName != null)
+                    {
+                    <td>
+                        <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" />
+                    </td>
                     }
                     else
                     {

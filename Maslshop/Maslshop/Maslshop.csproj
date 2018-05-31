@@ -315,6 +315,14 @@
     <Compile Include="Migrations\201805122051344_AddAllToNewDatabase.Designer.cs">
       <DependentUpon>201805122051344_AddAllToNewDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805281834582_ChangefileName.cs" />
+    <Compile Include="Migrations\201805281834582_ChangefileName.Designer.cs">
+      <DependentUpon>201805281834582_ChangefileName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805282053547_ChangingFileNameToNormal.cs" />
+    <Compile Include="Migrations\201805282053547_ChangingFileNameToNormal.Designer.cs">
+      <DependentUpon>201805282053547_ChangingFileNameToNormal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -333,6 +341,7 @@
     <Compile Include="Models\Core\Category.cs" />
     <Compile Include="Models\Core\File.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\SendCodeViewModel.cs" />
@@ -366,25 +375,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\07023037125acae6f16ef75f6c7c2c3b.jpg" />
-    <Content Include="Content\Images\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
-    <Content Include="Content\Images\9b7d5547026159f99d09592b17502c1b.jpg" />
-    <Content Include="Content\Images\eagle1.jpg" />
-    <Content Include="Content\Images\eagle3.jpg" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\no-pic.png" />
-    <Content Include="Content\Images\philharmonik.jpg" />
-    <Content Include="Content\Images\s1.png" />
-    <Content Include="Content\Images\s3.jpg" />
-    <Content Include="Content\Images\Thumbnails\07023037125acae6f16ef75f6c7c2c3b.jpg" />
-    <Content Include="Content\Images\Thumbnails\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
-    <Content Include="Content\Images\Thumbnails\9b7d5547026159f99d09592b17502c1b.jpg" />
-    <Content Include="Content\Images\Thumbnails\eagle1.jpg" />
-    <Content Include="Content\Images\Thumbnails\eagle3.jpg" />
     <Content Include="Content\Images\Thumbnails\no-pic.png" />
-    <Content Include="Content\Images\Thumbnails\philharmonik.jpg" />
-    <Content Include="Content\Images\Thumbnails\s1.png" />
-    <Content Include="Content\Images\Thumbnails\s3.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -455,9 +448,9 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Add.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -529,6 +522,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805122051344_AddAllToNewDatabase.resx">
       <DependentUpon>201805122051344_AddAllToNewDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281834582_ChangefileName.resx">
+      <DependentUpon>201805281834582_ChangefileName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805282053547_ChangingFileNameToNormal.resx">
+      <DependentUpon>201805282053547_ChangingFileNameToNormal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
