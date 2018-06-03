@@ -41,6 +41,7 @@
             </tr>
         </thead>
         <tbody class="text-center">
+
             @foreach (var product in Model.Products)
             {
                 <tr>
@@ -52,9 +53,9 @@
                     <td>@product.CategoryName</td>
                     @if (product.FileName != null)
                     {
-                    <td>
-                        <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" />
-                    </td>
+                        <td>
+                            <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" />
+                        </td>
                     }
                     else
                     {
@@ -62,8 +63,8 @@
                             <img src="~/Content/Images/Thumbnails/no-pic.png" alt="photo" />
                         </td>
                     }
-                    <td><a href="@Url.Action("Edit", "Product", new { productId = product.Id })" class="btn btn-primary" role="button">Edytuj</a></td>
-                    <td><a href="@Url.Action("Delete", "Product", new { productId = product.Id })" class="btn btn-primary" role="button">Usuń</a></td>
+                    <td><a href="@Url.Action("Edit", "Product", new {productId = product.Id})" class="btn btn-primary" role="button">Edytuj</a></td>
+                    <td><a href="@Url.Action("Delete", "Product", new {productId = product.Id})" class="btn btn-primary" role="button">Usuń</a></td>
                 </tr>
             }
         </tbody>

@@ -45,7 +45,9 @@
                     <div class="image">
                         @if (product.FileName != null)
                         {
-                            <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" title="One Ounce Gold Coins" class="center-block2 img-responsive" />
+                            <a href="@Url.Action("ViewProduct", "Product", new {productId = product.Id})">
+                        <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" title="@product.Name" class="center-block2 img-responsive" />
+                            </a>
 
                         }
                         else
@@ -55,7 +57,7 @@
                     </div>
                     <div class="inner-box grey-background">
                         <p class="name">
-                            <a href="one-ounce-gold-coins/">@product.Name</a>
+                            <a href="@Url.Action("ViewProduct", "Product", new {productId = product.Id})">@product.Name</a>
                         </p>
                         <p class="stock-message">
                             @if (product.StockAmount > 0)
@@ -71,7 +73,7 @@
                             <p class="from" id="price-inc-vat-454">
                                 <small>od</small> <span class="json">@product.Price.ToString("C")</span>
                             </p>
-                            <a class="btn2 btn-primary center-block" href="one-ounce-gold-coins">Zobacz</a>
+                            <a class="btn2 btn-primary center-block" href="@Url.Action("ViewProduct", "Product", new {productId = product.Id})">Zobacz</a>
                         </div>
                     </div>
                 </div>

@@ -14,9 +14,9 @@ namespace Maslshop.Models.ViewModels
 
         public IEnumerable<Category> Categories { get; set; }
 
-        public IEnumerable<File> Files { get; set; }
+        public List<File> Files { get; set; }
 
-        public Category Category {get; set;}
+        public int Category {get; set;}
 
         public int Id { get; set; }
 
@@ -29,6 +29,14 @@ namespace Maslshop.Models.ViewModels
         public string FileName { get; set; }
 
         public string CategoryName { get; set; }
+
+        public int Year { get; set; }
+
+        public string Dimensions { get; set; }
+
+        public string Manufacturer { get; set; }
+
+        public string Description { get; set; }
 
         public DateTime? AddedDate { get; set; }
     }

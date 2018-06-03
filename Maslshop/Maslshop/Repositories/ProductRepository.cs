@@ -18,7 +18,9 @@ namespace Maslshop.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories.ToList();
+            return _context.Categories
+                .Where(p => p.Products.Count > 0)
+                .ToList();
         }
 
 
@@ -83,8 +85,6 @@ namespace Maslshop.Repositories
 
             return products;
         }
-
-
 
         public Product SelectProductMatchingPhotoId(File photo)
         {

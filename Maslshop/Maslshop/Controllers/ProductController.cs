@@ -19,6 +19,33 @@ namespace Maslshop.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        public ActionResult ViewProduct(int productId)
+        {
+            var product = _unitOfWork.Product.GetProductById(productId);
+
+            product.Files = _unitOfWork.File.GetPhotosByProductId(productId);
+
+            var categoryName = _unitOfWork.Category.GetCategoryById(product.CategoryId).Name;
+
+            var viewModel = new ProductsViewModel()
+            {
+                Heading = product.Name + " - " + categoryName,
+                Name = product.Name,
+                Manufacturer = product.Manufacturer,
+                StockAmount = product.StockAmount,
+                Price = product.Price,
+                Dimensions = product.Dimensions,
+                Year = product.Year,
+                Description = product.Description,
+                Category = product.CategoryId,
+                CategoryName = categoryName,
+                Files = product.Files,
+                Categories = _unitOfWork.Product.GetCategories()
+            };
+
+            return View(viewModel);
+        }
+
         public ActionResult Edit(int productId)
         {
             var product = _unitOfWork.Product.GetProductById(productId);
@@ -98,7 +125,7 @@ namespace Maslshop.Controllers
                 {
                     _unitOfWork.Complete();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index");
                 }
             }
 
