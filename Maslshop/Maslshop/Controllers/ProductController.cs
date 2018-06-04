@@ -235,9 +235,13 @@ namespace Maslshop.Controllers
                 AddedDate = DateTime.Now
             };
 
+            _unitOfWork.Product.AddProduct(product);
+
+            _unitOfWork.Complete();
+
             var uploads = viewModel.UploadedFiles;
 
-            product.Files = new List<File>();
+            var productFiles = new List<File>();
 
             if (uploads != null)
             {
@@ -255,7 +259,7 @@ namespace Maslshop.Controllers
 
                         Resize(100, 100, upload.InputStream, Path.Combine(Server.MapPath("~/Content/Images/Thumbnails/" + productPhoto.FileName)));
 
-                        product.Files.Add(productPhoto);
+                        productFiles.Add(productPhoto);
 
                         upload.SaveAs(path);
                     }
@@ -265,26 +269,14 @@ namespace Maslshop.Controllers
                         return View(viewModel);
                     }
                 }
-                if (product.Files.Count != 0)
-                {
-                    _unitOfWork.Product.AddProduct(product);
 
-                    _unitOfWork.Complete();
-
-                    return RedirectToAction("Index");
-                }
-            }
-
-            if (product.Files.Count == 0)
-            {
-                _unitOfWork.Product.AddProduct(product);
+                product.Files = productFiles;
 
                 _unitOfWork.Complete();
-
-                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Product");
         }
 
         public static void Resize(int Width, int Height, Stream streamImg, string saveFilePath)
