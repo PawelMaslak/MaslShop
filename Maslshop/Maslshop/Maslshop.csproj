@@ -327,6 +327,22 @@
     <Compile Include="Migrations\201806042039193_GetProductsSP.Designer.cs">
       <DependentUpon>201806042039193_GetProductsSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806052006508_GetUsersWithoutAdminSP.cs" />
+    <Compile Include="Migrations\201806052006508_GetUsersWithoutAdminSP.Designer.cs">
+      <DependentUpon>201806052006508_GetUsersWithoutAdminSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806052017198_GetLatestThreeProductsSP.cs" />
+    <Compile Include="Migrations\201806052017198_GetLatestThreeProductsSP.Designer.cs">
+      <DependentUpon>201806052017198_GetLatestThreeProductsSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806052023289_FilteredUsersSP.cs" />
+    <Compile Include="Migrations\201806052023289_FilteredUsersSP.Designer.cs">
+      <DependentUpon>201806052023289_FilteredUsersSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806052036006_FilteredProductsSP.cs" />
+    <Compile Include="Migrations\201806052036006_FilteredProductsSP.Designer.cs">
+      <DependentUpon>201806052036006_FilteredProductsSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -536,6 +552,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806042039193_GetProductsSP.resx">
       <DependentUpon>201806042039193_GetProductsSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806052006508_GetUsersWithoutAdminSP.resx">
+      <DependentUpon>201806052006508_GetUsersWithoutAdminSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806052017198_GetLatestThreeProductsSP.resx">
+      <DependentUpon>201806052017198_GetLatestThreeProductsSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806052023289_FilteredUsersSP.resx">
+      <DependentUpon>201806052023289_FilteredUsersSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806052036006_FilteredProductsSP.resx">
+      <DependentUpon>201806052036006_FilteredProductsSP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
