@@ -255,13 +255,15 @@ namespace Maslshop.Controllers
                             ProductId = product.Id
                         };
 
-                        var path = Path.Combine(Server.MapPath("~/Content/Images/"), productPhoto.FileName);
+                        ResizeBigImage(upload.InputStream, Path.Combine(Server.MapPath("~/Content/Images/"), productPhoto.FileName));
+
+                        //var path = Path.Combine(Server.MapPath("~/Content/Images/"), productPhoto.FileName);
 
                         Resize(100, 100, upload.InputStream, Path.Combine(Server.MapPath("~/Content/Images/Thumbnails/" + productPhoto.FileName)));
 
                         productFiles.Add(productPhoto);
 
-                        upload.SaveAs(path);
+                        //upload.SaveAs(path);
                     }
                     else if (upload != null && !upload.ContentType.Contains("image"))
                     {
@@ -279,10 +281,58 @@ namespace Maslshop.Controllers
             return RedirectToAction("Index", "Product");
         }
 
-        public static void Resize(int Width, int Height, Stream streamImg, string saveFilePath)
+        public static void ResizeBigImage(Stream streamImg, string saveFilePath)
         {
             Bitmap sourceImage = new Bitmap(streamImg);
-            using (Bitmap objBitmap = new Bitmap(Width, Height))
+
+            if (sourceImage.Width < 4000 || sourceImage.Height < 4000)
+            {
+                int maxImageWidth = 1920;
+
+                if (sourceImage.Width > maxImageWidth)
+                {
+                    int newImageHeight = (int) (sourceImage.Height * (maxImageWidth / (float) sourceImage.Width));
+
+                    using (Bitmap objBitmap = new Bitmap(maxImageWidth, newImageHeight))
+                    {
+                        objBitmap.SetResolution(maxImageWidth, newImageHeight);
+                        using (Graphics objGraphics = Graphics.FromImage(objBitmap))
+                        {
+                            objGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                            objGraphics.InterpolationMode =
+                                System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                            objGraphics.DrawImage(sourceImage, 0, 0, maxImageWidth, newImageHeight);
+
+                            objBitmap.Save(saveFilePath);
+                        }
+                    }
+                }
+                else
+                {
+                    using (Bitmap objBitmap = new Bitmap(sourceImage.Width, sourceImage.Height))
+                    {
+                        objBitmap.SetResolution(sourceImage.Width, sourceImage.Height);
+                        using (Graphics objGraphics = Graphics.FromImage(objBitmap))
+                        {
+                            objGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+                            objGraphics.InterpolationMode =
+                                System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                            objGraphics.DrawImage(sourceImage, 0, 0, sourceImage.Width, sourceImage.Height);
+
+                            objBitmap.Save(saveFilePath);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Resize(int width, int height, Stream streamImg, string saveFilePath)
+        {
+            Bitmap sourceImage = new Bitmap(streamImg);
+
+            using (Bitmap objBitmap = new Bitmap(width, height))
             {
                 objBitmap.SetResolution(sourceImage.HorizontalResolution, sourceImage.VerticalResolution);
                 using (Graphics objGraphics = Graphics.FromImage(objBitmap))
@@ -290,7 +340,7 @@ namespace Maslshop.Controllers
                     objGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                     objGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                    objGraphics.DrawImage(sourceImage, 0, 0, Width, Height);
+                    objGraphics.DrawImage(sourceImage, 0, 0, width, height);
 
                     objBitmap.Save(saveFilePath);
                 }
