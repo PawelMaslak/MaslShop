@@ -1,5 +1,4 @@
-﻿using Maslshop.Models;
-using Maslshop.Models.ViewModels;
+﻿using Maslshop.Models.ViewModels;
 using System.Collections.Generic;
 using Maslshop.Models.Core;
 

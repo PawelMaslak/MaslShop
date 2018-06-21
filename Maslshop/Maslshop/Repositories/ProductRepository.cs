@@ -23,8 +23,6 @@ namespace Maslshop.Repositories
                 .ToList();
         }
 
-
-
         public IEnumerable<Product> GetProductsInStockList()
         {
             return _context.Products
