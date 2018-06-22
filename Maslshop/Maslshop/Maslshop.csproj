@@ -343,6 +343,26 @@
     <Compile Include="Migrations\201806052036006_FilteredProductsSP.Designer.cs">
       <DependentUpon>201806052036006_FilteredProductsSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806221003345_FilteredProductsRev1SP.cs" />
+    <Compile Include="Migrations\201806221003345_FilteredProductsRev1SP.Designer.cs">
+      <DependentUpon>201806221003345_FilteredProductsRev1SP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806221008450_FilteredUsersRev1SP.cs" />
+    <Compile Include="Migrations\201806221008450_FilteredUsersRev1SP.Designer.cs">
+      <DependentUpon>201806221008450_FilteredUsersRev1SP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806221013026_GetLatestThreeProductsRev1SP.cs" />
+    <Compile Include="Migrations\201806221013026_GetLatestThreeProductsRev1SP.Designer.cs">
+      <DependentUpon>201806221013026_GetLatestThreeProductsRev1SP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806221015504_GetProductsRev1SP.cs" />
+    <Compile Include="Migrations\201806221015504_GetProductsRev1SP.Designer.cs">
+      <DependentUpon>201806221015504_GetProductsRev1SP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806221021239_GetUsersWithoutAdminRev1SP.cs" />
+    <Compile Include="Migrations\201806221021239_GetUsersWithoutAdminRev1SP.Designer.cs">
+      <DependentUpon>201806221021239_GetUsersWithoutAdminRev1SP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -584,6 +604,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806052036006_FilteredProductsSP.resx">
       <DependentUpon>201806052036006_FilteredProductsSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221003345_FilteredProductsRev1SP.resx">
+      <DependentUpon>201806221003345_FilteredProductsRev1SP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221008450_FilteredUsersRev1SP.resx">
+      <DependentUpon>201806221008450_FilteredUsersRev1SP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221013026_GetLatestThreeProductsRev1SP.resx">
+      <DependentUpon>201806221013026_GetLatestThreeProductsRev1SP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221015504_GetProductsRev1SP.resx">
+      <DependentUpon>201806221015504_GetProductsRev1SP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806221021239_GetUsersWithoutAdminRev1SP.resx">
+      <DependentUpon>201806221021239_GetUsersWithoutAdminRev1SP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

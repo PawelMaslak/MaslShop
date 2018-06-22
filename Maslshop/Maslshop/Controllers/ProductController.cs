@@ -64,7 +64,7 @@ namespace Maslshop.Controllers
                 Dimensions = product.Dimensions,
                 Manufacturer = product.Manufacturer,
                 Category = product.CategoryId,
-                Categories = _unitOfWork.Product.GetCategories(),
+                Categories = _unitOfWork.Category.GetCategoriesList(),
                 Products = product.Files
             };
 
@@ -77,7 +77,7 @@ namespace Maslshop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Categories = _unitOfWork.Product.GetCategories();
+                viewModel.Categories = _unitOfWork.Category.GetCategoriesList();
                 return View(viewModel);
             }
 
@@ -207,7 +207,7 @@ namespace Maslshop.Controllers
             var viewModel = new ProductFormViewModel()
             {
                 Heading = "Dodaj produkt",
-                Categories = _unitOfWork.Product.GetCategories()
+                Categories = _unitOfWork.Category.GetCategoriesList()
             };
 
             return View(viewModel);
@@ -218,7 +218,7 @@ namespace Maslshop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Categories = _unitOfWork.Product.GetCategories();
+                viewModel.Categories = _unitOfWork.Category.GetCategoriesList();
                 return View(viewModel);
             }
 
@@ -267,7 +267,7 @@ namespace Maslshop.Controllers
                     }
                     else if (upload != null && !upload.ContentType.Contains("image"))
                     {
-                        viewModel.Categories = _unitOfWork.Product.GetCategories();
+                        viewModel.Categories = _unitOfWork.Category.GetCategoriesList();
                         return View(viewModel);
                     }
                 }
