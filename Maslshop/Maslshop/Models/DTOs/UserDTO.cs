@@ -15,7 +15,6 @@ namespace Maslshop.Models.DTOs
         [Required]
         public string Surname { get; set; }
 
-        [Required]
         public string Role_Name { get; set; }
 
         [Required]

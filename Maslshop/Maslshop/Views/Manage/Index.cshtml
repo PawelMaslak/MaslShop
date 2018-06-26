@@ -23,4 +23,10 @@
             ]
         </dd>
     </dl>
+    @if (!User.IsInRole("Administrator"))
+    {
+        <p>
+            <a href="@Url.Action("Edit", "Account", new { userId = Model.Id})">Edytuj dane</a>
+        </p> 
+    }
 </div>

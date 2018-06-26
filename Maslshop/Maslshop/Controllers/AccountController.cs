@@ -191,9 +191,12 @@ namespace Maslshop.Controllers
                 user.PostCode = viewModel.PostCode;
                 user.Email = viewModel.Email;
 
-                UserManager.RemoveFromRoles(user.Id, GetUserRole(user));
+                if (User.IsInRole("Administrator"))
+                {
+                    UserManager.RemoveFromRoles(user.Id, GetUserRole(user));
 
-                UserManager.AddToRole(user.Id, viewModel.Role_Name);
+                    UserManager.AddToRole(user.Id, viewModel.Role_Name);
+                }
 
                 _unitOfWork.Complete();
 
@@ -259,7 +262,7 @@ namespace Maslshop.Controllers
                     PostCode = model.PostCode,
                     City = model.City,
                     RegistrationDate = DateTime.Now
-                    
+
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

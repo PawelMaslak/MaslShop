@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace Maslshop.Models.ViewModels
 {
@@ -10,5 +10,8 @@ namespace Maslshop.Models.ViewModels
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+        public string Id { get; set; }
+
     }
 }
