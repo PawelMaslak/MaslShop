@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Web;
 
 namespace Maslshop.Repositories
 {
@@ -29,6 +30,11 @@ namespace Maslshop.Repositories
                 .Include(s => s.Category)
                 .Include(s => s.Files).Where(s => s.StockAmount > 0)
                 .ToList();
+        }
+
+        public CartItem GetProductInTheCart(int id)
+        {
+            return _context.ShoppingCartItems.SingleOrDefault(c => c.ProductId == id && c.CartId == HttpContext.Current.User.Identity.Name.ToString());
         }
 
         //public IEnumerable<Product> GetSearchedProducts(string searchTerm = null)

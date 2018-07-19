@@ -33,6 +33,7 @@ namespace Maslshop.Controllers
                 Name = product.Name,
                 Manufacturer = product.Manufacturer,
                 StockAmount = product.StockAmount,
+                Id = product.Id,
                 Price = product.Price,
                 Dimensions = product.Dimensions,
                 Year = product.Year,

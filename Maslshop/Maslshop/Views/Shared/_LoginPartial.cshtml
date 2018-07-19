@@ -1,4 +1,19 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using Maslshop.Models.Core
+@using Microsoft.AspNet.Identity
+
+
+@if (Request.IsAuthenticated && Session[HttpContext.Current.User.Identity.Name] != null)
+{
+    List<CartItem> cart = (List<CartItem>)Session[HttpContext.Current.User.Identity.Name];
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="@Url.Action("Index", "ShoppingCart")">
+                Koszyk(@cart.Sum(i => i.Quantity))               
+            </a>
+        </li>
+    </ul>
+}
 
 @if (Request.IsAuthenticated)
 {
@@ -11,8 +26,8 @@
                 @Html.ActionLink("Moje konto - " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             @*<li>
-                @Html.ActionLink("Zalogowano jako " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage"})
-            </li>*@
+                    @Html.ActionLink("Zalogowano jako " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage"})
+                </li>*@
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
         </ul>
     }

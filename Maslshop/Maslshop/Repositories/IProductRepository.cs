@@ -15,5 +15,6 @@ namespace Maslshop.Repositories
         IEnumerable<ProductsViewModel> GetLatestThreeProducts();
         Product SelectProductMatchingPhotoId(File photo);
         Product GetProductById(int id);
+        CartItem GetProductInTheCart(int id);
     }
 }

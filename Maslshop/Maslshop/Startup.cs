@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using System;
+using System.Linq;
 
 [assembly: OwinStartupAttribute(typeof(Maslshop.Startup))]
 namespace Maslshop
@@ -14,6 +15,7 @@ namespace Maslshop
         {
             ConfigureAuth(app);
             CreateUserAndRoles();
+            CreateOrderStatus();
         }
 
         private void CreateUserAndRoles()
@@ -85,6 +87,46 @@ namespace Maslshop
                 roleManager.Create(role);
             }
 
+        }
+
+        private void CreateOrderStatus()
+        {
+            ApplicationDbContext _context = new ApplicationDbContext();
+
+            var statusList = _context.OrderStates.ToList();
+
+            if (statusList.Count == 0)
+            {
+                var orderStatus = new OrderStatus()
+                {
+                    Status = "W trakcie przetwarzania"
+                };
+
+                _context.OrderStates.Add(orderStatus);
+
+                var orderStatus2 = new OrderStatus()
+                {
+                    Status = "Płatność otrzymana"
+                };
+
+                _context.OrderStates.Add(orderStatus2);
+
+                var orderStatus3 = new OrderStatus()
+                {
+                    Status = "Wysłano"
+                };
+
+                _context.OrderStates.Add(orderStatus3);
+
+                var orderStatus4 = new OrderStatus()
+                {
+                    Status = "Doręczono"
+                };
+
+                _context.OrderStates.Add(orderStatus4);
+
+                _context.SaveChanges();
+            }
         }
     }
 }

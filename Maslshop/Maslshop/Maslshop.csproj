@@ -225,9 +225,12 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Core\RolesController.cs" />
+    <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -363,8 +366,55 @@
     <Compile Include="Migrations\201806221021239_GetUsersWithoutAdminRev1SP.Designer.cs">
       <DependentUpon>201806221021239_GetUsersWithoutAdminRev1SP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807022144461_AddingCartItemTable.cs" />
+    <Compile Include="Migrations\201807022144461_AddingCartItemTable.Designer.cs">
+      <DependentUpon>201807022144461_AddingCartItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807151106000_AddOrderAndOrderDetails.cs" />
+    <Compile Include="Migrations\201807151106000_AddOrderAndOrderDetails.Designer.cs">
+      <DependentUpon>201807151106000_AddOrderAndOrderDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807151110476_RevisedOrderAndOrderDetails.cs" />
+    <Compile Include="Migrations\201807151110476_RevisedOrderAndOrderDetails.Designer.cs">
+      <DependentUpon>201807151110476_RevisedOrderAndOrderDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807151434576_Orders.cs" />
+    <Compile Include="Migrations\201807151434576_Orders.Designer.cs">
+      <DependentUpon>201807151434576_Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807160905557_AddingValidationFeaturesToOrder.cs" />
+    <Compile Include="Migrations\201807160905557_AddingValidationFeaturesToOrder.Designer.cs">
+      <DependentUpon>201807160905557_AddingValidationFeaturesToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807161020599_AddDeliveryOptions.cs" />
+    <Compile Include="Migrations\201807161020599_AddDeliveryOptions.Designer.cs">
+      <DependentUpon>201807161020599_AddDeliveryOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807161022216_DeliveriesRevised.cs" />
+    <Compile Include="Migrations\201807161022216_DeliveriesRevised.Designer.cs">
+      <DependentUpon>201807161022216_DeliveriesRevised.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807161456281_AddingDeliveryOptionToOrder.cs" />
+    <Compile Include="Migrations\201807161456281_AddingDeliveryOptionToOrder.Designer.cs">
+      <DependentUpon>201807161456281_AddingDeliveryOptionToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807191905571_AddingOrderStatus.cs" />
+    <Compile Include="Migrations\201807191905571_AddingOrderStatus.Designer.cs">
+      <DependentUpon>201807191905571_AddingOrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807191907357_RevisingOrderStatus.cs" />
+    <Compile Include="Migrations\201807191907357_RevisingOrderStatus.Designer.cs">
+      <DependentUpon>201807191907357_RevisingOrderStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Core\CartItem.cs" />
+    <Compile Include="Models\Core\Delivery.cs" />
+    <Compile Include="Models\Core\Order.cs" />
+    <Compile Include="Models\Core\OrderDetail.cs" />
+    <Compile Include="Models\Core\OrderStatus.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
+    <Compile Include="Models\ViewModels\Delivery\DeliveriesViewModel.cs" />
+    <Compile Include="Models\ViewModels\Delivery\DeliveryFormViewModel.cs" />
     <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\ViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Core\ApplicationDbContext.cs" />
@@ -381,6 +431,7 @@
     <Compile Include="Models\Core\Category.cs" />
     <Compile Include="Models\Core\File.cs" />
     <Compile Include="Models\Core\Product.cs" />
+    <Compile Include="Models\ViewModels\Order\OrderFormViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
@@ -399,12 +450,16 @@
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\DeliveryRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\IDeliveryRepository.cs" />
     <Compile Include="Repositories\IFileRepository.cs" />
+    <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\IAdminRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\AdminRepository.cs" />
@@ -512,6 +567,12 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ViewProduct.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Order\CheckoutComplete.cshtml" />
+    <Content Include="Views\Delivery\Deliveries.cshtml" />
+    <Content Include="Views\Delivery\AddDeliveryType.cshtml" />
+    <Content Include="Views\Delivery\EditDeliveryType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -619,6 +680,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806221021239_GetUsersWithoutAdminRev1SP.resx">
       <DependentUpon>201806221021239_GetUsersWithoutAdminRev1SP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807022144461_AddingCartItemTable.resx">
+      <DependentUpon>201807022144461_AddingCartItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807151106000_AddOrderAndOrderDetails.resx">
+      <DependentUpon>201807151106000_AddOrderAndOrderDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807151110476_RevisedOrderAndOrderDetails.resx">
+      <DependentUpon>201807151110476_RevisedOrderAndOrderDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807151434576_Orders.resx">
+      <DependentUpon>201807151434576_Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807160905557_AddingValidationFeaturesToOrder.resx">
+      <DependentUpon>201807160905557_AddingValidationFeaturesToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807161020599_AddDeliveryOptions.resx">
+      <DependentUpon>201807161020599_AddDeliveryOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807161022216_DeliveriesRevised.resx">
+      <DependentUpon>201807161022216_DeliveriesRevised.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807161456281_AddingDeliveryOptionToOrder.resx">
+      <DependentUpon>201807161456281_AddingDeliveryOptionToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807191905571_AddingOrderStatus.resx">
+      <DependentUpon>201807191905571_AddingOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807191907357_RevisingOrderStatus.resx">
+      <DependentUpon>201807191907357_RevisingOrderStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

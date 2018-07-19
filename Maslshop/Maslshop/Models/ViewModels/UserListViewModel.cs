@@ -8,6 +8,5 @@ namespace Maslshop.Models.ViewModels
         public IEnumerable<UserDTO> Users { get; set; }
 
         public string SearchTerm { get; set; }
-
     }
 }

@@ -9,6 +9,8 @@ namespace Maslshop.Persistence
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
         IFileRepository File { get; }
+        IOrderRepository Orders { get; }
+        IDeliveryRepository Deliveries { get; }
 
         void Complete();
     }

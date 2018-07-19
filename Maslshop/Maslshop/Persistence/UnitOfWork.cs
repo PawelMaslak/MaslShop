@@ -12,6 +12,8 @@ namespace Maslshop.Persistence
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
         public IFileRepository File { get; private set; }
+        public IOrderRepository Orders { get; private set; }
+        public IDeliveryRepository Deliveries { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -21,6 +23,8 @@ namespace Maslshop.Persistence
             Category = new CategoryRepository(context);
             Product = new ProductRepository(context);
             File = new FileRepository(context);
+            Orders = new OrderRepository(context);
+            Deliveries = new DeliveryRepository(context);
         }
 
         public void Complete()

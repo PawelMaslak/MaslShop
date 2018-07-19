@@ -1,7 +1,5 @@
-﻿using Maslshop.Models.Core;
-using Maslshop.Models.ViewModels;
+﻿using Maslshop.Models.ViewModels;
 using Maslshop.Persistence;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Maslshop.Controllers
@@ -22,25 +20,15 @@ namespace Maslshop.Controllers
             var viewModel = new CategoriesViewModel()
             {
                 Heading = "Lista kategorii",
-                Categories = GetCategories()
+                Categories = _unitOfWork.Category.GetCategoriesList()
             };
 
             return View(viewModel);
         }
 
-        public IEnumerable<Category> GetCategories()
-        {
-            return _unitOfWork.Category.GetCategoriesList();
-        }
-
-        public void DeleteCategory(int id)
-        {
-            _unitOfWork.Category.RemoveCategory(id);
-        }
-
         public ActionResult Delete(int categoryId)
         {
-            DeleteCategory(categoryId);
+            _unitOfWork.Category.RemoveCategory(categoryId);
 
             _unitOfWork.Complete();
 
