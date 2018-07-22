@@ -35,7 +35,7 @@ namespace Maslshop.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList();
-                return View(viewModel);
+                return View(viewModel); 
             }
 
             var order = new Order()

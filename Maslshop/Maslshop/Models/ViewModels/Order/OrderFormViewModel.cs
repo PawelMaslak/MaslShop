@@ -48,5 +48,12 @@ namespace Maslshop.Models.ViewModels.Order
         [Required(ErrorMessage = "Wybierz opcje przesyłki")]
         [Display(Name = "Typ przesyłki")]
         public int DeliveryId { get; set; }
+
+        public bool IsTrue => true;
+
+        [Required]
+        [Display(Name = "Zaznaczając akceptujesz regulamin")]
+        [Compare(nameof(IsTrue), ErrorMessage = "Proszę zaakceptować regulamin sklepu")]
+        public bool TermsAndConditionsAccepted { get; set; }
     }
 }
