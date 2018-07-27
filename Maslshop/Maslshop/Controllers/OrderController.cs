@@ -3,9 +3,10 @@ using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Maslshop.Controllers
@@ -84,33 +85,10 @@ namespace Maslshop.Controllers
         {
             var user = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());
 
-            var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
-
-            List<OrderDetail> orderDetails = order.OrderDetails;
-
-            List<Product> orderedProducts = new List<Product>();
-
-            foreach (var product in orderDetails)
-            {
-                var singleProductName = _unitOfWork.Product.GetProductById(product.ProductId);
-
-                orderedProducts.Add(singleProductName);
-            }
-
-            string productsList = string.Join(", ", orderedProducts.Select(i => i.Name).ToArray());
-
             using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", user.Email))
             {
-                confrimationEmail.Subject = "Potwierdzenie zamówienia nr" + order.OrderId;
-                string body = "Dzień dobry " + user.Name + "!";
-                body += "<br/ > <br/ >Dziękujemy za złożenie zamówienia. Poinformujemy Cię o zmianie statusu wkrótce.";
-                body += "<br/ > <br/ >Obecny status: " + orderStatus.Status;
-                body += "<br/ > <br/ >Dane zamówienia znajdziesz poniżej:";
-                body += "<br/ > <br/ >Numer zamówienia: " + order.OrderId + "<br/ > Adres wysyłki: " + order.Name + " " + order.Surname + ", " + order.Address + ", " + order.PostCode + " " + order.City + ".";
-                body += "<br/ > <br/ >Zamówione produkty: " + productsList;
-                body += "<br/ > Kwota zamówienia: " + order.OrderTotal.ToString("C");
-                body += "<br/ > <br/ >Pozdrawiamy,";
-                body += "<br/ > <br />Zespół Maslshop";
+                confrimationEmail.Subject = "Potwierdzenie zamówienia nr " + order.OrderId;
+                string body = CreateBody(order);
                 confrimationEmail.Body = body;
                 confrimationEmail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient
@@ -124,6 +102,61 @@ namespace Maslshop.Controllers
                 smtp.Port = 587;
                 smtp.Send(confrimationEmail);
             }
+        }
+
+        private string CreateBody(Order order)
+        {
+            List<OrderDetail> orderDetails = order.OrderDetails;
+
+            var deliveryType = _unitOfWork.Orders.GetDeliveryTypeById(order.DeliveryId);
+
+            var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
+
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ConfirmationEmail.cshtml")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            StringBuilder productNames = new StringBuilder();
+            
+            foreach (var product in orderDetails)
+            {
+                var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
+
+                productNames.AppendFormat("<br/>{0}", singleProduct.Name);
+            }
+
+            StringBuilder productsQuantity = new StringBuilder();
+
+            foreach (var product in orderDetails)
+            {
+                productsQuantity.AppendFormat("<br/>{0}", product.Quantity);
+            }
+
+            StringBuilder productsSubtotal = new StringBuilder();
+
+            foreach (var product in orderDetails)
+            {
+                productsSubtotal.AppendFormat("<br/>{0:C}", (product.Quantity * product.Price));
+            }
+
+            body = body.Replace("{pName}", productNames.ToString());
+            body = body.Replace("{pQuantity}", productsQuantity.ToString());
+            body = body.Replace("{pSubtotal}", productsSubtotal.ToString());
+            body = body.Replace("{pDeliveryPrice}", deliveryType.Price.ToString("C"));
+            body = body.Replace("{pDeliveryType}", deliveryType.Name);
+            body = body.Replace("{pTotal}", order.OrderTotal.ToString("C"));
+            body = body.Replace("{userName}", order.Name);
+            body = body.Replace("{orderId}", order.OrderId.ToString());
+            body = body.Replace("{orderStatus}", orderStatus.Status);
+            body = body.Replace("{userSurname}", order.Surname);
+            body = body.Replace("{userAddress}", order.Address);
+            body = body.Replace("{userPostCode}", order.PostCode);
+            body = body.Replace("{userCity}", order.City);
+
+            return body;
         }
     }
 }
