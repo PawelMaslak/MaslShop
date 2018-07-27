@@ -1,8 +1,44 @@
-﻿@model Maslshop.Models.ViewModels.Order.OrderFormViewModel
+﻿@using System.Web.UI.WebControls
+@model Maslshop.Models.ViewModels.Order.OrderFormViewModel
 
 @{
     ViewBag.Title = "Zamówienie";
 }
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<form>
+
+
+    Address 1:
+
+    <input type="text" id="address_1">
+
+    Address 2:
+    <input type="text" id="address_2">
+
+    <input type="checkbox" id="toshipping_checkbox">
+    <em>Check this box if Shipping Address and Billing Address are the same.</em>
+    <b>Shipping Address</b>
+
+    Address 1:
+    <input type="text" id="shipping_address_1">
+
+    Address 2:
+    <input type="text" id="shipping_address_2">
+
+</form>*@
+
+
+
+
+<p>Twoje obecne dane adresowe</p>
+
+<p>Imie: @Model.ThisUser.Name</p>
+<p>Nazwisko: @Model.ThisUser.Surname</p>
+<p>Adres: @Model.ThisUser.Address @Model.ThisUser.City @Model.ThisUser.PostCode</p>
+<p>Adres email: @Model.ThisUser.Email</p>
 
 @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -17,37 +53,37 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.ThisUser.Name  })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = @Model.ThisUser.Surname })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = @Model.ThisUser.Address })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.PostCode, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", placeholder = @Model.ThisUser.PostCode })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = @Model.ThisUser.City })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.ThisUser.Email })
         </div>
     </div>
     <div class="form-group">
@@ -66,3 +102,13 @@
 
     <button type="submit" class="btn btn-primary btn-lg">Dalej</button>
 }
+
+    <script>
+        $("#toshipping_checkbox").on("click", function () {
+            var ship = $(this).is(":checked");
+            $("[id^='shipping_']").each(function () {
+                var tmpID = this.id.split('shipping_')[1];
+                $(this).val(ship ? $("#" + tmpID).val() : "");
+            });
+        });
+    </script>

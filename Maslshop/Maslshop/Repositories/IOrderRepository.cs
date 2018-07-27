@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.Core;
+using System.Collections.Generic;
 
 namespace Maslshop.Repositories
 {
@@ -7,5 +8,7 @@ namespace Maslshop.Repositories
         void CreateOrder(Order order);
         string GetCartId();
         Delivery GetDeliveryTypeById(int id);
+        OrderStatus GetOrderStatusById(int id);
+        List<OrderDetail> GetOrderedProductsList(int id);
     }
 }

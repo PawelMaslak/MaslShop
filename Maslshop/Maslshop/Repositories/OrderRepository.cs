@@ -59,6 +59,16 @@ namespace Maslshop.Repositories
             return _context.Deliveries.SingleOrDefault(i => i.Id == id);
         }
 
+        public OrderStatus GetOrderStatusById(int id)
+        {
+            return _context.OrderStates.SingleOrDefault(i => i.Id == id);
+        }
+
+        public List<OrderDetail> GetOrderedProductsList(int id)
+        {
+            return _context.OrderDetails.Where(i => i.OrderId == id).ToList();
+        }
+
         public string GetCartId()
         {
             if (HttpContext.Current.Session[CartSessionKey] == null || HttpContext.Current.Session[CartSessionKey].ToString() != HttpContext.Current.User.Identity.Name)
