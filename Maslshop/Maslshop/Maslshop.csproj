@@ -414,6 +414,18 @@
     <Compile Include="Migrations\201807281116279_AddPaymentTypeToOrder.Designer.cs">
       <DependentUpon>201807281116279_AddPaymentTypeToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807282011152_AddGetOrdersListSP.cs" />
+    <Compile Include="Migrations\201807282011152_AddGetOrdersListSP.Designer.cs">
+      <DependentUpon>201807282011152_AddGetOrdersListSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807282036016_AddGetOrdersListSPRev1.cs" />
+    <Compile Include="Migrations\201807282036016_AddGetOrdersListSPRev1.Designer.cs">
+      <DependentUpon>201807282036016_AddGetOrdersListSPRev1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807282045177_AddFilteredOrdersListSP.cs" />
+    <Compile Include="Migrations\201807282045177_AddFilteredOrdersListSP.Designer.cs">
+      <DependentUpon>201807282045177_AddFilteredOrdersListSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -441,6 +453,8 @@
     <Compile Include="Models\Core\File.cs" />
     <Compile Include="Models\Core\Product.cs" />
     <Compile Include="Models\ViewModels\Order\OrderFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrdersListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrderViewmodel.cs" />
     <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
@@ -585,6 +599,7 @@
     <Content Include="Views\Delivery\AddDeliveryType.cshtml" />
     <Content Include="Views\Delivery\EditDeliveryType.cshtml" />
     <Content Include="Views\Emails\ConfirmationEmail.cshtml" />
+    <Content Include="Views\Order\ViewOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -728,6 +743,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807281116279_AddPaymentTypeToOrder.resx">
       <DependentUpon>201807281116279_AddPaymentTypeToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807282011152_AddGetOrdersListSP.resx">
+      <DependentUpon>201807282011152_AddGetOrdersListSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807282036016_AddGetOrdersListSPRev1.resx">
+      <DependentUpon>201807282036016_AddGetOrdersListSPRev1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807282045177_AddFilteredOrdersListSP.resx">
+      <DependentUpon>201807282045177_AddFilteredOrdersListSP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,8 @@
 ﻿using Maslshop.Models.Core;
+using Maslshop.Models.ViewModels.Order;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -64,8 +66,6 @@ namespace Maslshop.Repositories
             return _context.OrderStates.SingleOrDefault(i => i.Id == id);
         }
 
-        
-
         public List<OrderDetail> GetOrderedProductsList(int id)
         {
             return _context.OrderDetails.Where(i => i.OrderId == id).ToList();
@@ -79,6 +79,37 @@ namespace Maslshop.Repositories
             }
 
             return HttpContext.Current.Session[CartSessionKey].ToString();
+        }
+
+        public IEnumerable<OrderViewmodel> GetOrdersList()
+        {
+            var orders = _context.Database.SqlQuery<OrderViewmodel>("dbo.GetOrders").ToList();
+
+            return orders;
+        }
+
+        public IEnumerable<OrderViewmodel> GetSearchedOrders(string query, string searchTerm = null)
+        {
+            var products = GetOrdersList();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                var term = new SqlParameter("@query", query);
+
+                return _context.Database.SqlQuery<OrderViewmodel>("dbo.FilteredOrders @query", term).ToList();
+            }
+
+            return products;
+        }
+
+        public IEnumerable<OrderDetail> GetOrderDetailsList()
+        {
+            return _context.OrderDetails.ToList();
+        }
+
+        public IEnumerable<OrderStatus> GetOrderStatsList()
+        {
+            return _context.OrderStates.ToList();
         }
     }
 }

@@ -164,5 +164,42 @@ namespace Maslshop.Controllers
 
             return body;
         }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult ViewOrders(string query = null)
+        {
+            if (query != null)
+            {
+                var viewmodel = new OrdersListViewModel()
+                {
+                    Heading = "List wyszukanych zamówień",
+                    Orders = _unitOfWork.Orders.GetSearchedOrders(query),
+                    Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                    Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                    OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
+                    OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                    SearchTerm = query
+                };
+
+                return View(viewmodel);
+            }
+            var viewModel = new OrdersListViewModel()
+            {
+                Heading = "List zamówień",
+                Orders = _unitOfWork.Orders.GetOrdersList(),
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SearchOrder(OrdersListViewModel viewModel)
+        {
+            return RedirectToAction("ViewOrders", new { query = viewModel.SearchTerm });
+        }
     }
 }

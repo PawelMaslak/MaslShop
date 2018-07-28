@@ -1,0 +1,59 @@
+﻿@model Maslshop.Models.ViewModels.Order.OrdersListViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+
+<h2>@Model.Heading</h2>
+
+@using (Html.BeginForm("SearchOrder", "Order"))
+{
+    if (Model.SearchTerm != null)
+    {
+        @Html.ActionLink("<<Powrót", "ViewOrders")
+    }
+
+    <div class="form-group">
+        <div class="input-group" style="width: 300px">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Wyszukaj według numeru zamówienia etc." })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+<div id="ProductsList">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr class="active text-info">
+            <th>Id</th>
+            <th>Data dodania</th>
+            <th>Nazwa użytkownika</th>
+            <th>Imię i Nazwisko</th>
+            <th>Wartość zamówienia</th>
+            <th>Typ płatności</th>
+            <th>Typ przesyłki</th>
+            <th>Ilość zamówionych produktów</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@($"{order.OrderDate:d}")</td>
+                <td>@order.UserName</td>
+                <td>@order.Name @order.Surname</td>
+                <td>@order.OrderTotal.ToString("C")</td>
+                <td>@order.PaymentTypeName</td>
+                <td>@order.DeliveryTypeName</td>
+                <td>@order.Quantity</td>
+                <td>@order.OrderStatusName</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
