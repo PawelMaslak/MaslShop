@@ -13,6 +13,7 @@ namespace Maslshop.Models.Core
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<OrderStatus> OrderStates { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
 
         public ApplicationDbContext()

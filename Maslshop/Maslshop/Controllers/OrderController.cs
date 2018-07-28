@@ -20,9 +20,9 @@ namespace Maslshop.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public string ShoppingCartId { get; set; }
+        //public string ShoppingCartId { get; set; }
 
-        public const string CartSessionKey = "CartId";
+        //public const string CartSessionKey = "CartId";
 
         public ActionResult Checkout()
         {
@@ -32,6 +32,7 @@ namespace Maslshop.Controllers
             {
                 Heading = "Zamówienie",
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
                 ThisUser = thisUser,
                 Name = thisUser.Name,
                 Surname = thisUser.Surname,
@@ -52,6 +53,7 @@ namespace Maslshop.Controllers
             {
                 viewModel.Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList();
                 viewModel.ThisUser = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());
+                viewModel.Payments = _unitOfWork.Payments.GetPaymentTypes();
                 return View(viewModel);
             }
 
@@ -64,7 +66,8 @@ namespace Maslshop.Controllers
                 PostCode = viewModel.PostCode,
                 Email = viewModel.Email,
                 DeliveryId = viewModel.DeliveryId,
-                OrderStatusId = 1
+                OrderStatusId = 1,
+                PaymentTypeId = viewModel.PaymentId
             };
 
             _unitOfWork.Orders.CreateOrder(order);
@@ -87,7 +90,7 @@ namespace Maslshop.Controllers
 
             using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", user.Email))
             {
-                confrimationEmail.Subject = "Potwierdzenie zamówienia nr " + order.OrderId;
+                confrimationEmail.Subject = "Maslshop - Potwierdzenie zamówienia nr " + order.OrderId;
                 string body = CreateBody(order);
                 confrimationEmail.Body = body;
                 confrimationEmail.IsBodyHtml = true;
@@ -108,7 +111,9 @@ namespace Maslshop.Controllers
         {
             List<OrderDetail> orderDetails = order.OrderDetails;
 
-            var deliveryType = _unitOfWork.Orders.GetDeliveryTypeById(order.DeliveryId);
+            var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
+
+            var paymentType = _unitOfWork.Payments.GetPaymentTypeById(order.PaymentTypeId);
 
             var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
 
@@ -155,6 +160,7 @@ namespace Maslshop.Controllers
             body = body.Replace("{userAddress}", order.Address);
             body = body.Replace("{userPostCode}", order.PostCode);
             body = body.Replace("{userCity}", order.City);
+            body = body.Replace("{pPaymentType}", paymentType.Name);
 
             return body;
         }

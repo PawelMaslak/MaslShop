@@ -16,6 +16,7 @@ namespace Maslshop
             ConfigureAuth(app);
             CreateUserAndRoles();
             CreateOrderStatus();
+            CreatePaymentTypes();
         }
 
         private void CreateUserAndRoles()
@@ -124,6 +125,32 @@ namespace Maslshop
                 };
 
                 _context.OrderStates.Add(orderStatus4);
+
+                _context.SaveChanges();
+            }
+        }
+
+        public void CreatePaymentTypes()
+        {
+            ApplicationDbContext _context = new ApplicationDbContext();
+
+            var paymentTypesList = _context.Payments.ToList();
+
+            if (paymentTypesList.Count == 0)
+            {
+                var paymentType = new Payment()
+                {
+                    Name = "Płatność z góry"
+                };
+
+                _context.Payments.Add(paymentType);
+
+                var paymentType2 = new Payment()
+                {
+                    Name = "Płatność przy odbiorze"
+                };
+
+                _context.Payments.Add(paymentType2);
 
                 _context.SaveChanges();
             }

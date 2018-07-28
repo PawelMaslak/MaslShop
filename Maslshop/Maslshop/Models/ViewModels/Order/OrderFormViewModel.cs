@@ -45,11 +45,17 @@ namespace Maslshop.Models.ViewModels.Order
 
         public IEnumerable<Core.Delivery> Deliveries { get; set; }
 
+        public IEnumerable<Core.Payment> Payments { get; set; }
+
         public ApplicationUser ThisUser { get; set; }
 
         [Required(ErrorMessage = "Wybierz opcje przesyłki")]
         [Display(Name = "Typ przesyłki")]
         public int DeliveryId { get; set; }
+
+        [Required(ErrorMessage = "Wybierz rodzaj płatności")]
+        [Display(Name = "Rodzaj płatności")]
+        public int PaymentId { get; set; }
 
         public bool IsTrue => true;
 

@@ -48,6 +48,9 @@ namespace Maslshop.Models.Core
         [Required]
         public int OrderStatusId { get; set; }
 
+        [Required]
+        public int PaymentTypeId { get; set; }
+
         public IEnumerable<OrderStatus> OrderStates { get; set; }
     }
 }

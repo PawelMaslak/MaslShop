@@ -11,6 +11,7 @@ namespace Maslshop.Persistence
         IFileRepository File { get; }
         IOrderRepository Orders { get; }
         IDeliveryRepository Deliveries { get; }
+        IPaymentRepository Payments { get; }
 
         void Complete();
     }

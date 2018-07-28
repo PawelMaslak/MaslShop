@@ -406,12 +406,21 @@
     <Compile Include="Migrations\201807191907357_RevisingOrderStatus.Designer.cs">
       <DependentUpon>201807191907357_RevisingOrderStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807281055290_AddPaymentOptions.cs" />
+    <Compile Include="Migrations\201807281055290_AddPaymentOptions.Designer.cs">
+      <DependentUpon>201807281055290_AddPaymentOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807281116279_AddPaymentTypeToOrder.cs" />
+    <Compile Include="Migrations\201807281116279_AddPaymentTypeToOrder.Designer.cs">
+      <DependentUpon>201807281116279_AddPaymentTypeToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
     <Compile Include="Models\Core\Order.cs" />
     <Compile Include="Models\Core\OrderDetail.cs" />
     <Compile Include="Models\Core\OrderStatus.cs" />
+    <Compile Include="Models\Core\Payment.cs" />
     <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\ViewModels\Delivery\DeliveriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Delivery\DeliveryFormViewModel.cs" />
@@ -456,10 +465,12 @@
     <Compile Include="Repositories\IDeliveryRepository.cs" />
     <Compile Include="Repositories\IFileRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
+    <Compile Include="Repositories\IPaymentRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\IAdminRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\AdminRepository.cs" />
@@ -711,6 +722,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807191907357_RevisingOrderStatus.resx">
       <DependentUpon>201807191907357_RevisingOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807281055290_AddPaymentOptions.resx">
+      <DependentUpon>201807281055290_AddPaymentOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807281116279_AddPaymentTypeToOrder.resx">
+      <DependentUpon>201807281116279_AddPaymentTypeToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

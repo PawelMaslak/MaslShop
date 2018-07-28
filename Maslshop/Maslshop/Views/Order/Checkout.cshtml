@@ -33,12 +33,12 @@
 
 
 
-<p>Twoje obecne dane adresowe</p>
+@*<p>Twoje obecne dane adresowe</p>
 
 <p>Imie: @Model.ThisUser.Name</p>
 <p>Nazwisko: @Model.ThisUser.Surname</p>
 <p>Adres: @Model.ThisUser.Address @Model.ThisUser.City @Model.ThisUser.PostCode</p>
-<p>Adres email: @Model.ThisUser.Email</p>
+<p>Adres email: @Model.ThisUser.Email</p>*@
 
 @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -90,6 +90,12 @@
         @Html.LabelFor(m => m.DeliveryId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownListFor(m => m.DeliveryId, new SelectList(deliveryInfo, "Id", "Name"), "", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PaymentId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.PaymentId, new SelectList(Model.Payments ,"Id", "Name"), "", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
