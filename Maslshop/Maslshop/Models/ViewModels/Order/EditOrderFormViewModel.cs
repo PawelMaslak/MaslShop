@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Maslshop.Models.ViewModels.Order
 {
-    public class OrderFormViewModel
+    public class EditOrderFormViewModel
     {
         public int OrderId { get; set; }
 
@@ -28,10 +28,6 @@ namespace Maslshop.Models.ViewModels.Order
         [Required(ErrorMessage = "Pole kod pocztowy jest wymagane")]
         [Display(Name = "Kod Pocztowy")]
         public string PostCode { get; set; }
-
-        [Required(ErrorMessage = "Pole email pocztowy jest wymagane")]
-        [Display(Name = "Adres Email")]
-        public string Email { get; set; }
 
         [Required(ErrorMessage = "Pole miasto jest wymagane")]
         [Display(Name = "Miasto")]
@@ -62,12 +58,5 @@ namespace Maslshop.Models.ViewModels.Order
         public int StatusId { get; set; }
 
         public string OrderStatusName { get; set; }
-
-        public bool IsTrue => true;
-
-        [Required]
-        [Display(Name = "Akceptuję regulamin")]
-        [Compare(nameof(IsTrue), ErrorMessage = "Proszę zaakceptować regulamin sklepu")]
-        public bool TermsAndConditionsAccepted { get; set; }
     }
 }

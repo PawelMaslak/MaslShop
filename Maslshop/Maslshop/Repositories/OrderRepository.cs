@@ -21,6 +21,21 @@ namespace Maslshop.Repositories
             _context = context;
         }
 
+        public OrderDetail SelectOrderDetail(int id)
+        {
+            return _context.OrderDetails.Single(i => i.OrderDetailId == id);
+        }
+
+        public void RemoveOrderDetail(OrderDetail detail)
+        {
+            _context.OrderDetails.Remove(detail);
+        }
+
+        public Order SelectOrderMatchingOrderDetailId(OrderDetail detail)
+        {
+            return _context.Orders.SingleOrDefault(i => i.OrderId == detail.OrderId);
+        }
+
         public void CreateOrder(Order order)
         {
             ShoppingCartId = GetCartId();
@@ -81,25 +96,25 @@ namespace Maslshop.Repositories
             return HttpContext.Current.Session[CartSessionKey].ToString();
         }
 
-        public IEnumerable<OrderViewmodel> GetOrdersList()
+        public IEnumerable<OrderViewModel> GetOrdersList()
         {
-            var orders = _context.Database.SqlQuery<OrderViewmodel>("dbo.GetOrders").ToList();
+            var orders = _context.Database.SqlQuery<OrderViewModel>("dbo.GetOrders").ToList();
 
             return orders;
         }
 
-        public IEnumerable<OrderViewmodel> GetSearchedOrders(string query, string searchTerm = null)
+        public IEnumerable<OrderViewModel> GetSearchedOrders(string query, string searchTerm = null)
         {
-            var products = GetOrdersList();
+            var orders = GetOrdersList();
 
             if (!string.IsNullOrWhiteSpace(query))
             {
                 var term = new SqlParameter("@query", query);
 
-                return _context.Database.SqlQuery<OrderViewmodel>("dbo.FilteredOrders @query", term).ToList();
+                return _context.Database.SqlQuery<OrderViewModel>("dbo.FilteredOrders @query", term).ToList();
             }
 
-            return products;
+            return orders;
         }
 
         public IEnumerable<OrderDetail> GetOrderDetailsList()
@@ -110,6 +125,16 @@ namespace Maslshop.Repositories
         public IEnumerable<OrderStatus> GetOrderStatsList()
         {
             return _context.OrderStates.ToList();
+        }
+
+        public Order GetOrderById(int id)
+        {
+            return _context.Orders.SingleOrDefault(i => i.OrderId == id);
+        }
+
+        public List<OrderDetail> GetOrderDetailsListByOrderId(int id)
+        {
+            return _context.OrderDetails.Where(i => i.OrderId == id).ToList();
         }
     }
 }

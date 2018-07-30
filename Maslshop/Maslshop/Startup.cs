@@ -126,6 +126,13 @@ namespace Maslshop
 
                 _context.OrderStates.Add(orderStatus4);
 
+                var orderStatus5 = new OrderStatus()
+                {
+                    Status = "Anulowano"
+                };
+
+                _context.OrderStates.Add(orderStatus5);
+
                 _context.SaveChanges();
             }
         }

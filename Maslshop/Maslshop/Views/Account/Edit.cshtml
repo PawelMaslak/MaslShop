@@ -54,7 +54,7 @@ else
     {
         <div class="form-group">
             @Html.LabelFor(m => m.Role_Name, "Rola")
-            @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), @Model.Role_Name, new { @class = "form-control" })
         </div>
     }
     <button type="submit" class="btn btn-primary">Save</button>

@@ -11,9 +11,14 @@ namespace Maslshop.Repositories
         Delivery GetDeliveryTypeById(int id);
         OrderStatus GetOrderStatusById(int id);
         List<OrderDetail> GetOrderedProductsList(int id);
-        IEnumerable<OrderViewmodel> GetOrdersList();
+        IEnumerable<OrderViewModel> GetOrdersList();
         IEnumerable<OrderDetail> GetOrderDetailsList();
         IEnumerable<OrderStatus> GetOrderStatsList();
-        IEnumerable<OrderViewmodel> GetSearchedOrders(string query, string searchTerm = null);
+        IEnumerable<OrderViewModel> GetSearchedOrders(string query, string searchTerm = null);
+        Order GetOrderById(int id);
+        List<OrderDetail> GetOrderDetailsListByOrderId(int id);
+        void RemoveOrderDetail(OrderDetail detail);
+        OrderDetail SelectOrderDetail(int id);
+        Order SelectOrderMatchingOrderDetailId(OrderDetail detail);
     }
 }

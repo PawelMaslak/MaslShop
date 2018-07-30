@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Maslshop.Models.Core;
+using System;
+using System.Collections.Generic;
 
 namespace Maslshop.Models.ViewModels.Order
 {
-    public class OrderViewmodel
+    public class OrderViewModel
     {
+        public IEnumerable<OrderStatus> OrderStats { get; set; }
+
         public string UserName { get; set; }
 
         public int OrderId { get; set; }
@@ -21,6 +25,8 @@ namespace Maslshop.Models.ViewModels.Order
         public string PaymentTypeName { get; set; }
 
         public string DeliveryTypeName { get; set; }
+
+        public int StatusId { get; set; }
 
         public int Quantity { get; set; }
     }

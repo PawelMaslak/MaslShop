@@ -2,7 +2,6 @@
 using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -107,9 +106,32 @@ namespace Maslshop.Controllers
             }
         }
 
+        private void SendOrderUpdateEmail(Order order)
+        {
+            var userEmail = order.Email;
+
+            using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", userEmail))
+            {
+                confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
+                string body = CreateBodyUpdateEmail(order);
+                confrimationEmail.Body = body;
+                confrimationEmail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
+                NetworkCredential networkCred = new NetworkCredential("team.maslshop@gmail.com", "Maslshop123");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCred;
+                smtp.Port = 587;
+                smtp.Send(confrimationEmail);
+            }
+        }
+
         private string CreateBody(Order order)
         {
-            List<OrderDetail> orderDetails = order.OrderDetails;
+            var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
 
             var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
 
@@ -125,7 +147,65 @@ namespace Maslshop.Controllers
             }
 
             StringBuilder productNames = new StringBuilder();
-            
+
+            foreach (var product in orderDetails)
+            {
+                var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
+
+                productNames.AppendFormat("<br/>{0}", singleProduct.Name);
+            }
+
+            StringBuilder productsQuantity = new StringBuilder();
+
+            foreach (var product in orderDetails)
+            {
+                productsQuantity.AppendFormat("<br/>{0}", product.Quantity);
+            }
+
+            StringBuilder productsSubtotal = new StringBuilder();
+
+            foreach (var product in orderDetails)
+            {
+                productsSubtotal.AppendFormat("<br/>{0:C}", (product.Quantity * product.Price));
+            }
+
+            body = body.Replace("{pName}", productNames.ToString());
+            body = body.Replace("{pQuantity}", productsQuantity.ToString());
+            body = body.Replace("{pSubtotal}", productsSubtotal.ToString());
+            body = body.Replace("{pDeliveryPrice}", deliveryType.Price.ToString("C"));
+            body = body.Replace("{pDeliveryType}", deliveryType.Name);
+            body = body.Replace("{pTotal}", order.OrderTotal.ToString("C"));
+            body = body.Replace("{userName}", order.Name);
+            body = body.Replace("{orderId}", order.OrderId.ToString());
+            body = body.Replace("{orderStatus}", orderStatus.Status);
+            body = body.Replace("{userSurname}", order.Surname);
+            body = body.Replace("{userAddress}", order.Address);
+            body = body.Replace("{userPostCode}", order.PostCode);
+            body = body.Replace("{userCity}", order.City);
+            body = body.Replace("{pPaymentType}", paymentType.Name);
+
+            return body;
+        }
+
+        private string CreateBodyUpdateEmail(Order order)
+        {
+            var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
+
+            var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
+
+            var paymentType = _unitOfWork.Payments.GetPaymentTypeById(order.PaymentTypeId);
+
+            var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
+
+            string body = string.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            StringBuilder productNames = new StringBuilder();
+
             foreach (var product in orderDetails)
             {
                 var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
@@ -172,7 +252,7 @@ namespace Maslshop.Controllers
             {
                 var viewmodel = new OrdersListViewModel()
                 {
-                    Heading = "List wyszukanych zamówień",
+                    Heading = "Lista wyszukanych zamówień",
                     Orders = _unitOfWork.Orders.GetSearchedOrders(query),
                     Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                     Payments = _unitOfWork.Payments.GetPaymentTypes(),
@@ -185,7 +265,7 @@ namespace Maslshop.Controllers
             }
             var viewModel = new OrdersListViewModel()
             {
-                Heading = "List zamówień",
+                Heading = "Lista zamówień",
                 Orders = _unitOfWork.Orders.GetOrdersList(),
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                 Payments = _unitOfWork.Payments.GetPaymentTypes(),
@@ -201,5 +281,123 @@ namespace Maslshop.Controllers
         {
             return RedirectToAction("ViewOrders", new { query = viewModel.SearchTerm });
         }
+
+        public ActionResult EditOrder(int orderId)
+        {
+            var order = _unitOfWork.Orders.GetOrderById(orderId);
+
+            var statusName = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId).Status;
+
+            var viewModel = new EditOrderFormViewModel()
+            {
+                OrderId = orderId,
+                Heading = "Edytuj zamówienie",
+                Name = order.Name,
+                Surname = order.Surname,
+                Address = order.Address,
+                PostCode = order.PostCode,
+                City = order.City,
+                DeliveryId = order.DeliveryId,
+                StatusId = order.OrderStatusId,
+                PaymentId = order.PaymentTypeId,
+                OrderStatusName = statusName,
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                OrderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId)
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditOrder(EditOrderFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList();
+                viewModel.Payments = _unitOfWork.Payments.GetPaymentTypes();
+                viewModel.OrderStats = _unitOfWork.Orders.GetOrderStatsList();
+
+                return View(viewModel);
+            }
+
+            var order = _unitOfWork.Orders.GetOrderById(viewModel.OrderId);
+
+            var delivery = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
+
+            var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(viewModel.OrderId);
+
+            order.OrderTotal = 0;
+
+            foreach (var detail in orderDetails)
+            {
+                order.OrderTotal += (detail.Quantity * detail.Price);
+            }
+
+            var total = order.OrderTotal + delivery.Price;
+
+            order.Name = viewModel.Name;
+            order.Surname = viewModel.Surname;
+            order.Address = viewModel.Address;
+            order.PostCode = viewModel.PostCode;
+            order.City = viewModel.City;
+            order.OrderTotal = total;
+
+            if (viewModel.StatusId != order.OrderStatusId)
+            {
+                order.OrderStatusId = viewModel.StatusId;
+                SendOrderUpdateEmail(order);  
+            }
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("ViewOrders");
+        }
+
+        public ActionResult DeleteOrderDetailEntry(int orderDetailId)
+        {
+
+            var detail = _unitOfWork.Orders.SelectOrderDetail(orderDetailId);
+
+            var order = _unitOfWork.Orders.SelectOrderMatchingOrderDetailId(detail);
+
+            _unitOfWork.Orders.RemoveOrderDetail(detail);
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("EditOrder", new {orderId = order.OrderId});
+        }
+
+        //[HttpPost]
+        //public ActionResult UpdateOrderStatus(EditOrderStatusViewModel viewModel)
+        //{
+        //    var order = _unitOfWork.Orders.GetOrderById(viewModel.OrderId);
+
+        //    var errors = ModelState.Values.Select(v => v.Errors);
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return RedirectToAction("ViewOrders");
+        //    }
+
+        //    order.OrderStatusId = viewModel.StatusId;
+
+        //    var orders = _unitOfWork.Orders.GetOrdersList();
+
+        //    foreach (var order in orders)
+        //    {
+        //        var currentOrder = _unitOfWork.Orders.GetOrderById(order.OrderId);
+
+        //        var getOrderStatusId = _unitOfWork.Orders.GetOrderStatusById(order.OrderId);
+
+        //        currentOrder.OrderStatusId = viewModel.OrderStatusId;
+
+        //        _unitOfWork.Complete();
+        //    }
+
+        //    return RedirectToAction("ViewOrders");
+        //}
     }
 }

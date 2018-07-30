@@ -9,7 +9,7 @@ namespace Maslshop.Models.ViewModels.Order
 
         public string Heading { get; set; }
 
-        public IEnumerable<OrderViewmodel> Orders { get; set; }
+        public IEnumerable<OrderViewModel> Orders { get; set; }
 
         public IEnumerable<Core.Delivery> Deliveries { get; set; }
 
