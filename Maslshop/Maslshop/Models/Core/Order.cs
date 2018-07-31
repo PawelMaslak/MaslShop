@@ -26,7 +26,7 @@ namespace Maslshop.Models.Core
         [Display(Name = "Kod Pocztowy")]
         public string PostCode { get; set; }
 
-        [Required(ErrorMessage = "Pole email pocztowy jest wymagane")]
+        [Required(ErrorMessage = "Pole email jest wymagane")]
         [Display(Name = "Adres Email")]
         public string Email { get; set; }
 

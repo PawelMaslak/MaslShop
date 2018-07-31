@@ -19,10 +19,6 @@ namespace Maslshop.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //public string ShoppingCartId { get; set; }
-
-        //public const string CartSessionKey = "CartId";
-
         public ActionResult Checkout()
         {
             var thisUser = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());
@@ -87,11 +83,35 @@ namespace Maslshop.Controllers
         {
             var user = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());
 
+            if (order.OrderStatusId != 1)
+            {
+                user.Email = order.Email;
+            }
+
             using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", user.Email))
             {
-                confrimationEmail.Subject = "Maslshop - Potwierdzenie zamówienia nr " + order.OrderId;
-                string body = CreateBody(order);
-                confrimationEmail.Body = body;
+                switch (order.OrderStatusId)
+                {
+                    case 1: // Order created
+                        confrimationEmail.Subject = "Maslshop - Potwierdzenie zamówienia nr " + order.OrderId;
+                        string body = CreateBody(order);
+                        confrimationEmail.Body = body;
+                        break;
+                    case 2: // Payment received
+                        confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
+                        string body1 = CreateBody(order);
+                        confrimationEmail.Body = body1;
+                        break;
+                    case 3: // Order shipped
+                        confrimationEmail.Subject = "Maslshop - TEST TEST Doręczono zamówienie nr " + order.OrderId;
+                        string body2 = CreateBody(order);
+                        confrimationEmail.Body = body2;
+                        break;
+                        //case 4: // Order delivered
+                        //    break;
+                        //case 5: // Order cancelled 
+                        //    break;
+                }
                 confrimationEmail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient
                 {
@@ -106,28 +126,29 @@ namespace Maslshop.Controllers
             }
         }
 
-        private void SendOrderUpdateEmail(Order order)
-        {
-            var userEmail = order.Email;
+        //private void SendOrderUpdateEmail(Order order)
+        //{
+        //    var userEmail = order.Email;
 
-            using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", userEmail))
-            {
-                confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
-                string body = CreateBodyUpdateEmail(order);
-                confrimationEmail.Body = body;
-                confrimationEmail.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    EnableSsl = true
-                };
-                NetworkCredential networkCred = new NetworkCredential("team.maslshop@gmail.com", "Maslshop123");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = networkCred;
-                smtp.Port = 587;
-                smtp.Send(confrimationEmail);
-            }
-        }
+        //    using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", userEmail))
+        //    {
+
+        //        confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
+        //        string body = CreateBodyUpdateEmail(order);
+        //        confrimationEmail.Body = body;
+        //        confrimationEmail.IsBodyHtml = true;
+        //        SmtpClient smtp = new SmtpClient
+        //        {
+        //            Host = "smtp.gmail.com",
+        //            EnableSsl = true
+        //        };
+        //        NetworkCredential networkCred = new NetworkCredential("team.maslshop@gmail.com", "Maslshop123");
+        //        smtp.UseDefaultCredentials = true;
+        //        smtp.Credentials = networkCred;
+        //        smtp.Port = 587;
+        //        smtp.Send(confrimationEmail);
+        //    }
+        //}
 
         private string CreateBody(Order order)
         {
@@ -141,10 +162,35 @@ namespace Maslshop.Controllers
 
             string body = string.Empty;
 
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ConfirmationEmail.cshtml")))
+            switch (order.OrderStatusId)
             {
-                body = reader.ReadToEnd();
+                case 1:
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+                    break;
+                case 2:
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+                    break;
+                case 3:
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
             }
+
+            
 
             StringBuilder productNames = new StringBuilder();
 
@@ -187,63 +233,63 @@ namespace Maslshop.Controllers
             return body;
         }
 
-        private string CreateBodyUpdateEmail(Order order)
-        {
-            var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
+        //private string CreateBodyUpdateEmail(Order order)
+        //{
+        //    var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
 
-            var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
+        //    var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
 
-            var paymentType = _unitOfWork.Payments.GetPaymentTypeById(order.PaymentTypeId);
+        //    var paymentType = _unitOfWork.Payments.GetPaymentTypeById(order.PaymentTypeId);
 
-            var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
+        //    var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
 
-            string body = string.Empty;
+        //    string body = string.Empty;
 
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
-            {
-                body = reader.ReadToEnd();
-            }
+        //    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
+        //    {
+        //        body = reader.ReadToEnd();
+        //    }
 
-            StringBuilder productNames = new StringBuilder();
+        //    StringBuilder productNames = new StringBuilder();
 
-            foreach (var product in orderDetails)
-            {
-                var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
+        //    foreach (var product in orderDetails)
+        //    {
+        //        var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
 
-                productNames.AppendFormat("<br/>{0}", singleProduct.Name);
-            }
+        //        productNames.AppendFormat("<br/>{0}", singleProduct.Name);
+        //    }
 
-            StringBuilder productsQuantity = new StringBuilder();
+        //    StringBuilder productsQuantity = new StringBuilder();
 
-            foreach (var product in orderDetails)
-            {
-                productsQuantity.AppendFormat("<br/>{0}", product.Quantity);
-            }
+        //    foreach (var product in orderDetails)
+        //    {
+        //        productsQuantity.AppendFormat("<br/>{0}", product.Quantity);
+        //    }
 
-            StringBuilder productsSubtotal = new StringBuilder();
+        //    StringBuilder productsSubtotal = new StringBuilder();
 
-            foreach (var product in orderDetails)
-            {
-                productsSubtotal.AppendFormat("<br/>{0:C}", (product.Quantity * product.Price));
-            }
+        //    foreach (var product in orderDetails)
+        //    {
+        //        productsSubtotal.AppendFormat("<br/>{0:C}", (product.Quantity * product.Price));
+        //    }
 
-            body = body.Replace("{pName}", productNames.ToString());
-            body = body.Replace("{pQuantity}", productsQuantity.ToString());
-            body = body.Replace("{pSubtotal}", productsSubtotal.ToString());
-            body = body.Replace("{pDeliveryPrice}", deliveryType.Price.ToString("C"));
-            body = body.Replace("{pDeliveryType}", deliveryType.Name);
-            body = body.Replace("{pTotal}", order.OrderTotal.ToString("C"));
-            body = body.Replace("{userName}", order.Name);
-            body = body.Replace("{orderId}", order.OrderId.ToString());
-            body = body.Replace("{orderStatus}", orderStatus.Status);
-            body = body.Replace("{userSurname}", order.Surname);
-            body = body.Replace("{userAddress}", order.Address);
-            body = body.Replace("{userPostCode}", order.PostCode);
-            body = body.Replace("{userCity}", order.City);
-            body = body.Replace("{pPaymentType}", paymentType.Name);
+        //    body = body.Replace("{pName}", productNames.ToString());
+        //    body = body.Replace("{pQuantity}", productsQuantity.ToString());
+        //    body = body.Replace("{pSubtotal}", productsSubtotal.ToString());
+        //    body = body.Replace("{pDeliveryPrice}", deliveryType.Price.ToString("C"));
+        //    body = body.Replace("{pDeliveryType}", deliveryType.Name);
+        //    body = body.Replace("{pTotal}", order.OrderTotal.ToString("C"));
+        //    body = body.Replace("{userName}", order.Name);
+        //    body = body.Replace("{orderId}", order.OrderId.ToString());
+        //    body = body.Replace("{orderStatus}", orderStatus.Status);
+        //    body = body.Replace("{userSurname}", order.Surname);
+        //    body = body.Replace("{userAddress}", order.Address);
+        //    body = body.Replace("{userPostCode}", order.PostCode);
+        //    body = body.Replace("{userCity}", order.City);
+        //    body = body.Replace("{pPaymentType}", paymentType.Name);
 
-            return body;
-        }
+        //    return body;
+        //}
 
         [Authorize(Roles = "Administrator")]
         public ActionResult ViewOrders(string query = null)
@@ -348,7 +394,7 @@ namespace Maslshop.Controllers
             if (viewModel.StatusId != order.OrderStatusId)
             {
                 order.OrderStatusId = viewModel.StatusId;
-                SendOrderUpdateEmail(order);  
+                SendConfirmationEmail(order);  
             }
 
             _unitOfWork.Complete();
