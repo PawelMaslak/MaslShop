@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.ViewModels;
+using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -14,9 +15,11 @@ namespace Maslshop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ManageController()
+        public ManageController(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -71,7 +74,8 @@ namespace Maslshop.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Id = userId
+                Id = userId,
+                User = _unitOfWork.Admin.GetUsersWithoutAdmin()
             };
             return View(model);
         }

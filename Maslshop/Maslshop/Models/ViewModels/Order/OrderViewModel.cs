@@ -10,6 +10,8 @@ namespace Maslshop.Models.ViewModels.Order
 
         public string UserName { get; set; }
 
+        public string UserId { get; set; }
+
         public int OrderId { get; set; }
 
         public string Name { get; set; }

@@ -9,6 +9,8 @@ namespace Maslshop.Models.ViewModels.Order
 
         public int OrderStatusId { get; set; }
 
+        public string OrderStatusName { get; set; }
+
         public IEnumerable<OrderStatus> OrderStats { get; set; }
     }
 }

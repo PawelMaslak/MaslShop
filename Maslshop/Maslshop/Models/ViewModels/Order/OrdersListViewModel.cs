@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.Core;
+using Maslshop.Models.DTOs;
 using System.Collections.Generic;
 
 namespace Maslshop.Models.ViewModels.Order
@@ -18,5 +19,7 @@ namespace Maslshop.Models.ViewModels.Order
         public IEnumerable<OrderDetail> OrderDetails { get; set; }
 
         public IEnumerable<OrderStatus> OrderStats { get; set; }
+
+        public IEnumerable<UserDTO> Users { get; set; }
     }
 }

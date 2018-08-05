@@ -3,6 +3,7 @@ using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -54,6 +55,7 @@ namespace Maslshop.Controllers
 
             var order = new Order()
             {
+                UserId = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId()).Id,
                 Name = viewModel.Name,
                 Surname = viewModel.Surname,
                 Address = viewModel.Address,
@@ -98,19 +100,25 @@ namespace Maslshop.Controllers
                         confrimationEmail.Body = body;
                         break;
                     case 2: // Payment received
-                        confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Otrzymanie płatności zamówienia nr " + order.OrderId;
                         string body1 = CreateBody(order);
                         confrimationEmail.Body = body1;
                         break;
                     case 3: // Order shipped
-                        confrimationEmail.Subject = "Maslshop - TEST TEST Doręczono zamówienie nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Wysyłka zamówienia nr " + order.OrderId;
                         string body2 = CreateBody(order);
                         confrimationEmail.Body = body2;
                         break;
-                        //case 4: // Order delivered
-                        //    break;
-                        //case 5: // Order cancelled 
-                        //    break;
+                    case 4: // Order delivered
+                        confrimationEmail.Subject = "Maslshop - Doręczenie zamówienia nr " + order.OrderId;
+                        string body3 = CreateBody(order);
+                        confrimationEmail.Body = body3;
+                        break;
+                    case 5: // Order cancelled 
+                        confrimationEmail.Subject = "Maslshop - Potwierdzenie anulowania zamówienia nr " + order.OrderId;
+                        string body4 = CreateBody(order);
+                        confrimationEmail.Body = body4;
+                        break;
                 }
                 confrimationEmail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient
@@ -126,30 +134,6 @@ namespace Maslshop.Controllers
             }
         }
 
-        //private void SendOrderUpdateEmail(Order order)
-        //{
-        //    var userEmail = order.Email;
-
-        //    using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", userEmail))
-        //    {
-
-        //        confrimationEmail.Subject = "Maslshop - Zmiana statusu zamówienia nr " + order.OrderId;
-        //        string body = CreateBodyUpdateEmail(order);
-        //        confrimationEmail.Body = body;
-        //        confrimationEmail.IsBodyHtml = true;
-        //        SmtpClient smtp = new SmtpClient
-        //        {
-        //            Host = "smtp.gmail.com",
-        //            EnableSsl = true
-        //        };
-        //        NetworkCredential networkCred = new NetworkCredential("team.maslshop@gmail.com", "Maslshop123");
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = networkCred;
-        //        smtp.Port = 587;
-        //        smtp.Send(confrimationEmail);
-        //    }
-        //}
-
         private string CreateBody(Order order)
         {
             var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
@@ -164,33 +148,37 @@ namespace Maslshop.Controllers
 
             switch (order.OrderStatusId)
             {
-                case 1:
+                case 1: //Order created
                     using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ConfirmationEmail.cshtml")))
                     {
                         body = reader.ReadToEnd();
                     }
                     break;
-                case 2:
+                case 2: //Payment received
                     using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
                     {
                         body = reader.ReadToEnd();
                     }
                     break;
-                case 3:
-                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
+                case 3: //Order sent
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/OrderSentEmailConfirmation.cshtml")))
                     {
                         body = reader.ReadToEnd();
                     }
                     break;
-                case 4:
-
+                case 4: //Order delivered
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/OrderDeliveredConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
                     break;
-                case 5:
-
+                case 5: //Order cancelled
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/OrderCancelledConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
                     break;
             }
-
-            
 
             StringBuilder productNames = new StringBuilder();
 
@@ -233,67 +221,10 @@ namespace Maslshop.Controllers
             return body;
         }
 
-        //private string CreateBodyUpdateEmail(Order order)
-        //{
-        //    var orderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId);
-
-        //    var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
-
-        //    var paymentType = _unitOfWork.Payments.GetPaymentTypeById(order.PaymentTypeId);
-
-        //    var orderStatus = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
-
-        //    string body = string.Empty;
-
-        //    using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/Emails/ChangeStatusConfirmationEmail.cshtml")))
-        //    {
-        //        body = reader.ReadToEnd();
-        //    }
-
-        //    StringBuilder productNames = new StringBuilder();
-
-        //    foreach (var product in orderDetails)
-        //    {
-        //        var singleProduct = _unitOfWork.Product.GetProductById(product.ProductId);
-
-        //        productNames.AppendFormat("<br/>{0}", singleProduct.Name);
-        //    }
-
-        //    StringBuilder productsQuantity = new StringBuilder();
-
-        //    foreach (var product in orderDetails)
-        //    {
-        //        productsQuantity.AppendFormat("<br/>{0}", product.Quantity);
-        //    }
-
-        //    StringBuilder productsSubtotal = new StringBuilder();
-
-        //    foreach (var product in orderDetails)
-        //    {
-        //        productsSubtotal.AppendFormat("<br/>{0:C}", (product.Quantity * product.Price));
-        //    }
-
-        //    body = body.Replace("{pName}", productNames.ToString());
-        //    body = body.Replace("{pQuantity}", productsQuantity.ToString());
-        //    body = body.Replace("{pSubtotal}", productsSubtotal.ToString());
-        //    body = body.Replace("{pDeliveryPrice}", deliveryType.Price.ToString("C"));
-        //    body = body.Replace("{pDeliveryType}", deliveryType.Name);
-        //    body = body.Replace("{pTotal}", order.OrderTotal.ToString("C"));
-        //    body = body.Replace("{userName}", order.Name);
-        //    body = body.Replace("{orderId}", order.OrderId.ToString());
-        //    body = body.Replace("{orderStatus}", orderStatus.Status);
-        //    body = body.Replace("{userSurname}", order.Surname);
-        //    body = body.Replace("{userAddress}", order.Address);
-        //    body = body.Replace("{userPostCode}", order.PostCode);
-        //    body = body.Replace("{userCity}", order.City);
-        //    body = body.Replace("{pPaymentType}", paymentType.Name);
-
-        //    return body;
-        //}
-
         [Authorize(Roles = "Administrator")]
         public ActionResult ViewOrders(string query = null)
         {
+
             if (query != null)
             {
                 var viewmodel = new OrdersListViewModel()
@@ -304,6 +235,7 @@ namespace Maslshop.Controllers
                     Payments = _unitOfWork.Payments.GetPaymentTypes(),
                     OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
                     OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                    Users = _unitOfWork.Admin.GetUsersWithoutAdmin(),
                     SearchTerm = query
                 };
 
@@ -316,7 +248,8 @@ namespace Maslshop.Controllers
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                 Payments = _unitOfWork.Payments.GetPaymentTypes(),
                 OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
-                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                Users = _unitOfWork.Admin.GetUsersWithoutAdmin()
             };
 
             return View(viewModel);
@@ -356,10 +289,14 @@ namespace Maslshop.Controllers
             return View(viewModel);
         }
 
+
+
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         public ActionResult EditOrder(EditOrderFormViewModel viewModel)
         {
+            var errors = ModelState.Values.Select(v => v.Errors);
+
             if (!ModelState.IsValid)
             {
                 viewModel.Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList();
@@ -394,7 +331,7 @@ namespace Maslshop.Controllers
             if (viewModel.StatusId != order.OrderStatusId)
             {
                 order.OrderStatusId = viewModel.StatusId;
-                SendConfirmationEmail(order);  
+                SendConfirmationEmail(order);
             }
 
             _unitOfWork.Complete();
@@ -413,37 +350,29 @@ namespace Maslshop.Controllers
 
             _unitOfWork.Complete();
 
-            return RedirectToAction("EditOrder", new {orderId = order.OrderId});
+            return RedirectToAction("EditOrder", new { orderId = order.OrderId });
         }
 
-        //[HttpPost]
-        //public ActionResult UpdateOrderStatus(EditOrderStatusViewModel viewModel)
-        //{
-        //    var order = _unitOfWork.Orders.GetOrderById(viewModel.OrderId);
+        [HttpGet]
+        public ActionResult UpdateOrderStatus(int orderId, int orderStatusId)
+        {
+            var order = _unitOfWork.Orders.GetOrderById(orderId);
 
-        //    var errors = ModelState.Values.Select(v => v.Errors);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ViewOrders");
+            }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return RedirectToAction("ViewOrders");
-        //    }
+            if (orderStatusId != order.OrderStatusId)
+            {
+                order.OrderStatusId = orderStatusId;
+                SendConfirmationEmail(order);
+            }
 
-        //    order.OrderStatusId = viewModel.StatusId;
+            _unitOfWork.Complete();
+            ModelState.Clear();
 
-        //    var orders = _unitOfWork.Orders.GetOrdersList();
-
-        //    foreach (var order in orders)
-        //    {
-        //        var currentOrder = _unitOfWork.Orders.GetOrderById(order.OrderId);
-
-        //        var getOrderStatusId = _unitOfWork.Orders.GetOrderStatusById(order.OrderId);
-
-        //        currentOrder.OrderStatusId = viewModel.OrderStatusId;
-
-        //        _unitOfWork.Complete();
-        //    }
-
-        //    return RedirectToAction("ViewOrders");
-        //}
+            return RedirectToAction("ViewOrders");
+        }
     }
 }

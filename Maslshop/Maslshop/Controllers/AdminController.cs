@@ -25,6 +25,7 @@ namespace Maslshop.Controllers
             return View(viewModel);
         }
 
+
         [HttpPost]
         public ActionResult SearchUser(UserListViewModel viewModel)
         {

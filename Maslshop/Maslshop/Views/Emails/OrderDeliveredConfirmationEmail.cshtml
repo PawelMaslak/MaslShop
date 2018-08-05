@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Order Delivered Confirmation Email</title>
+</head>
+<body>
+
+<p>Witaj {userName}!</p>
+<p>
+    Mamy dobrą wiadomość. Twoje zamówienie zostało doręczone!
+    <br />
+    Dane zamówienia znajdziesz poniżej:
+</p>
+<p>
+    Numer zamówienia: {orderId}
+    <br />
+    Aktualny status zamówienia: {orderStatus}
+</p>
+<p>
+    Adres do wysyłki: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
+</p>
+<p>Zamówione przedmioty:</p>
+<table>
+    <tr>
+        <th>Nazwa</th>
+        <th>Ilość</th>
+        <th>Cena</th>
+    </tr>
+    <tr>
+        <td>{pName}</td>
+        <td>{pQuantity}</td>
+        <td>{pSubtotal}</td>
+    </tr>
+</table>
+<br />
+Typ wysyłki: {pDeliveryType}
+<br />
+Cena wysyłki: {pDeliveryPrice}
+<br />
+Cena całkowita: {pTotal}
+<br />
+Rodzaj płatności: {pPaymentType}
+<p>Zespół Maslshop</p>
+</body>
+</html>

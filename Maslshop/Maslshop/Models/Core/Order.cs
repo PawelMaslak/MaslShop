@@ -8,6 +8,8 @@ namespace Maslshop.Models.Core
     {
         public int OrderId { get; set; }
 
+        public string UserId { get; set; }
+
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Pole imie jest wymagane")]

@@ -11,6 +11,8 @@ namespace Maslshop.Models.ViewModels.Order
 
         public string UserName { get; set; }
 
+        public string UserId { get; set; }
+
         public string Heading { get; set; }
 
         [Required(ErrorMessage = "Pole imie jest wymagane")]

@@ -426,6 +426,10 @@
     <Compile Include="Migrations\201807282045177_AddFilteredOrdersListSP.Designer.cs">
       <DependentUpon>201807282045177_AddFilteredOrdersListSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808052005423_AddingUserIdToOrder.cs" />
+    <Compile Include="Migrations\201808052005423_AddingUserIdToOrder.Designer.cs">
+      <DependentUpon>201808052005423_AddingUserIdToOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -536,6 +540,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -604,6 +610,9 @@
     <Content Include="Views\Order\ViewOrders.cshtml" />
     <Content Include="Views\Order\EditOrder.cshtml" />
     <Content Include="Views\Emails\ChangeStatusConfirmationEmail.cshtml" />
+    <Content Include="Views\Emails\OrderSentEmailConfirmation.cshtml" />
+    <Content Include="Views\Emails\OrderDeliveredConfirmationEmail.cshtml" />
+    <Content Include="Views\Emails\OrderCancelledConfirmationEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -756,6 +765,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807282045177_AddFilteredOrdersListSP.resx">
       <DependentUpon>201807282045177_AddFilteredOrdersListSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808052005423_AddingUserIdToOrder.resx">
+      <DependentUpon>201808052005423_AddingUserIdToOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

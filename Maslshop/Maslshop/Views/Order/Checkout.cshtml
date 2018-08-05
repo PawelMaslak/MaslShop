@@ -8,39 +8,39 @@
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
-<form>
+    <form>
 
 
-    Address 1:
+        Address 1:
 
-    <input type="text" id="address_1">
+        <input type="text" id="address_1">
 
-    Address 2:
-    <input type="text" id="address_2">
+        Address 2:
+        <input type="text" id="address_2">
 
-    <input type="checkbox" id="toshipping_checkbox">
-    <em>Check this box if Shipping Address and Billing Address are the same.</em>
-    <b>Shipping Address</b>
+        <input type="checkbox" id="toshipping_checkbox">
+        <em>Check this box if Shipping Address and Billing Address are the same.</em>
+        <b>Shipping Address</b>
 
-    Address 1:
-    <input type="text" id="shipping_address_1">
+        Address 1:
+        <input type="text" id="shipping_address_1">
 
-    Address 2:
-    <input type="text" id="shipping_address_2">
+        Address 2:
+        <input type="text" id="shipping_address_2">
 
-</form>*@
+    </form>*@
 
 
 
 
 @*<p>Twoje obecne dane adresowe</p>
 
-<p>Imie: @Model.ThisUser.Name</p>
-<p>Nazwisko: @Model.ThisUser.Surname</p>
-<p>Adres: @Model.ThisUser.Address @Model.ThisUser.City @Model.ThisUser.PostCode</p>
-<p>Adres email: @Model.ThisUser.Email</p>*@
+    <p>Imie: @Model.ThisUser.Name</p>
+    <p>Nazwisko: @Model.ThisUser.Surname</p>
+    <p>Adres: @Model.ThisUser.Address @Model.ThisUser.City @Model.ThisUser.PostCode</p>
+    <p>Adres email: @Model.ThisUser.Email</p>*@
 
-@using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @id="myForm", @class = "form-horizontal", role = "form" }))
 {
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
@@ -50,40 +50,42 @@
         Name = x.Name + " - " + x.Price.ToString("C")
     });
 
+
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.Name, new { @id = "myInput", @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.ThisUser.Name  })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = @Model.ThisUser.Surname })
+            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = @Model.ThisUser.Address })
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.PostCode, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", placeholder = @Model.ThisUser.PostCode })
+            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = @Model.ThisUser.City })
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.ThisUser.Email })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
@@ -95,7 +97,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.PaymentId, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.PaymentId, new SelectList(Model.Payments ,"Id", "Name"), "", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.PaymentId, new SelectList(Model.Payments, "Id", "Name"), "", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
@@ -109,12 +111,41 @@
     <button type="submit" class="btn btn-primary btn-lg">Dalej</button>
 }
 
-    <script>
-        $("#toshipping_checkbox").on("click", function () {
-            var ship = $(this).is(":checked");
-            $("[id^='shipping_']").each(function () {
-                var tmpID = this.id.split('shipping_')[1];
-                $(this).val(ship ? $("#" + tmpID).val() : "");
-            });
+<button class="btn btn-primary btn-lg" onclick="resetFields(form)">Wyczyść pola</button>
+
+<script type="text/javascript">
+    function resetFields(form) {
+        $(':input', form).each(function() {
+            var type = this.type;
+            var tag = this.tagName.toLowerCase(); // normalize case
+            // to reset the value attr of text inputs,
+            // password inputs, fileUpload and textareas
+            if (type == 'text' || type == 'password' || tag == 'textarea' || type=='file')
+                this.value = "";
+            // checkboxes and radios need to have their checked state cleared
+            else if (type == 'checkbox' || type == 'radio')
+                this.checked = false;
+            // select elements need to have their 'selectedIndex' property set to -1
+            // (this works for both single and multiple select elements)
+            else if (tag == 'select')
+                this.selectedIndex = 0;
         });
-    </script>
+    }
+
+</script>
+
+<script>
+    $("#toshipping_checkbox").on("click", function () {
+        var ship = $(this).is(":checked");
+        $("[id^='shipping_']").each(function () {
+            var tmpID = this.id.split('shipping_')[1];
+            $(this).val(ship ? $("#" + tmpID).val() : "");
+        });
+    });
+</script>
+
+<script>
+    function resetform() {
+        document.getElementById("myform").reset();
+    }
+</script>

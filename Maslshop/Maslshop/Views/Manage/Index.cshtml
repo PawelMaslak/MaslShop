@@ -1,4 +1,5 @@
-﻿@model Maslshop.Models.ViewModels.IndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@model Maslshop.Models.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "Ustawienia Konta";
 }
@@ -22,9 +23,20 @@
             }
             ]
         </dd>
+        <dt>Twoje dane:</dt>
+        <dd>
+            <a href="@Url.Action("Edit", "Account", new {userId = Model.Id})">[ Edytuj dane ]</a>
+        </dd>
     </dl>
     @if (!User.IsInRole("Administrator"))
     {
+        var currentUser = Model.User.SingleOrDefault(i => i.Id == HttpContext.Current.User.Identity.GetUserId());
+
+        <p>Twoje dane adresowe</p>
+        <p>Imię: @currentUser.Name</p>
+        <p>Nazwisko: @currentUser.Surname</p>
+        <p>Adres: @currentUser.Address, @currentUser.PostCode @currentUser.City</p>
+        <p>Email: @currentUser.Email</p>
         <p>
             <a href="@Url.Action("Edit", "Account", new { userId = Model.Id})">Edytuj dane</a>
         </p> 
