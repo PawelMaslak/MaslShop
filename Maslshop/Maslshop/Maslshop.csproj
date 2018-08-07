@@ -430,6 +430,10 @@
     <Compile Include="Migrations\201808052005423_AddingUserIdToOrder.Designer.cs">
       <DependentUpon>201808052005423_AddingUserIdToOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808071845070_AddGetUserOrdersListSP.cs" />
+    <Compile Include="Migrations\201808071845070_AddGetUserOrdersListSP.Designer.cs">
+      <DependentUpon>201808071845070_AddGetUserOrdersListSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -613,6 +617,8 @@
     <Content Include="Views\Emails\OrderSentEmailConfirmation.cshtml" />
     <Content Include="Views\Emails\OrderDeliveredConfirmationEmail.cshtml" />
     <Content Include="Views\Emails\OrderCancelledConfirmationEmail.cshtml" />
+    <Content Include="Views\Order\UserOrders.cshtml" />
+    <Content Include="Views\Order\ViewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -768,6 +774,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808052005423_AddingUserIdToOrder.resx">
       <DependentUpon>201808052005423_AddingUserIdToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071845070_AddGetUserOrdersListSP.resx">
+      <DependentUpon>201808071845070_AddGetUserOrdersListSP.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,133 @@
+﻿@using System.Activities.Statements
+@model Maslshop.Models.ViewModels.Order.OrderViewModel
+
+@{
+    ViewBag.Title = @Model.Heading;
+}
+
+<h2>Zamówienie nr: @Model.OrderId - Status: @Model.OrderStatusName</h2>
+
+@switch (Model.OrderStatusId)
+{
+    case 1:
+    case 2:
+        <h4>Możesz anulować zamówienie jeśli nie zostało jeszcze wysłane.</h4>
+        break;
+    case 3:
+        <h4>Zamówienie zostało wysłane</h4>
+        break;
+    case 4:
+        <h4>Zamówienie zostało doręczone</h4>
+        break;
+    case 5:
+        <h4>Zamówienie zostało anulowane.</h4>
+        break;
+}
+
+
+<div id="ProductsList">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+            <tr class="active text-info">
+                <th>Produkt</th>
+                <th>Cena jednostkowa</th>
+                <th>Ilość</th>
+                <th>Cena łączna</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+            @foreach (var product in Model.OrderDetails)
+            {
+                var subtotal = @product.Price * @product.Quantity;
+                <tr>
+                    <td>@product.Product.Name</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.Quantity</td>
+                    <td>@subtotal.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+        <thead>
+            <tr class="active text-info">
+                <th>Typ przesyłki</th>
+                <th>Cena przesyłki</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td>@Model.DeliveryTypeName</td>
+                <td>@Model.DeliveryPrice.ToString("C")</td>
+
+            </tr>
+        </tbody>
+        <thead>
+            <tr class="active text-info">
+                <th>Cena całkowita</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td>@Model.OrderTotal.ToString("C")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div id="ProductsList">
+            <table id="table" class="table table-striped table-bordered text-center">
+                <thead>
+                    <tr class="active text-info">
+                        <th>Adres korespondencyjny</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.BillingName @Model.BillingSurname</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.BillingAddress</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.BillingPostCode</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.BillingCity</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div id="ProductsList">
+            <table id="table" class="table table-striped table-bordered text-center">
+                <thead>
+                    <tr class="active text-info">
+                        <th>Adres dostawy</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.Name @Model.Surname</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.DeliveryAddress</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.DeliveryPostCode</th>
+                    </tr>
+                    <tr>
+                        <th>@Model.DeliveryCity</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@switch (Model.OrderStatusId)
+{
+    case 1:
+    case 2:
+        <a href="@Url.Action("CancelOrder", "Order", new {orderId = Model.OrderId})" class="btn btn-primary" role="button">Anuluj zamówienie</a>
+        break;
+}
+

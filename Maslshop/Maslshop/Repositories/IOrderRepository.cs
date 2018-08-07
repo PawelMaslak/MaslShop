@@ -20,5 +20,6 @@ namespace Maslshop.Repositories
         void RemoveOrderDetail(OrderDetail detail);
         OrderDetail SelectOrderDetail(int id);
         Order SelectOrderMatchingOrderDetailId(OrderDetail detail);
+        IEnumerable<OrderViewModel> GetUserOrders(string userId);
     }
 }

@@ -221,13 +221,78 @@ namespace Maslshop.Controllers
             return body;
         }
 
+        [Authorize]
+        public ActionResult UserOrders()
+        {
+            var viewModel = new OrdersListViewModel()
+            {
+                Heading = "Twoje zamówienia",
+                Orders = _unitOfWork.Orders.GetUserOrders(HttpContext.User.Identity.GetUserId()),
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult ViewOrder(int orderId)
+        {
+            var order = _unitOfWork.Orders.GetOrderById(orderId);
+
+            var user = _unitOfWork.Admin.GetUserById(order.UserId);
+
+            var status = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
+
+            var deliveryType = _unitOfWork.Deliveries.GetDeliveryById(order.DeliveryId);
+
+            var viewModel = new OrderViewModel()
+            {
+                Heading = "Zestawienie zamówienia",
+                OrderId = order.OrderId,
+                OrderStatusName = status.Status,
+                OrderStatusId = status.Id,
+                Surname = order.Surname,
+                Name = order.Name,
+                DeliveryAddress = order.Address,
+                DeliveryPostCode = order.PostCode,
+                DeliveryCity = order.City,
+                BillingAddress = user.Address,
+                BillingPostCode = user.PostCode,
+                BillingCity = user.City,
+                BillingName = user.Name,
+                BillingSurname = user.Surname,
+                DeliveryPrice = deliveryType.Price,
+                DeliveryTypeName = deliveryType.Name,
+                OrderTotal = order.OrderTotal,
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                OrderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId)
+            };
+
+            return View(viewModel);
+        }
+
+        public ActionResult CancelOrder(int orderId)
+        {
+            var order = _unitOfWork.Orders.GetOrderById(orderId);
+
+            order.OrderStatusId = 5;
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("UserOrders");
+        }
+
         [Authorize(Roles = "Administrator")]
         public ActionResult ViewOrders(string query = null)
         {
 
             if (query != null)
             {
-                var viewmodel = new OrdersListViewModel()
+                var viewModel = new OrdersListViewModel()
                 {
                     Heading = "Lista wyszukanych zamówień",
                     Orders = _unitOfWork.Orders.GetSearchedOrders(query),
@@ -239,20 +304,24 @@ namespace Maslshop.Controllers
                     SearchTerm = query
                 };
 
-                return View(viewmodel);
+                return View(viewModel);
             }
-            var viewModel = new OrdersListViewModel()
+            else
             {
-                Heading = "Lista zamówień",
-                Orders = _unitOfWork.Orders.GetOrdersList(),
-                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
-                Payments = _unitOfWork.Payments.GetPaymentTypes(),
-                OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
-                OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
-                Users = _unitOfWork.Admin.GetUsersWithoutAdmin()
-            };
+                var viewModel = new OrdersListViewModel()
+                {
+                    Heading = "Lista zamówień",
+                    Orders = _unitOfWork.Orders.GetOrdersList(),
+                    Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                    Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                    OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
+                    OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                    Users = _unitOfWork.Admin.GetUsersWithoutAdmin()
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
+            
         }
 
         [HttpPost]
@@ -265,7 +334,7 @@ namespace Maslshop.Controllers
         {
             var order = _unitOfWork.Orders.GetOrderById(orderId);
 
-            var statusName = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId).Status;
+            var status = _unitOfWork.Orders.GetOrderStatusById(order.OrderStatusId);
 
             var viewModel = new EditOrderFormViewModel()
             {
@@ -279,7 +348,7 @@ namespace Maslshop.Controllers
                 DeliveryId = order.DeliveryId,
                 StatusId = order.OrderStatusId,
                 PaymentId = order.PaymentTypeId,
-                OrderStatusName = statusName,
+                OrderStatusName = status.Status,
                 OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
                 Payments = _unitOfWork.Payments.GetPaymentTypes(),
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),

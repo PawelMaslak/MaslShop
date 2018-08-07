@@ -103,6 +103,15 @@ namespace Maslshop.Repositories
             return orders;
         }
 
+        public IEnumerable<OrderViewModel> GetUserOrders(string userId)
+        {
+            var parameter = new SqlParameter("@P", userId);
+
+            var orders = _context.Database.SqlQuery<OrderViewModel>("dbo.GetUserOrders @P", parameter);
+
+            return orders;
+        }
+
         public IEnumerable<OrderViewModel> GetSearchedOrders(string query, string searchTerm = null)
         {
             var orders = GetOrdersList();

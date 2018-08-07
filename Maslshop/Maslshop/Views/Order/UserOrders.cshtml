@@ -1,0 +1,36 @@
+﻿@model Maslshop.Models.ViewModels.Order.OrdersListViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>Kliknij na ID zamówienia aby zobaczyć szczegóły</h4>
+
+<div id="ProductsList">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+            <tr class="active text-info">
+                <th>Id</th>
+                <th>Zamówiono</th>
+                <th>Rodzaj Dostawy</th>
+                <th>Status Zamówienia</th>
+                <th>Wartość zamówienia</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td><a style="text-decoration-line: underline" href="@Url.Action("ViewOrder", "Order", new {orderId = order.OrderId})">@order.OrderId</a></td>
+                    <td>@($"{order.OrderDate:d}")</td>
+                    <td>@order.DeliveryTypeName</td>
+                    <td>@order.OrderStatusName</td>
+                    <td>@order.OrderTotal.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
