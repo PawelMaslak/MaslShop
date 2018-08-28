@@ -1,0 +1,40 @@
+﻿@using Maslshop.Models.Core
+@using Microsoft.AspNet.Identity
+
+
+@if (Request.IsAuthenticated)
+{
+    <ul class="links">     
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+        @Html.AntiForgeryToken()
+            <li><a class="btn btn-xs btn-danger" href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        }
+        @if (User.IsInRole("Administrator"))
+        {
+            <li>
+                <a class="btn btn-xs btn-danger" id="create_account" href="@Url.Action("Index", "Admin")">Admin Panel</a>
+            </li>
+        }
+        <li>
+            <a class="btn btn-xs btn-warning" id="create_account" href="@Url.Action("Index", "Manage")">My Account</a>
+        </li>
+        <li id="top-bar-links">
+            <a href="@Url.Action("Login", "Account")"><strong>FAQ</strong></a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="links">
+        <li>
+            <a class="btn btn-xs btn-warning" id="create_account" href="@Url.Action("Register", "Account")">Open Account</a>
+        </li>
+        <li id="top-bar-links">
+            <a href="@Url.Action("Login", "Account")"><strong>Login</strong></a>
+        </li>
+        <li id="top-bar-links">
+            <a href="@Url.Action("Login", "Account")">FAQs</a>
+        </li>
+    </ul>
+}

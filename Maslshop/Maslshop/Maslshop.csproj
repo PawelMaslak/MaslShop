@@ -512,11 +512,16 @@
     <Content Include="Content\Images\eagle2.jpg" />
     <Content Include="Content\Images\eagle3.jpg" />
     <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\Home.PNG" />
     <Content Include="Content\Images\jqb_0470.JPG" />
+    <Content Include="Content\Images\login.png" />
+    <Content Include="Content\Images\logo.jpg" />
+    <Content Include="Content\Images\menu.png" />
     <Content Include="Content\Images\no-pic.png" />
     <Content Include="Content\Images\orel.jpg" />
     <Content Include="Content\Images\philharmonik.jpg" />
     <Content Include="Content\Images\s1.png" />
+    <Content Include="Content\Images\texture.png" />
     <Content Include="Content\Images\Thumbnails\10-oz-silver-credi-suisse-platinum-bar-160999.jpg" />
     <Content Include="Content\Images\Thumbnails\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
     <Content Include="Content\Images\Thumbnails\9b7d5547026159f99d09592b17502c1b.jpg" />
@@ -588,7 +593,7 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_TopBarPartial.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -619,9 +624,18 @@
     <Content Include="Views\Emails\OrderCancelledConfirmationEmail.cshtml" />
     <Content Include="Views\Order\UserOrders.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
+    <Content Include="Views\Account\Info.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Emails\PasswordResetEmail.cshtml" />
+    <Content Include="Views\Emails\AccountConfirmationEmail.cshtml" />
+    <Content Include="Views\Shared\_MobileHeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_NavPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

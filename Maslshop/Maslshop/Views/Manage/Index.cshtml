@@ -1,10 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
 @model Maslshop.Models.ViewModels.IndexViewModel
 @{
-    ViewBag.Title = "Ustawienia Konta";
+    ViewBag.Title = "My Account";
 }
 
 <h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-sm-2">
+        <ul class="list-group">
+            <li class="list-group-item">Kategorie</li>
+        </ul>
+    </div>
+</div>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -39,6 +47,6 @@
         <p>Email: @currentUser.Email</p>
         <p>
             <a href="@Url.Action("Edit", "Account", new { userId = Model.Id})">Edytuj dane</a>
-        </p> 
+        </p>
     }
 </div>

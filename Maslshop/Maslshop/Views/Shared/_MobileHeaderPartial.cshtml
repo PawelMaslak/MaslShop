@@ -1,0 +1,70 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <a href="/">
+                <div class="mobile-logo">
+                    <div id="inner">
+                        <img src="~/Content/Images/logo.jpg">
+                        <p>
+                            <span class="gold">Masl</span>Shop
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="mobile-menu-holder">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="mobile-menu">
+                    <div class="mobile-menu-button">
+                        <label for="toggle_menu"><img src="~/Content/Images/menu.png" /> Menu</label>
+                        <input type="checkbox" id="toggle_menu" />
+                        <div class="menu">
+                            <a href="#"><span>Buy</span></a>
+                            <a href="#">Sell</a>
+                            <a href="#">Login</a>
+                        </div>
+                    </div>
+                    <div class="mobile-menu-button">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <label for="toggle_login"><img src="~/Content/Images/login.png"/> Account</label>
+                            <input type="checkbox" id="toggle_login"/>
+                            <div class="menu">
+                                <a href="#">My Orders</a>
+                                <a href="#">Manage</a>
+                                <a href="#">Log Out</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "Account")">
+                                <img src="~/Content/Images/login.png" />
+                                <span>Login</span>
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="mobile-panels-holder">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="mobile-menu-item" style="display: block">
+                        <div class="row">
+                            <div class="col-xs-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@

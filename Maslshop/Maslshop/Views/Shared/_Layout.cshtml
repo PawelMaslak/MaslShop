@@ -13,59 +13,74 @@
     @Scripts.Render("~/bundles/maslshop")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Maslshop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                @if (User.Identity.IsAuthenticated)
-                {
 
-                    <ul class="nav navbar-nav">
-                        @if (!User.IsInRole("Administrator"))
-                        {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Narzędzia Użytkownika<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("UserOrders", "Order")">Moje zamówienia</a></li>
-                                </ul>
-                            </li>
-                        }
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Narzędzia Administratora<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("Index", "Admin")">Panel Administracyjny</a></li>
-                                    <li role="separator" class="divider">Tools</li>
-                                    <li><a href="@Url.Action("Index", "Roles")">Kreator Ról</a></li>
-                                    <li role="separator" class="divider">Products</li>
-                                    <li><a href="@Url.Action("Index", "Category")">Kategorie</a></li>
-                                    <li><a href="@Url.Action("Index", "Product")">Lista produktów</a></li>
-                                    <li role="separator" class="divider">Orders</li>
-                                    <li><a href="@Url.Action("ViewOrders", "Order")">Zamówienia</a></li>
-                                    <li><a href="@Url.Action("Deliveries", "Delivery")">Przesyłki</a></li>
-                                </ul>
-                            </li>
-                        }
-                    </ul>
-                }
-                @Html.Partial("_LoginPartial")
+    <div id="top-bar" class="hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-5">
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-7">
+                    @Html.Partial("_TopBarPartial")
+                </div>
             </div>
         </div>
     </div>
+    @*Mobile Header*@
+    <header class="visible-xs mobile-header">
+        @Html.Partial("_MobileHeaderPartial")
+    </header>
+    <div class="container">
+        <header id="header" class="hidden-xs mobile-header">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-7">
+                    <div class="logo">
+                        <a href="/">
+                            
+                            <img src="~/Content/Images/logo.jpg" class="img-responsive"/>
+                            <p class="bbp">
+                                <span class="gold">Masl</span>Shop
+                            </p>
+                            <p class="tagline">
+                                The <span class="gold">BEST</span> Online Bullion Dealer
+                            </p>
+                            <p class="delivery-tagline">Over <strong>100 000</strong> orders delivered
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-3 col-sm-3 center-column">
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-2">
+                </div>
+            </div>
+        </header>
+        <div id="content">
+            @*Nav*@
+            @Html.Partial("_NavPartial")
+        </div>
+    </div>
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="@Url.Action("Index", "Home")" class="navbar-brand">Maslshop</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    @Html.Partial("_MenuPartial")
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
 
     <div class="container body-content">
+        <div class="row">
+            @*@Html.Partial("_MenuPartial")*@
+        </div>
         @RenderBody()
-        <hr />
-        <footer class="text-center">
-            <p>&copy; Maslshop - by Maslana</p>
+    </div>
+    <div>
+        <footer class="footer">
+            @*@Html.Partial("_FooterPartial")*@
         </footer>
     </div>
     @Scripts.Render("~/bundles/maslshop")

@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -87,7 +88,15 @@ namespace Maslshop.Controllers
                 return View(model);
             }
 
-
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    return View("Error");
+                }
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
@@ -236,7 +245,7 @@ namespace Maslshop.Controllers
         {
             var viewModel = new RegisterViewModel
             {
-                Heading = "Utwórz nowego użytkownika",
+                Heading = "Register new user",
                 Roles = GetRoles()
             };
 
@@ -267,6 +276,23 @@ namespace Maslshop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                    var callBackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                        protocol: Request.Url.Scheme);
+
+                    string body = string.Empty;
+
+                    using (StreamReader reader =
+                        new StreamReader(Server.MapPath("~/Views/Emails/AccountConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+
+                    body = body.Replace("{userName}", user.Name);
+                    body = body.Replace("{callbackUrl}", callBackUrl);
+
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
                     UserManager.AddToRole(user.Id, model.Role);
 
                     return RedirectToAction("Index", "Admin");
@@ -289,11 +315,32 @@ namespace Maslshop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                    var callBackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                        protocol: Request.Url.Scheme);
+
+                    string body = string.Empty;
+
+                    using (StreamReader reader =
+                        new StreamReader(Server.MapPath("~/Views/Emails/AccountConfirmationEmail.cshtml")))
+                    {
+                        body = reader.ReadToEnd();
+                    }
+
+                    body = body.Replace("{userName}", user.Name);
+                    body = body.Replace("{callbackUrl}", callBackUrl);
+
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
+
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
+
                     UserManager.AddToRole(user.Id, "User");
 
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                      + "before you can log in.";
 
-                    return RedirectToAction("Index", "Home");
+                    return View("Info");
                 }
                 AddErrors(result);
             }
@@ -333,19 +380,28 @@ namespace Maslshop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+                string body = string.Empty;
+
+                using (StreamReader reader =
+                    new StreamReader(Server.MapPath("~/Views/Emails/PasswordResetEmail.cshtml")))
+                {
+                    body = reader.ReadToEnd();
+                }
+
+                body = body.Replace("{userName}", user.Name);
+                body = body.Replace("{callbackUrl}", callbackUrl);
+
+                await UserManager.SendEmailAsync(user.Id, "Maslshop - password reset request", body);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -379,7 +435,7 @@ namespace Maslshop.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist

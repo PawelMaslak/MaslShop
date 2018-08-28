@@ -2,6 +2,7 @@
 using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -90,7 +91,7 @@ namespace Maslshop.Controllers
                 user.Email = order.Email;
             }
 
-            using (MailMessage confrimationEmail = new MailMessage("team.maslshop@gmail.com", user.Email))
+            using (MailMessage confrimationEmail = new MailMessage(ConfigurationManager.AppSettings["Email"], user.Email))
             {
                 switch (order.OrderStatusId)
                 {
@@ -126,7 +127,7 @@ namespace Maslshop.Controllers
                     Host = "smtp.gmail.com",
                     EnableSsl = true
                 };
-                NetworkCredential networkCred = new NetworkCredential("team.maslshop@gmail.com", "Maslshop123");
+                NetworkCredential networkCred = new NetworkCredential(ConfigurationManager.AppSettings["Email"], ConfigurationManager.AppSettings["Password"]);
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCred;
                 smtp.Port = 587;
@@ -357,8 +358,6 @@ namespace Maslshop.Controllers
 
             return View(viewModel);
         }
-
-
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
