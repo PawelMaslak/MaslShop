@@ -5,6 +5,7 @@ namespace Maslshop.Controllers
     using Models.ViewModels;
     using System.Web.Mvc;
 
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IAdminRepository _adminRepository;
@@ -27,6 +28,7 @@ namespace Maslshop.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SearchUser(UserListViewModel viewModel)
         {
             return RedirectToAction("Index", new { query = viewModel.SearchTerm });

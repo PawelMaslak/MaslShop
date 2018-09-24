@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using File = Maslshop.Models.Core.File;
 
@@ -147,7 +148,7 @@ namespace Maslshop.Controllers
             {
                 var viewModel = new ProductsListViewModel()
                 {
-                    Heading = "Lista wyszukanych produktów",
+                    Heading = "Maslshop - Searched Products",
                     Categories = _unitOfWork.Product.GetCategories(),
                     Products = _unitOfWork.Product.GetSearchedProducts(query),
                     Files = _unitOfWork.File.GetPhotos(),
@@ -160,7 +161,7 @@ namespace Maslshop.Controllers
             {
                 var viewModel = new ProductsListViewModel()
                 {
-                    Heading = "Lista produktów",
+                    Heading = "Maslshop - Products List",
                     Categories = _unitOfWork.Product.GetCategories(),
                     Products = _unitOfWork.Product.GetProducts(),
                     Files = _unitOfWork.File.GetPhotos()
@@ -168,6 +169,31 @@ namespace Maslshop.Controllers
 
                 return View(viewModel);
             }
+        }
+
+        public ActionResult ViewProducts(string query)
+        {
+            var viewModel = new ProductsListViewModel()
+            {
+                Heading = "Maslshop - " + query.ToUpper().Substring(0,1) + query.ToLower().Substring(1) + " Coins",
+                Categories = _unitOfWork.Product.GetCategories(),
+                Products = _unitOfWork.Product.GetSearchedProducts(query),
+                Files = _unitOfWork.File.GetPhotos(),
+                SearchTerm = query
+            };
+
+            if (!viewModel.Products.Any())
+            {
+                return View("NoResultsFound", viewModel);
+            }
+
+            return View("ViewProducts", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SearchProducts(ProductsViewModel viewModel)
+        {
+            return RedirectToAction("ViewProducts", new { query = viewModel.SearchTerm });
         }
 
         public ActionResult DeletePhoto(int photoId)

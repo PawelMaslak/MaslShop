@@ -37,6 +37,7 @@ namespace Maslshop.Controllers.Core
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(RoleFormViewModel viewModel)
         {
             if (ModelState.IsValid)

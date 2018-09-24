@@ -224,6 +224,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\Core\InfoController.cs" />
     <Compile Include="Controllers\Core\RolesController.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -454,6 +455,7 @@
     <Compile Include="Models\ViewModels\FactorViewModel.cs" />
     <Compile Include="Models\ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\ForgotViewModel.cs" />
+    <Compile Include="Models\ViewModels\Info\AboutViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageLoginsViewModel.cs" />
     <Compile Include="Models\ViewModels\IndexViewModel.cs" />
@@ -508,6 +510,7 @@
     <Content Include="Content\Images\10-oz-silver-credi-suisse-platinum-bar-160999.jpg" />
     <Content Include="Content\Images\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
     <Content Include="Content\Images\9b7d5547026159f99d09592b17502c1b.jpg" />
+    <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\eagle2-kopia.jpg" />
     <Content Include="Content\Images\eagle2.jpg" />
     <Content Include="Content\Images\eagle3.jpg" />
@@ -571,7 +574,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -632,6 +634,16 @@
     <Content Include="Views\Emails\AccountConfirmationEmail.cshtml" />
     <Content Include="Views\Shared\_MobileHeaderPartial.cshtml" />
     <Content Include="Views\Shared\_NavPartial.cshtml" />
+    <Content Include="Views\Shared\_MobileLogIn.cshtml" />
+    <Content Include="Views\Shared\_RegisterPartial.cshtml" />
+    <Content Include="Views\Shared\_SideMenuPartial.cshtml" />
+    <Content Include="Views\ShoppingCart\Empty Basket.cshtml" />
+    <Content Include="Views\Category\CategoriesList.cshtml" />
+    <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
+    <Content Include="Views\Product\NoResultsFound.cshtml" />
+    <Content Include="Views\Info\About.cshtml" />
+    <Content Include="Views\Info\Faq.cshtml" />
+    <Content Include="Views\Product\ViewProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

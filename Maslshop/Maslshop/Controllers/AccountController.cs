@@ -112,7 +112,7 @@ namespace Maslshop.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Niepoprawna próba logowania");
+                    ModelState.AddModelError("", "Incorrect login or password");
                     return View(model);
             }
 
@@ -245,9 +245,14 @@ namespace Maslshop.Controllers
         {
             var viewModel = new RegisterViewModel
             {
-                Heading = "Register new user",
+                Heading = "Register New User",
                 Roles = GetRoles()
             };
+
+            if (User.IsInRole("Administrator"))
+            {
+                viewModel.Heading = "Create New User";
+            }
 
             return View("Register", viewModel);
         }
@@ -580,7 +585,7 @@ namespace Maslshop.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //

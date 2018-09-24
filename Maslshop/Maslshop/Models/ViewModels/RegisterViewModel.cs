@@ -1,47 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Maslshop.Models.ViewModels
 {
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Enter valid email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         public string Heading { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Hasło {0} musi miec co najmniej {2} znaków.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Password {0} has to consist at least of {2} letters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Hasło")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Potwierdź hasło")]
-        [Compare("Password", ErrorMessage = "Hasła muszą być takie same!")]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Imię")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Nazwisko")]
+        [Display(Name = "Surname")]
         public string Surname { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Adres")]
+        [Display(Name = "Address")]
         public string Address { get; set; }
 
         [Required]
-        [StringLength(6)]
-        [Display(Name = "Kod Pocztowy")]
+        [StringLength(6, ErrorMessage = "Enter valid post code - maximum 6 letters")]
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Post Code")]
         public string PostCode { get; set; }
 
         [Required]

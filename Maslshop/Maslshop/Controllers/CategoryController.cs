@@ -1,10 +1,11 @@
 ﻿using Maslshop.Models.ViewModels;
 using Maslshop.Persistence;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Maslshop.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -19,11 +20,23 @@ namespace Maslshop.Controllers
         {
             var viewModel = new CategoriesViewModel()
             {
-                Heading = "Lista kategorii",
+                Heading = "Maslshop - Categories List",
                 Categories = _unitOfWork.Category.GetCategoriesList()
             };
 
             return View(viewModel);
+        }
+
+        public ActionResult CategoriesList()
+        {
+            var categoriesWithProducts = _unitOfWork.Category.GetCategoriesList().Where(i => i.Products.Count > 0);
+
+            var viewModel = new CategoriesViewModel()
+            {
+                Categories = categoriesWithProducts
+            };
+
+            return PartialView(viewModel);
         }
 
         public ActionResult Delete(int categoryId)
@@ -39,7 +52,7 @@ namespace Maslshop.Controllers
         {
             var viewModel = new CategoryFormViewModel()
             {
-                Heading = "Utwórz kategorię"
+                Heading = "Create New Category"
             };
 
             return View(viewModel);
@@ -66,7 +79,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new CategoryFormViewModel()
             {
-                Heading = "Edytuj kategorię",
+                Heading = "Edit Category",
                 Id = categoryId,
                 Name = _unitOfWork.Category.GetCategoryById(categoryId).Name
             };

@@ -1,0 +1,13 @@
+﻿@model Maslshop.Models.ViewModels.ProductsListViewModel
+
+@{
+    ViewBag.Title = "Maslshop - Search Results";
+}
+
+<h2>No results have been found. Please try again or <span style="color: gold" onclick="goBack()">press to go back</span></h2>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

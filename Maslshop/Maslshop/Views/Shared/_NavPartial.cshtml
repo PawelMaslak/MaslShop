@@ -3,9 +3,6 @@
 
 
 <div class="row hidden-xs">
-
-
-
     <div class="col-sm-12">
         <nav>
             <div id="menu">
@@ -14,10 +11,13 @@
                         <a href="/">Buy</a>
                     </li>
                     <li class="hidden-md hidden-sm">
-                        <a href="/">About Us</a>
+                        <a href="@Url.Action("About", "Info")">About Us</a>
+                    </li>
+                    <li class="hidden-md hidden-sm">
+                        <a href="@Url.Action("About", "Info")">News</a>
                     </li>
                     <li class="blue-wide">
-                        @if (Session[HttpContext.Current.User.Identity.Name] != null)
+                        @if ((List<CartItem>)Session[HttpContext.Current.User.Identity.Name] != null)
                         {
                             List<CartItem> cart = (List<CartItem>)Session[HttpContext.Current.User.Identity.Name];
 
@@ -30,6 +30,7 @@
                             <a href="@Url.Action("Index", "ShoppingCart")">Basket (0)</a>
                         }
                     </li>
+
                 </ul>
             </div>
             <div id="nav-footer" class="grey-background">
@@ -37,6 +38,10 @@
                     <div class="home glyphicon glyphicon-home box-icon"></div>
                     <div class="box">Home</div>
                 </a>
+                @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                {
+                    <div class="box" id="ReturnAction" onclick="goBack()">-> Return</div>
+                }
 
                 <span id="span" class="pull-right">
                     @if (User.Identity.IsAuthenticated)
@@ -55,11 +60,13 @@
                         </text>
                     }
                 </span>
-
             </div>
-
-
-
         </nav>
     </div>
 </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

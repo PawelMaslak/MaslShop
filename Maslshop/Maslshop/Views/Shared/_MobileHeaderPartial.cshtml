@@ -1,4 +1,5 @@
-﻿<div class="container">
+﻿@using Maslshop.Models.ViewModels
+<div class="container">
     <div class="row">
         <div class="col-xs-12 text-xs-center">
             <a href="/">
@@ -14,37 +15,72 @@
         </div>
     </div>
 </div>
+
 <div class="mobile-menu-holder">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="mobile-menu">
-                    <div class="mobile-menu-button">
-                        <label for="toggle_menu"><img src="~/Content/Images/menu.png" /> Menu</label>
-                        <input type="checkbox" id="toggle_menu" />
-                        <div class="menu">
-                            <a href="#"><span>Buy</span></a>
-                            <a href="#">Sell</a>
-                            <a href="#">Login</a>
+                    <div class="mobile-menu-button" id="first-panel">
+                        <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse" onclick="myFunction()"
+                               data-target="#bs-example-navbar-collapse-1" id="first-panel-span"><img src="/Content/Images/menu.png" />Menu</label>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav" id="nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu-trigger">Buy Bullion</a>
+                                    <ul class="dropdown-menu" id="menu">
+                                        <li class="nav-link">
+                                            <a href="@Url.Action("Index", "Home", new {query = "Gold"})">Gold Coins</a>
+                                        </li>
+                                        <li class="nav-link">
+                                            <a href="@Url.Action("Index", "Home", new {query = "Silver"})">Silver Coins</a>
+                                        </li>
+                                        <li class="nav-link">
+                                            <a href="@Url.Action("Index", "Home", new {query = "Platinum"})">Platinum Coins</a>
+                                        </li>
+                                        <li class="nav-link">
+                                            <a href="@Url.Action("Index", "Home", new {query = "Copper"})">Copper Coins</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-link"><a href="@Url.Action("About", "Info")">About us</a></li>
+                                <li class="nav-link"><a href="#">FAQ</a></li>
+                                @if (Session[HttpContext.Current.User.Identity.Name] != null)
+                                {
+                                    <li class="nav-link"><a href="@Url.Action("Index", "ShoppingCart")"><strong>My Basket</strong></a></li>
+                                }
+                            </ul>
                         </div>
+
                     </div>
                     <div class="mobile-menu-button">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <label for="toggle_login"><img src="~/Content/Images/login.png"/> Account</label>
-                            <input type="checkbox" id="toggle_login"/>
-                            <div class="menu">
-                                <a href="#">My Orders</a>
-                                <a href="#">Manage</a>
-                                <a href="#">Log Out</a>
+                            <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse"
+                                   data-target="#bs-example-navbar-collapse-2"><img src="~/Content/Images/login.png" /><span>Account</span></label>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                <div class="row">
+                                    <a href="@Url.Action("Index", "Manage")" class="btn btn-primary pull-left" id="create_account">My Account</a>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger pull-right" id="create_account">Log Out</a>
+                                    }
+                                </div>
                             </div>
                         }
                         else
                         {
-                            <a href="@Url.Action("Login", "Account")">
-                                <img src="~/Content/Images/login.png" />
-                                <span>Login</span>
-                            </a>
+                            <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse"
+                                   data-target="#bs-example-navbar-collapse-2">
+                                <img src="~/Content/Images/login.png" /><span>Login</span>
+                            </label>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                @Html.Partial("_MobileLogin", new ViewDataDictionary())
+                            </div>
                         }
 
                     </div>
@@ -54,17 +90,3 @@
     </div>
 </div>
 
-@*<div class="mobile-panels-holder">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="mobile-menu-item" style="display: block">
-                        <div class="row">
-                            <div class="col-xs-12">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@

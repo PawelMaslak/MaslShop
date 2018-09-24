@@ -1,22 +1,14 @@
 ﻿@model Maslshop.Models.ViewModels.UserListViewModel
 
 @{
-    ViewBag.Title = "Maslshop - Panel Administracyjny";
+    ViewBag.Title = "Maslshop - Users List";
 }
-
-@if (User.IsInRole("Administrator"))
-{
-    <h2>Panel Administracyjny</h2>
-    using (Html.BeginForm("SearchUser", "Admin"))
+    <h2>Users List</h2>
+    @using (Html.BeginForm("SearchUser", "Admin"))
     {
-        if (Model.SearchTerm != null)
-        {
-            @Html.ActionLink("<<Powrót", "Index")
-        }
-
         <div class="form-group">
             <div class="input-group" style="width: 300px">
-                @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder = "Wyszukaj według imienia etc..."})
+                @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder = "Search by name etc..."})
                 <span class="input-group-addon">
                     <i class="glyphicon glyphicon-search"></i>
                 </span>
@@ -24,17 +16,17 @@
         </div>
     }
 
-        <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary" role="button">Dodaj Użytkownika</a></p>
+        <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary" role="button">Add User</a></p>
 
         <table id="table" class="table table-striped table-bordered text-center">
             <thead>
             <tr class="active text-info">
-                <th>Imię i Nazwisko</th>
-                <th>Adres</th>
+                <th>Name & Surname</th>
+                <th>Address</th>
                 <th>Email</th>
-                <th>Data Rejestracji</th>
-                <th>Rola</th>
-                <th>Edycja użytkownika</th>            
+                <th>Registration Date</th>
+                <th>Role</th>
+                <th>Edit User</th>            
             </tr>
             </thead>
             <tbody class="text-center">
@@ -51,8 +43,3 @@
             }
             </tbody>
         </table>
-}
-else
-{
-    Response.Redirect("~/Home");
-}

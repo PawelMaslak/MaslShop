@@ -11,10 +11,10 @@ namespace Maslshop.Models.ViewModels
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Hasło")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Zapamiętać?")]
+        [Display(Name = "Remember password")]
         public bool RememberMe { get; set; }
     }
 }

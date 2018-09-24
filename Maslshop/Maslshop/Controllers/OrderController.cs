@@ -322,7 +322,7 @@ namespace Maslshop.Controllers
 
                 return View(viewModel);
             }
-            
+
         }
 
         [HttpPost]

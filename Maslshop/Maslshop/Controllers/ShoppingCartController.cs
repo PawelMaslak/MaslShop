@@ -84,7 +84,7 @@ namespace Maslshop.Controllers
             {
                 Session.RemoveAll();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "ShoppingCart");
             }
 
             return RedirectToAction("Index");
@@ -93,7 +93,7 @@ namespace Maslshop.Controllers
         public ActionResult ClearCart()
         {
             Session.RemoveAll();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         private int IsExist(int id)
@@ -120,7 +120,13 @@ namespace Maslshop.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var basket = (List<CartItem>)Session[System.Web.HttpContext.Current.User.Identity.Name];
+
+            if (basket != null)
+            {
+                return View();
+            }
+                return View("Empty Basket");
         }
     }
 }
