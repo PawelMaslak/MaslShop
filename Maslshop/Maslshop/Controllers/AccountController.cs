@@ -170,7 +170,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new UserDTO
             {
-                Heading = "Edytuj użytkownika",
+                Heading = "Edit User's Details",
                 Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Maslshop.Models.Core;
+using Maslshop.Models.ViewModels.Category;
 
 namespace Maslshop.Repositories
 {

@@ -1,62 +1,71 @@
 ﻿@model Maslshop.Models.DTOs.UserDTO
-
-@if (User.IsInRole("Administrator"))
-{
-
-    ViewBag.Title = Model.Heading;
-
-
-    <h2>@ViewBag.Title</h2>
-}
-else
-{
-    <h2>Edytuj dane</h2>
-}
-
-<p class="alert alert-info">Wszystkie pola są <strong>wymagane</strong>.</p>
-
-@using (Html.BeginForm("Edit", "Account"))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => Model.Id)
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, "Imię")
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
-        @Html.ValidationMessageFor(m => m.Name)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Surname, "Nazwisko")
-        @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = @Model.Surname })
-        @Html.ValidationMessageFor(m => m.Surname)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Address, "Adres")
-        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = @Model.Address })
-        @Html.ValidationMessageFor(m => m.Address)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.City, "Miasto")
-        @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = @Model.City })
-        @Html.ValidationMessageFor(m => m.City)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PostCode, "Kod Pocztowy")
-        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", placeholder = @Model.PostCode })
-        @Html.ValidationMessageFor(m => m.PostCode)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, "Email")
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.Email })
-        @Html.ValidationMessageFor(m => m.Email)
-    </div>
-    if (User.IsInRole("Administrator"))
+<div id="view-account">
+    @if (User.IsInRole("Administrator"))
     {
-        <div class="form-group">
-            @Html.LabelFor(m => m.Role_Name, "Rola")
-            @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), @Model.Role_Name, new { @class = "form-control" })
-        </div>
-    }
-    <button type="submit" class="btn btn-primary">Save</button>
 
-}
+        ViewBag.Title = Model.Heading;
+
+
+        <h1>@ViewBag.Title</h1>
+    }
+    else
+    {
+        ViewBag.Title = "My Account - Edit Your Details";
+
+
+        <h1>My Account</h1>
+        <hr/>
+        <h2>Edit your details</h2>
+    }
+    <hr />
+    <p class="alert alert-info">
+        All fields are <strong>mandatory</strong>.
+    </p>
+
+    @using (Html.BeginForm("Edit", "Account"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => Model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Surname)
+            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control", placeholder = @Model.Surname })
+            @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color: red" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address)
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = @Model.Address })
+            @Html.ValidationMessageFor(m => m.Address, "", new { @style = "color: red" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = @Model.City })
+            @Html.ValidationMessageFor(m => m.City, "", new { @style = "color: red" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PostCode)
+            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", placeholder = @Model.PostCode })
+            @Html.ValidationMessageFor(m => m.PostCode, "", new { @style = "color: red" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.Email })
+            @Html.ValidationMessageFor(m => m.Email, "", new {@style = "color: red"})
+        </div>
+        if (User.IsInRole("Administrator"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Role_Name)
+                @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), @Model.Role_Name, new { @class = "form-control" })
+            </div>
+        }
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+
+    }
+</div>
+

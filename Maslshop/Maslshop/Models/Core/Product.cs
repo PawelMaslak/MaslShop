@@ -32,8 +32,6 @@ namespace Maslshop.Models.Core
 
         public virtual List<File> Files { get; set; }
 
-        //Added 2018-03-29
-
         [Required]
         public int Year { get; set; }
 
@@ -42,13 +40,5 @@ namespace Maslshop.Models.Core
 
         [Required]
         public string Manufacturer { get; set; }
-
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (Files == null)
-        //    {
-        //        yield return new ValidationResult("Dodaj chociaż jedno zdjęcie!");
-        //    }
-        //}
     }
 }

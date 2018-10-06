@@ -96,27 +96,27 @@ namespace Maslshop.Controllers
                 switch (order.OrderStatusId)
                 {
                     case 1: // Order created
-                        confrimationEmail.Subject = "Maslshop - Potwierdzenie zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Confirmation - Order no " + order.OrderId;
                         string body = CreateBody(order);
                         confrimationEmail.Body = body;
                         break;
                     case 2: // Payment received
-                        confrimationEmail.Subject = "Maslshop - Otrzymanie płatności zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Receipt of the payment - Order no " + order.OrderId;
                         string body1 = CreateBody(order);
                         confrimationEmail.Body = body1;
                         break;
                     case 3: // Order shipped
-                        confrimationEmail.Subject = "Maslshop - Wysyłka zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Goods dispatched - Order no " + order.OrderId;
                         string body2 = CreateBody(order);
                         confrimationEmail.Body = body2;
                         break;
                     case 4: // Order delivered
-                        confrimationEmail.Subject = "Maslshop - Doręczenie zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Goods delivered - Order no " + order.OrderId;
                         string body3 = CreateBody(order);
                         confrimationEmail.Body = body3;
                         break;
                     case 5: // Order cancelled 
-                        confrimationEmail.Subject = "Maslshop - Potwierdzenie anulowania zamówienia nr " + order.OrderId;
+                        confrimationEmail.Subject = "Maslshop - Cancellation - Order no " + order.OrderId;
                         string body4 = CreateBody(order);
                         confrimationEmail.Body = body4;
                         break;
@@ -222,22 +222,6 @@ namespace Maslshop.Controllers
             return body;
         }
 
-        [Authorize]
-        public ActionResult UserOrders()
-        {
-            var viewModel = new OrdersListViewModel()
-            {
-                Heading = "Twoje zamówienia",
-                Orders = _unitOfWork.Orders.GetUserOrders(HttpContext.User.Identity.GetUserId()),
-                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
-                Payments = _unitOfWork.Payments.GetPaymentTypes(),
-                OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
-                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
-            };
-
-            return View(viewModel);
-        }
-
         public ActionResult ViewOrder(int orderId)
         {
             var order = _unitOfWork.Orders.GetOrderById(orderId);
@@ -250,7 +234,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new OrderViewModel()
             {
-                Heading = "Zestawienie zamówienia",
+                Heading = "My Account - Order no " + order.OrderId + " details",
                 OrderId = order.OrderId,
                 OrderStatusName = status.Status,
                 OrderStatusId = status.Id,
@@ -273,6 +257,11 @@ namespace Maslshop.Controllers
                 OrderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId)
             };
 
+            if (User.IsInRole("Administrator"))
+            {
+                viewModel.Heading = "Order's details";
+            }
+ 
             return View(viewModel);
         }
 
@@ -284,7 +273,7 @@ namespace Maslshop.Controllers
 
             _unitOfWork.Complete();
 
-            return RedirectToAction("UserOrders");
+            return RedirectToAction("UserOrders", "Manage");
         }
 
         [Authorize(Roles = "Administrator")]

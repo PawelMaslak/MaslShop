@@ -435,6 +435,14 @@
     <Compile Include="Migrations\201808071845070_AddGetUserOrdersListSP.Designer.cs">
       <DependentUpon>201808071845070_AddGetUserOrdersListSP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809251956187_AddingNewsAndImages.cs" />
+    <Compile Include="Migrations\201809251956187_AddingNewsAndImages.Designer.cs">
+      <DependentUpon>201809251956187_AddingNewsAndImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810021025353_RemoveNewsSections.cs" />
+    <Compile Include="Migrations\201810021025353_RemoveNewsSections.Designer.cs">
+      <DependentUpon>201810021025353_RemoveNewsSections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -474,12 +482,12 @@
     <Compile Include="Models\ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\VerifyCodeViewModel.cs" />
     <Compile Include="Models\ViewModels\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="Models\ViewModels\CategoriesViewModel.cs" />
-    <Compile Include="Models\ViewModels\CategoryFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Category\CategoriesViewModel.cs" />
+    <Compile Include="Models\ViewModels\Category\CategoryFormViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductFormViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductsViewModel.cs" />
-    <Compile Include="Models\ViewModels\RoleFormViewModel.cs" />
-    <Compile Include="Models\ViewModels\RolesListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Roles\RoleFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Roles\RolesListViewModel.cs" />
     <Compile Include="Models\ViewModels\UserListViewModel.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
@@ -624,11 +632,10 @@
     <Content Include="Views\Emails\OrderSentEmailConfirmation.cshtml" />
     <Content Include="Views\Emails\OrderDeliveredConfirmationEmail.cshtml" />
     <Content Include="Views\Emails\OrderCancelledConfirmationEmail.cshtml" />
-    <Content Include="Views\Order\UserOrders.cshtml" />
+    <Content Include="Views\Manage\UserOrders.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
-    <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Emails\PasswordResetEmail.cshtml" />
     <Content Include="Views\Emails\AccountConfirmationEmail.cshtml" />
@@ -644,6 +651,7 @@
     <Content Include="Views\Info\About.cshtml" />
     <Content Include="Views\Info\Faq.cshtml" />
     <Content Include="Views\Product\ViewProducts.cshtml" />
+    <Content Include="Views\Shared\_ManageAccountSideMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -803,6 +811,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808071845070_AddGetUserOrdersListSP.resx">
       <DependentUpon>201808071845070_AddGetUserOrdersListSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809251956187_AddingNewsAndImages.resx">
+      <DependentUpon>201809251956187_AddingNewsAndImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810021025353_RemoveNewsSections.resx">
+      <DependentUpon>201810021025353_RemoveNewsSections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

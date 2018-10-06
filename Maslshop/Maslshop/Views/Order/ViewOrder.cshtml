@@ -5,34 +5,38 @@
     ViewBag.Title = @Model.Heading;
 }
 
-<h2>Zamówienie nr: @Model.OrderId - Status: @Model.OrderStatusName</h2>
+<div id="view-account">
+    <h1>Order no: @Model.OrderId - Status: @Model.OrderStatusName</h1>
+    <hr/>
+    @switch (Model.OrderStatusId)
+    {
+        case 1:
+        case 2:
+            <h2>You can cancel order if it has not been dispatched yet.</h2>
+            break;
+        case 3:
+            <h2>Goods dispatched.</h2>
+            break;
+        case 4:
+            <h2>Order delivered.</h2>
+            break;
+        case 5:
+            <h2>Order cancelled.</h2>
+            break;
+    }
+    <hr/>
+</div>
 
-@switch (Model.OrderStatusId)
-{
-    case 1:
-    case 2:
-        <h4>Możesz anulować zamówienie jeśli nie zostało jeszcze wysłane.</h4>
-        break;
-    case 3:
-        <h4>Zamówienie zostało wysłane</h4>
-        break;
-    case 4:
-        <h4>Zamówienie zostało doręczone</h4>
-        break;
-    case 5:
-        <h4>Zamówienie zostało anulowane.</h4>
-        break;
-}
 
 
 <div id="ProductsList">
     <table id="table" class="table table-striped table-bordered text-center">
         <thead>
             <tr class="active text-info">
-                <th>Produkt</th>
-                <th>Cena jednostkowa</th>
-                <th>Ilość</th>
-                <th>Cena łączna</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -50,8 +54,8 @@
         </tbody>
         <thead>
             <tr class="active text-info">
-                <th>Typ przesyłki</th>
-                <th>Cena przesyłki</th>
+                <th>Delivery type</th>
+                <th>Delivery price</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -63,7 +67,7 @@
         </tbody>
         <thead>
             <tr class="active text-info">
-                <th>Cena całkowita</th>
+                <th>Order total</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -80,7 +84,7 @@
             <table id="table" class="table table-striped table-bordered text-center">
                 <thead>
                     <tr class="active text-info">
-                        <th>Adres korespondencyjny</th>
+                        <th>Billing Address</th>
                     </tr>
                     <tr>
                         <th>@Model.BillingName @Model.BillingSurname</th>
@@ -103,7 +107,7 @@
             <table id="table" class="table table-striped table-bordered text-center">
                 <thead>
                     <tr class="active text-info">
-                        <th>Adres dostawy</th>
+                        <th>Delivery Address</th>
                     </tr>
                     <tr>
                         <th>@Model.Name @Model.Surname</th>
@@ -127,7 +131,7 @@
 {
     case 1:
     case 2:
-        <a href="@Url.Action("CancelOrder", "Order", new {orderId = Model.OrderId})" class="btn btn-primary" role="button">Anuluj zamówienie</a>
+        <a href="@Url.Action("CancelOrder", "Order", new {orderId = Model.OrderId})" class="btn btn-primary" role="button">Cancel Order</a>
         break;
 }
 

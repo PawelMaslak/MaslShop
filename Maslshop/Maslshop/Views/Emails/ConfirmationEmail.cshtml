@@ -6,26 +6,26 @@
 </head>
 <body>
 
-    <p>Witaj {userName}!</p>
+    <p>Dear {userName}!</p>
     <p>
-        Dziękujemy za złożenie zamówienia. Poinformujemy Cię o zmianie statusu wkrótce.
+        Thank you for placing the order. We will inform you once status change.
         <br />
-        Dane zamówienia znajdziesz poniżej:
+        Please find order's details below:
     </p>
     <p>
-        Numer zamówienia: {orderId}
+        Order Id: {orderId}
         <br />
-        Aktualny status zamówienia: {orderStatus}
+        Status: {orderStatus}
     </p>
     <p>
-        Adres do wysyłki: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
+        Delivery Address: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
     </p>
-    <p>Zamówione przedmioty:</p>
+    <p>Ordered goods:</p>
     <table>
         <tr>
-            <th>Nazwa</th>
-            <th>Ilość</th>
-            <th>Cena</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
         </tr>
         <tr>
             <td>{pName}</td>
@@ -34,15 +34,15 @@
         </tr>
     </table>
     <br />
-    Typ wysyłki: {pDeliveryType}
+    Delivery type: {pDeliveryType}
     <br />
-    Cena wysyłki: {pDeliveryPrice}
+    Delivery price: {pDeliveryPrice}
     <br />
-    Cena całkowita: {pTotal}
+    Total: {pTotal}
     <br />
-    Rodzaj płatności: {pPaymentType}
+    Payment type: {pPaymentType}
     <br />
-    <p>Poinformujemy Cię o zmianie statusu zamówienia</p>
-    <p>Zespół Maslshop</p>
+<p>We will inform you when status will change.</p>
+<p>Team Maslshop</p>
 </body>
 </html>

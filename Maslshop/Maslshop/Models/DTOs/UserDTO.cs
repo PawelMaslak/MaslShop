@@ -15,6 +15,7 @@ namespace Maslshop.Models.DTOs
         [Required]
         public string Surname { get; set; }
 
+        [Display(Name = "User's Role")]
         public string Role_Name { get; set; }
 
         [Required]
@@ -25,9 +26,11 @@ namespace Maslshop.Models.DTOs
 
         [Required]
         [StringLength(6)]
+        [Display(Name = "Postcode")]
         public string PostCode { get; set; }
 
         [Required]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         public string Heading { get; set; }

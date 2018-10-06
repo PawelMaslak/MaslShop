@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -27,6 +28,24 @@ namespace Maslshop.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+        [Authorize]
+        public ActionResult UserOrders()
+        {
+            var viewModel = new OrdersListViewModel()
+            {
+                Heading = "Your Orders",
+                Orders = _unitOfWork.Orders.GetUserOrders(HttpContext.User.Identity.GetUserId()),
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
+                Payments = _unitOfWork.Payments.GetPaymentTypes(),
+                OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
+            };
+
+            return View(viewModel);
+        }
+
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -67,6 +86,8 @@ namespace Maslshop.Controllers
 
             var userId = User.Identity.GetUserId();
 
+            var userOrders = _unitOfWork.Orders.GetUserOrders(userId);
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -75,7 +96,8 @@ namespace Maslshop.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 Id = userId,
-                User = _unitOfWork.Admin.GetUsersWithoutAdmin()
+                User = _unitOfWork.Admin.GetUserById(userId),
+                UserOrders = userOrders
             };
             return View(model);
         }

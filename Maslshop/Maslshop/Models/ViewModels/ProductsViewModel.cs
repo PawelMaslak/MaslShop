@@ -12,7 +12,7 @@ namespace Maslshop.Models.ViewModels
 
         public string Heading { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Core.Category> Categories { get; set; }
 
         public List<File> Files { get; set; }
 

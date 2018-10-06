@@ -1,15 +1,14 @@
 ﻿<div class="small-box left-nav-categories hidden-xs">
     <div class="inner-box title">
-        <a href="/">Buy Bullion</a>
+        <a href="@Url.Action("Index", "Manage")">My Account</a>
     </div>
     <div class="inner-box">
         <ul class="list">
             <li class="menu-special-offers">
-                <a href="/" title="Recently Added">Recently Added</a>
+                <a href="@Url.Action("Index", "Manage")" title="Personal Information">Personal Information</a>
             </li>
-            @Html.Action("CategoriesList", "Category")
             <li>
-                <a href="@Url.Action("About", "Info")" title="About Us">About Us</a>
+                <a href="@Url.Action("UserOrders", "Manage")" title="My Orders">My Orders</a>
             </li>
             @if (User.IsInRole("Administrator"))
             {
@@ -17,7 +16,6 @@
                     <a href="#" title="Recently Added">Admin Panel</a>
                     <ul>
                         <li><a href="@Url.Action("Index", "Admin")">Users List</a></li>
-                        <li><a href="@Url.Action("Index", "Roles")">Roles</a></li>
                         <li><a href="@Url.Action("Index", "Category")">Categories</a></li>
                         <li><a href="@Url.Action("Index", "Product")">Products</a></li>
                     </ul>
@@ -26,10 +24,3 @@
         </ul>
     </div>
 </div>
-
-
-<script>
-    $('.list > li a').click(function () {
-        $(this).parent().find('ul').toggle();
-    });
-</script>

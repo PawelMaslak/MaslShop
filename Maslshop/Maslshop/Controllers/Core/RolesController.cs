@@ -1,4 +1,4 @@
-﻿using Maslshop.Models.ViewModels;
+﻿using Maslshop.Models.ViewModels.Roles;
 using Maslshop.Persistence;
 using System.Web.Mvc;
 
@@ -19,7 +19,7 @@ namespace Maslshop.Controllers.Core
            var viewModel = new RolesListViewModel()
             {
                 Roles = _unitOfWork.Roles.GetRolesList(),
-                Heading = "Lista ról"
+                Heading = "Maslshop - Roles List"
             };
 
             return View(viewModel);
@@ -29,12 +29,11 @@ namespace Maslshop.Controllers.Core
         {
             var viewModel = new RoleFormViewModel()
             {
-                Heading = "Utwórz nową rolę"
+                Heading = "Maslshop - Create New Role"
             };
 
             return View(viewModel);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,7 +66,7 @@ namespace Maslshop.Controllers.Core
 
             var viewModel = new RoleFormViewModel
             {
-                Heading = "Edytuj rolę",
+                Heading = "Maslshop - Edit Role",
                 RoleId = roleId,
                 RoleName = _unitOfWork.Roles.GetRole(roleId).Name
             };
@@ -90,8 +89,5 @@ namespace Maslshop.Controllers.Core
 
             return View(viewModel);
         }
-
-
-
     }
 }

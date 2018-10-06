@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Roles
 {
     public class RolesListViewModel
     {

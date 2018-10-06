@@ -62,7 +62,7 @@
 
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                                 <div class="row">
-                                    <a href="@Url.Action("Index", "Manage")" class="btn btn-primary pull-left" id="create_account">My Account</a>
+                                    <a href="@Url.Action("Index", "Manage")" class="btn btn-primary pull-left" id="create_account">Account</a>
                                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                     {
                                         @Html.AntiForgeryToken()

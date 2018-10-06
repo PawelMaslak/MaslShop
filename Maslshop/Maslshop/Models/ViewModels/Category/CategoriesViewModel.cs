@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Maslshop.Models.Core;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Category
 {
     public class CategoriesViewModel
     {
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Core.Category> Categories { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
 

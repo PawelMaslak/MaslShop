@@ -6,18 +6,19 @@ namespace Maslshop.Models.ViewModels
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Hasło")]
+        [Display(Name = "Current Password")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} must have at least {2} characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Nowe Hasło")]
+        [Display(Name = "New Password")]
         public string NewPassword { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Potwierdź nowe hasło")]
-        [Compare("NewPassword", ErrorMessage = "Hasła nie są takie same!")]
+        [Display(Name = "Confirm New Password")]
+        [Compare("NewPassword", ErrorMessage = "Passwords are not the same!")]
         public string ConfirmPassword { get; set; }
     }
 }

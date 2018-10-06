@@ -11,7 +11,7 @@ namespace Maslshop.Models.ViewModels
 
         public string Heading { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Core.Category> Categories { get; set; }
 
         public IEnumerable<File> Files { get; set; }
     }

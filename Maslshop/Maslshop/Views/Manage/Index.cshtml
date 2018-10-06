@@ -2,51 +2,55 @@
 @model Maslshop.Models.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "My Account";
+
+
 }
 
-<h2>@ViewBag.Title</h2>
+<div id="view-account">
+    <h1>@ViewBag.Title</h1>
+    <hr />
+    <h2>Personal Information</h2>
+    <hr />
 
-<div class="row">
-    <div class="col-sm-2">
-        <ul class="list-group">
-            <li class="list-group-item">Kategorie</li>
-        </ul>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <td>
+                    @Model.User.Name @Model.User.Surname
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Address
+                </th>
+                <td>
+                    @Model.User.Address
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    City
+                </th>
+                <td>
+                    @Model.User.City
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Postcode
+                </th>
+                <td>
+                    @Model.User.PostCode
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="personal-information">
+        <a href="@Url.Action("ChangePassword")" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> Change Password</a>
+        <a href="@Url.Action("Edit", "Account", new {userId = Model.Id})" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Edit Your Data</a>
     </div>
 </div>
-
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Hasło:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Zmień Hasło", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Utwórz Hasło", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Twoje dane:</dt>
-        <dd>
-            <a href="@Url.Action("Edit", "Account", new {userId = Model.Id})">[ Edytuj dane ]</a>
-        </dd>
-    </dl>
-    @if (!User.IsInRole("Administrator"))
-    {
-        var currentUser = Model.User.SingleOrDefault(i => i.Id == HttpContext.Current.User.Identity.GetUserId());
-
-        <p>Twoje dane adresowe</p>
-        <p>Imię: @currentUser.Name</p>
-        <p>Nazwisko: @currentUser.Surname</p>
-        <p>Adres: @currentUser.Address, @currentUser.PostCode @currentUser.City</p>
-        <p>Email: @currentUser.Email</p>
-        <p>
-            <a href="@Url.Action("Edit", "Account", new { userId = Model.Id})">Edytuj dane</a>
-        </p>
-    }
-</div>

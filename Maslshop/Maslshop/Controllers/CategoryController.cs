@@ -1,4 +1,4 @@
-﻿using Maslshop.Models.ViewModels;
+﻿using Maslshop.Models.ViewModels.Category;
 using Maslshop.Persistence;
 using System.Linq;
 using System.Web.Mvc;
@@ -52,7 +52,7 @@ namespace Maslshop.Controllers
         {
             var viewModel = new CategoryFormViewModel()
             {
-                Heading = "Create New Category"
+                Heading = "Maslshop - Create New Category"
             };
 
             return View(viewModel);
@@ -79,7 +79,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new CategoryFormViewModel()
             {
-                Heading = "Edit Category",
+                Heading = "Maslshop - Edit Category",
                 Id = categoryId,
                 Name = _unitOfWork.Category.GetCategoryById(categoryId).Name
             };

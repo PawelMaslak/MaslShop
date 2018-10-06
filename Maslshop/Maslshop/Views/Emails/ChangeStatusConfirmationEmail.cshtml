@@ -6,42 +6,43 @@
 </head>
 <body>
 
-<p>Witaj {userName}!</p>
-<p>
-    Nastąpiła zmiana statusu Twojego zamówienia.
+    <p>Dear {userName}!</p>
+    <p>
+        Your order's status has been changed.
+        <br />
+        Please find order's details below:
+    </p>
+    <p>
+        Order's Id: {orderId}
+        <br />
+        Status: {orderStatus}
+    </p>
+    <p>
+        Delivery Address: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
+    </p>
+    <p>Ordered goods:</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>{pName}</td>
+            <td>{pQuantity}</td>
+            <td>{pSubtotal}</td>
+        </tr>
+    </table>
     <br />
-    Dane zamówienia znajdziesz poniżej:
-</p>
-<p>
-    Numer zamówienia: {orderId}
+    Delivery type: {pDeliveryType}
     <br />
-    Aktualny status zamówienia: {orderStatus}
-</p>
-<p>
-    Adres do wysyłki: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
-</p>
-<p>Zamówione przedmioty:</p>
-<table>
-    <tr>
-        <th>Nazwa</th>
-        <th>Ilość</th>
-        <th>Cena</th>
-    </tr>
-    <tr>
-        <td>{pName}</td>
-        <td>{pQuantity}</td>
-        <td>{pSubtotal}</td>
-    </tr>
-</table>
-<br />
-Typ wysyłki: {pDeliveryType}
-<br />
-Cena wysyłki: {pDeliveryPrice}
-<br />
-Cena całkowita: {pTotal}
-<br />
-Rodzaj płatności: {pPaymentType}
-<p>Poinformujemy Cię o dalszych zmianach.</p>
-<p>Zespół Maslshop</p>
+    Delivery price: {pDeliveryPrice}
+    <br />
+    Total: {pTotal}
+    <br />
+    Payment type: {pPaymentType}
+    <br />
+    <p>We will inform you when status will change.</p>
+    <p>Team Maslshop</p>
 </body>
 </html>

@@ -13,24 +13,31 @@
                     <li class="hidden-md hidden-sm">
                         <a href="@Url.Action("About", "Info")">About Us</a>
                     </li>
-                    <li class="hidden-md hidden-sm">
-                        <a href="@Url.Action("About", "Info")">News</a>
-                    </li>
-                    <li class="blue-wide">
-                        @if ((List<CartItem>)Session[HttpContext.Current.User.Identity.Name] != null)
+                    @if ((List<CartItem>) Session[HttpContext.Current.User.Identity.Name] != null)
+                    {
+                        var cart = (List<CartItem>) Session[HttpContext.Current.User.Identity.Name];
+
+                        var value = cart.Sum(i => i.Quantity);
+
+                        if (value > 0)
                         {
-                            List<CartItem> cart = (List<CartItem>)Session[HttpContext.Current.User.Identity.Name];
-
-                            var value = cart.Sum(i => i.Quantity);
-
-                            <a href="@Url.Action("Index", "ShoppingCart")">Basket (@value)</a>
+                            <li class="green-wide">
+                                <a href="@Url.Action("Index", "ShoppingCart")">Basket (@value)</a>
+                            </li>
                         }
                         else
                         {
-                            <a href="@Url.Action("Index", "ShoppingCart")">Basket (0)</a>
+                            <li class="blue-wide">
+                                <a href="@Url.Action("Index", "ShoppingCart")">Basket (0)</a>
+                            </li>
                         }
-                    </li>
-
+                    }
+                    else
+                    {
+                        <li class="blue-wide">
+                            <a href="@Url.Action("Index", "ShoppingCart")">Basket (0)</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <div id="nav-footer" class="grey-background">

@@ -100,35 +100,35 @@ namespace Maslshop
             {
                 var orderStatus = new OrderStatus()
                 {
-                    Status = "W trakcie przetwarzania"
+                    Status = "Pending"
                 };
 
                 _context.OrderStates.Add(orderStatus);
 
                 var orderStatus2 = new OrderStatus()
                 {
-                    Status = "Płatność otrzymana"
+                    Status = "Payment Received"
                 };
 
                 _context.OrderStates.Add(orderStatus2);
 
                 var orderStatus3 = new OrderStatus()
                 {
-                    Status = "Wysłano"
+                    Status = "Dispatched"
                 };
 
                 _context.OrderStates.Add(orderStatus3);
 
                 var orderStatus4 = new OrderStatus()
                 {
-                    Status = "Doręczono"
+                    Status = "Delivered"
                 };
 
                 _context.OrderStates.Add(orderStatus4);
 
                 var orderStatus5 = new OrderStatus()
                 {
-                    Status = "Anulowano"
+                    Status = "Cancelled"
                 };
 
                 _context.OrderStates.Add(orderStatus5);
@@ -147,14 +147,14 @@ namespace Maslshop
             {
                 var paymentType = new Payment()
                 {
-                    Name = "Płatność z góry"
+                    Name = "Pay On Order"
                 };
 
                 _context.Payments.Add(paymentType);
 
                 var paymentType2 = new Payment()
                 {
-                    Name = "Płatność przy odbiorze"
+                    Name = "Pay On Delivery"
                 };
 
                 _context.Payments.Add(paymentType2);

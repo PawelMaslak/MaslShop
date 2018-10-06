@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     background-image: url(/Content/Images/texture.png);
     font-size: 16px;
 }
@@ -117,11 +118,88 @@
             }
 }
 
+/*Account Manage Page*/
+
+#accounts-login, #view-account {
+    font-size: .875em;
+}
+
+h1 {
+    font-size: 1.875em;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#view-account hr {
+    margin-top: 0;
+}
+
+#view-account th {
+    width: 30%;
+}
+
+#view-account .personal-information {
+    margin-bottom: 20px;
+}
+
+#view-account a {
+    color: white;
+}
+
+#view-account .form-group {
+    margin-left: 0;
+}
+/*Main-Headers*/
+
+#main-headers h1 {
+    font-size: 1.625em;
+    margin: 0;
+}
+
+#main-headers hr {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/*Selected Product View Styles*/
+
+#view-product h1 {
+    font-size: 1.625em;
+    margin: 0;
+}
+
+#view-product hr {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.product-details {
+    font-size: 1em;
+}
+
+#body-content {
+    margin-bottom: 15px;
+    min-height: 100vh;
+}
+
 /*Products list style*/
 
 #ProductsList .table-striped > tbody > tr:nth-child(odd) > td {
     background-color: #ffffff
 }
+
+/*Basket*/
+
+#empty-basket {
+    margin-top: 10px;
+}
+
 /*Side nav styles*/
 #left-column div {
     margin-bottom: 10px;
@@ -700,6 +778,11 @@ td {
     text-align: center;
 }
 
+.thumbnail-image {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 /*.inner-box {
     position: relative;
     padding: 4px;
@@ -715,7 +798,7 @@ td {
 .grey-background {
     position: relative;
     padding: 4px;
-    height: 115px;
+    height: 120px;
     background-color: #f1f1f1;
 }
 
@@ -757,7 +840,7 @@ td {
 
 .center-block2 {
     display: block;
-    margin: 10% auto auto;
+    margin: auto;
 }
 
 /*Modal Styles*/

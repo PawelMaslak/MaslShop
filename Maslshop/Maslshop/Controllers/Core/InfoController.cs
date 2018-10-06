@@ -10,15 +10,10 @@ namespace Maslshop.Controllers.Core
         {
             var viewModel = new AboutViewModel()
             {
-                Heading = "About Us"
+                Heading = "Maslshop - About Us"
             };
 
             return View(viewModel);
-        }
-
-        public ActionResult Faq()
-        {
-            return View();
         }
     }
 

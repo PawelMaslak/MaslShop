@@ -1,23 +1,22 @@
-﻿@model Maslshop.Models.ViewModels.CategoryFormViewModel
+﻿@model Maslshop.Models.ViewModels.Category.CategoryFormViewModel
 
 @{
     ViewBag.Title = Model.Heading;
 }
+<div id="view-account">
+    <h1>@Model.Heading</h1>
+    <hr />
 
-<h2>@Model.Heading</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => Model.Id)
 
-@Html.ActionLink("<< Powrót", "Index")
-<hr />
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => Model.Id)
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, "Nazwa")
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-}
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = @Model.Name })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @style = "color: red" })
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    }
+</div>
