@@ -63,16 +63,17 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-3">
                     <div id="left-column">
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.IsInRole("User") || User.IsInRole("Super User"))
                         {
-                            if (ViewContext.RouteData.Values["controller"].ToString() == "Manage" || 
-                                ViewContext.RouteData.Values["controller"].ToString() == "Account" || 
-                                ViewContext.RouteData.Values["action"].ToString() == "ViewOrder")
-                             {
-                                 @Html.Partial("_ManageAccountSideMenuPartial")
-                             }
+
+                            @Html.Partial("_ManageAccountSideMenuPartial")
+
                         }
                         @Html.Partial("_SideMenuPartial")
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            @Html.Partial("_AdminSideMenuPartial")
+                        }
                     </div>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-9" id="body-content">

@@ -2,56 +2,57 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Account
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Enter valid email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         public string Heading { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [StringLength(100, ErrorMessage = "Password {0} has to consist at least of {2} letters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Password confirmation is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords do not match!")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [StringLength(100)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Surname is required")]
         [StringLength(100)]
         [Display(Name = "Surname")]
         public string Surname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Address is required")]
         [StringLength(100)]
         [Display(Name = "Address")]
         public string Address { get; set; }
 
-        [Required]
-        [StringLength(6, ErrorMessage = "Enter valid post code - maximum 6 letters")]
+        [Required(ErrorMessage = "Postcode is required")]
+        //[StringLength(6, ErrorMessage = "Enter valid post code - maximum 6 letters")]
+        [RegularExpression("([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? [0-9][A-Za-z]{2}|[Gg][Ii][Rr] 0[Aa]{2})", ErrorMessage = "Enter valid postcode with space between inward and outward parts")]
         [DataType(DataType.PostalCode)]
-        [Display(Name = "Post Code")]
+        [Display(Name = "Postcode")]
         public string PostCode { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "City is required")]
         [StringLength(100)]
-        [Display(Name = "Miasto")]
+        [Display(Name = "City")]
         public string City { get; set; }
 
-
-        [Display(Name = "Rola")]
+        [Display(Name = "Role")]
         public string Role { get; set; }
 
         public IEnumerable<IdentityRole> Roles { get; set; }

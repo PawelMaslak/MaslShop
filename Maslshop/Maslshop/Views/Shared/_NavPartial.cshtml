@@ -47,7 +47,7 @@
                 </a>
                 @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
                 {
-                    <div class="box" id="ReturnAction" onclick="goBack()">-> Return</div>
+                    <div class="box" id="ReturnAction" style="cursor: pointer" onclick="goBack()">-> Return</div>
                 }
 
                 <span id="span" class="pull-right">

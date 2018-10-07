@@ -2,11 +2,10 @@
 <div id="view-account">
     @if (User.IsInRole("Administrator"))
     {
-
-        ViewBag.Title = Model.Heading;
-
-
-        <h1>@ViewBag.Title</h1>
+        ViewBag.Title = "Maslshop - Edit Your Details";
+        <h1>Admin Panel</h1>
+        <hr/>
+        <h2>Edit your details</h2>
     }
     else
     {
@@ -57,11 +56,18 @@
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = @Model.Email })
             @Html.ValidationMessageFor(m => m.Email, "", new {@style = "color: red"})
         </div>
-        if (User.IsInRole("Administrator"))
+        if (User.IsInRole("Administrator") && Model.Role_Name != "Administrator")
         {
+            var rolesList = Model.Roles.Select(x => new
+            {
+                x.Id,
+                x.Name
+            }).Where(x => x.Name != Model.Role_Name).ToList();
+
+
             <div class="form-group">
                 @Html.LabelFor(m => m.Role_Name)
-                @Html.DropDownListFor(m => m.Role_Name, new SelectList(Model.Roles, "Name", "Name"), @Model.Role_Name, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Role_Name, new SelectList(rolesList, "Name", "Name"), @Model.Role_Name, new { @class = "form-control" })
             </div>
         }
         <button type="submit" class="btn btn-primary">Save Changes</button>

@@ -148,8 +148,8 @@ h2 {
     margin-bottom: 20px;
 }
 
-#view-account a {
-    color: white;
+#view-account .link > a {
+    color: blue !important;
 }
 
 #view-account .form-group {
@@ -159,7 +159,7 @@ h2 {
 
 #main-headers h1 {
     font-size: 1.625em;
-    margin: 0;
+    margin: 0; 
 }
 
 #main-headers hr {
@@ -438,6 +438,11 @@ header.mobile-header .mobile-panels-holder {
 
 #SearchTerm {
     max-width: 100%;
+}
+
+.form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .form-group .input-group {

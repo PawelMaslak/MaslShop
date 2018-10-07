@@ -443,6 +443,10 @@
     <Compile Include="Migrations\201810021025353_RemoveNewsSections.Designer.cs">
       <DependentUpon>201810021025353_RemoveNewsSections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810072058175_RestoringAdmin.cs" />
+    <Compile Include="Migrations\201810072058175_RestoringAdmin.Designer.cs">
+      <DependentUpon>201810072058175_RestoringAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -476,7 +480,7 @@
     <Compile Include="Models\ViewModels\Order\OrdersListViewModel.cs" />
     <Compile Include="Models\ViewModels\Order\OrderViewModel.cs" />
     <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
-    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\SendCodeViewModel.cs" />
     <Compile Include="Models\ViewModels\SetPasswordViewModel.cs" />
@@ -652,10 +656,10 @@
     <Content Include="Views\Info\Faq.cshtml" />
     <Content Include="Views\Product\ViewProducts.cshtml" />
     <Content Include="Views\Shared\_ManageAccountSideMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_AdminSideMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -817,6 +821,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810021025353_RemoveNewsSections.resx">
       <DependentUpon>201810021025353_RemoveNewsSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810072058175_RestoringAdmin.resx">
+      <DependentUpon>201810072058175_RestoringAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿using Maslshop.Models.Core;
 using Maslshop.Models.DTOs;
 using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Account;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -93,7 +94,7 @@ namespace Maslshop.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
+                    ViewBag.errorMessage = "You must confirm your email to log in";
                     return View("Error");
                 }
             }
@@ -193,6 +194,8 @@ namespace Maslshop.Controllers
             {
                 var user = GetUser(viewModel.Id);
 
+                var userRole = GetUserRole(user);
+
                 user.Name = viewModel.Name;
                 user.Surname = viewModel.Surname;
                 user.City = viewModel.City;
@@ -200,7 +203,7 @@ namespace Maslshop.Controllers
                 user.PostCode = viewModel.PostCode;
                 user.Email = viewModel.Email;
 
-                if (User.IsInRole("Administrator"))
+                if (User.IsInRole("Administrator") && userRole != "Administrator")
                 {
                     UserManager.RemoveFromRoles(user.Id, GetUserRole(user));
 
@@ -209,7 +212,11 @@ namespace Maslshop.Controllers
 
                 _unitOfWork.Complete();
 
-                return RedirectToAction("Index", "Admin");
+                if (User.IsInRole("Administrator"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                return RedirectToAction("Index", "Manage");
             }
             return View("Edit", viewModel);
         }
@@ -245,13 +252,13 @@ namespace Maslshop.Controllers
         {
             var viewModel = new RegisterViewModel
             {
-                Heading = "Register New User",
+                Heading = "Maslshop - Register New User",
                 Roles = GetRoles()
             };
 
             if (User.IsInRole("Administrator"))
             {
-                viewModel.Heading = "Create New User";
+                viewModel.Heading = "Maslshop - Create New User";
             }
 
             return View("Register", viewModel);
@@ -275,8 +282,7 @@ namespace Maslshop.Controllers
                     Address = model.Address,
                     PostCode = model.PostCode,
                     City = model.City,
-                    RegistrationDate = DateTime.Now
-
+                    RegistrationDate = DateTime.Now,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -336,13 +342,11 @@ namespace Maslshop.Controllers
                     body = body.Replace("{userName}", user.Name);
                     body = body.Replace("{callbackUrl}", callBackUrl);
 
-                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
-
-                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - Confirm Your Email", body);
 
                     UserManager.AddToRole(user.Id, "User");
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                    ViewBag.Message = "Check your email and confirm your account. It must be confirmed "
                                       + "before you can log in.";
 
                     return View("Info");
@@ -405,7 +409,8 @@ namespace Maslshop.Controllers
                 body = body.Replace("{userName}", user.Name);
                 body = body.Replace("{callbackUrl}", callbackUrl);
 
-                await UserManager.SendEmailAsync(user.Id, "Maslshop - password reset request", body);
+                await UserManager.SendEmailAsync(user.Id, "Maslshop - Password Reset Request", body);
+
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
