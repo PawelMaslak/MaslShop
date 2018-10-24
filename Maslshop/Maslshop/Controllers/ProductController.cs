@@ -1,5 +1,5 @@
 ﻿using Maslshop.Models.Core;
-using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Product;
 using Maslshop.Persistence;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using Maslshop.Models.ViewModels.Product;
 using File = Maslshop.Models.Core.File;
 
 namespace Maslshop.Controllers
@@ -49,6 +48,7 @@ namespace Maslshop.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int productId)
         {
             var product = _unitOfWork.Product.GetProductById(productId);
@@ -76,6 +76,7 @@ namespace Maslshop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(ProductFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -143,6 +144,7 @@ namespace Maslshop.Controllers
             return RedirectToAction("Index", new { query = viewModel.SearchTerm });
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(string query = null)
         {
             if (query != null)
@@ -198,12 +200,12 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult SearchProducts(ProductsViewModel viewModel)
         {
             return RedirectToAction("ViewProducts", new { query = viewModel.SearchTerm });
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeletePhoto(int photoId)
         {
             var photo = _unitOfWork.File.SelectPhoto(photoId);
@@ -219,7 +221,7 @@ namespace Maslshop.Controllers
 
             return RedirectToAction("Edit", new { productId = product.Id });
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int productId)
         {
             _unitOfWork.Product.DeleteProduct(productId);
@@ -236,7 +238,7 @@ namespace Maslshop.Controllers
 
             return RedirectToAction("Index", "Product");
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add()
         {
             var viewModel = new ProductFormViewModel()
@@ -249,6 +251,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add(ProductFormViewModel viewModel)
         {
             if (!ModelState.IsValid)

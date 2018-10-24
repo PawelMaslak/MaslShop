@@ -30,6 +30,7 @@ namespace Maslshop.Controllers
             SignInManager = signInManager;
         }
 
+        [Authorize]
         public ActionResult UserOrders()
         {
             var viewModel = new OrdersListViewModel()
@@ -42,7 +43,9 @@ namespace Maslshop.Controllers
                 OrderStats = _unitOfWork.Orders.GetOrderStatsList()
             };
 
-            if (!viewModel.Orders.Any())
+            var userOrdersList = _unitOfWork.Orders.UserOrders(HttpContext.User.Identity.GetUserId());
+
+            if (!userOrdersList.Any())
             {
                 return View("UserOrdersEmpty");
             }

@@ -112,6 +112,11 @@ namespace Maslshop.Repositories
             return orders;
         }
 
+        public IEnumerable<Order> UserOrders(string userId)
+        {
+            return _context.Orders.Where(i => i.UserId == userId);
+        }
+
         public IEnumerable<OrderViewModel> GetSearchedOrders(string query, string searchTerm = null)
         {
             var orders = GetOrdersList();

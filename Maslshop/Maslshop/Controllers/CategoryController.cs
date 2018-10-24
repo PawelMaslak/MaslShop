@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Maslshop.Controllers
 {
-    //[Authorize(Roles = "Administrator")]
+
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -16,6 +16,7 @@ namespace Maslshop.Controllers
         }
 
         // GET: Category
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             var viewModel = new CategoriesViewModel()
@@ -39,6 +40,7 @@ namespace Maslshop.Controllers
             return PartialView(viewModel);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int categoryId)
         {
             _unitOfWork.Category.RemoveCategory(categoryId);
@@ -48,6 +50,7 @@ namespace Maslshop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add()
         {
             var viewModel = new CategoryFormViewModel()
@@ -59,6 +62,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Add(CategoryFormViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -71,7 +75,7 @@ namespace Maslshop.Controllers
             }
             return View(viewModel);
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int categoryId)
         {
             if (_unitOfWork.Category.GetCategoryById(categoryId) == null)
@@ -88,6 +92,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(CategoryFormViewModel viewModel)
         {
             if (ModelState.IsValid)

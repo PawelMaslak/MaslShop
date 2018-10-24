@@ -8,7 +8,6 @@
     <hr />
     @using (Html.BeginForm("SearchProducts", "Product", FormMethod.Post, new { id = "submitForm" }))
     {
-        @Html.AntiForgeryToken()
         <div class="form-group">
             <div class="input-group"  id="mobile-searchbar">
                 @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by the name etc..." })

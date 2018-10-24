@@ -395,7 +395,7 @@ namespace Maslshop.Controllers
 
             return RedirectToAction("ViewOrders");
         }
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteOrderDetailEntry(int orderDetailId)
         {
             var detail = _unitOfWork.Orders.SelectOrderDetail(orderDetailId);

@@ -21,5 +21,6 @@ namespace Maslshop.Repositories
         OrderDetail SelectOrderDetail(int id);
         Order SelectOrderMatchingOrderDetailId(OrderDetail detail);
         IEnumerable<OrderViewModel> GetUserOrders(string userId);
+        IEnumerable<Order> UserOrders(string userId);
     }
 }
