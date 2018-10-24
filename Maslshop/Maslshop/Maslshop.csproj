@@ -455,6 +455,10 @@
     <Compile Include="Migrations\201810141808064_UpdateApplicationUser.Designer.cs">
       <DependentUpon>201810141808064_UpdateApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810241739513_FinalModelChanges.cs" />
+    <Compile Include="Migrations\201810241739513_FinalModelChanges.Designer.cs">
+      <DependentUpon>201810241739513_FinalModelChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -837,6 +841,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810141808064_UpdateApplicationUser.resx">
       <DependentUpon>201810141808064_UpdateApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810241739513_FinalModelChanges.resx">
+      <DependentUpon>201810241739513_FinalModelChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
