@@ -531,6 +531,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\10-oz-silver-credi-suisse-platinum-bar-160999.jpg" />
+    <Content Include="Content\Images\2018_Kruggerand_1.jpg" />
+    <Content Include="Content\Images\2018_Kruggerand_2.jpg" />
     <Content Include="Content\Images\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
     <Content Include="Content\Images\9b7d5547026159f99d09592b17502c1b.jpg" />
     <Content Include="Content\Images\close.png" />
@@ -547,8 +549,12 @@
     <Content Include="Content\Images\orel.jpg" />
     <Content Include="Content\Images\philharmonik.jpg" />
     <Content Include="Content\Images\s1.png" />
+    <Content Include="Content\Images\s2.png" />
+    <Content Include="Content\Images\s3 - Kopia.jpg" />
     <Content Include="Content\Images\texture.png" />
     <Content Include="Content\Images\Thumbnails\10-oz-silver-credi-suisse-platinum-bar-160999.jpg" />
+    <Content Include="Content\Images\Thumbnails\2018_Kruggerand_1.jpg" />
+    <Content Include="Content\Images\Thumbnails\2018_Kruggerand_2.jpg" />
     <Content Include="Content\Images\Thumbnails\5e0c0dd7e164ff0c6bb7e2b3323c427f.jpg" />
     <Content Include="Content\Images\Thumbnails\9b7d5547026159f99d09592b17502c1b.jpg" />
     <Content Include="Content\Images\Thumbnails\eagle2-kopia.jpg" />
@@ -559,6 +565,8 @@
     <Content Include="Content\Images\Thumbnails\orel.jpg" />
     <Content Include="Content\Images\Thumbnails\philharmonik.jpg" />
     <Content Include="Content\Images\Thumbnails\s1.png" />
+    <Content Include="Content\Images\Thumbnails\s2.png" />
+    <Content Include="Content\Images\Thumbnails\s3 - Kopia.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
