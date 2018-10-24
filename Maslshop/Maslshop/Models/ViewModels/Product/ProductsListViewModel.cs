@@ -1,7 +1,7 @@
-﻿using Maslshop.Models.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Maslshop.Models.Core;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Product
 {
     public class ProductsListViewModel
     {

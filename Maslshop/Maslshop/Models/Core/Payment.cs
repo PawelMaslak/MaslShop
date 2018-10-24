@@ -6,9 +6,7 @@ namespace Maslshop.Models.Core
     {
         public int Id { get; set; }
 
-        [Display(Name = "Nazwa")]
-        [Required(ErrorMessage = "Pole nazwa nie może być puste")]
-        [StringLength(50)]
+        [Required]
         public string Name { get; set; }
     }
 }

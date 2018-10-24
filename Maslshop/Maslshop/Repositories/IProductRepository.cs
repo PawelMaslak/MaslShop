@@ -1,6 +1,7 @@
 ﻿using Maslshop.Models.Core;
 using Maslshop.Models.ViewModels;
 using System.Collections.Generic;
+using Maslshop.Models.ViewModels.Product;
 
 namespace Maslshop.Repositories
 {

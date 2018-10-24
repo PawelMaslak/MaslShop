@@ -1,25 +1,28 @@
-﻿@model Maslshop.Models.ViewModels.ProductsListViewModel
+﻿@model Maslshop.Models.ViewModels.Product.ProductsListViewModel
 
 @{
     ViewBag.Title = Model.Heading;
 }
-
-<h2>@Model.Heading</h2>
-@using (Html.BeginForm("SearchProduct", "Product"))
-{
-    <div class="form-group">
-        <div class="input-group" style="width: 300px">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by the name etc..." })
-            <span class="input-group-addon">
-                <i class="glyphicon glyphicon-search"></i>
-            </span>
+<div id="view-account">
+    <h1>Admin Panel</h1>
+    <hr />
+    <h2>List Of Products</h2>
+    <hr />
+    @using (Html.BeginForm("SearchProduct", "Product"))
+    {
+        <div class="form-group" id="SearchBar">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by the name etc..." })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" id="SearchButton-Admin">Search</button>
+                </span>
+            </div>
         </div>
-    </div>
-}
+    }
+    <p><a href="@Url.Action("Add", "Product")" class="btn btn-primary" role="button">Add Product</a></p>
+</div>
 
-<p><a href="@Url.Action("Add", "Product")" class="btn btn-primary" role="button">Add Product</a></p>
-
-<div id="ProductsList">
+<div id="ProductsList" style="overflow-x:auto">
     <table id="table" class="table table-striped table-bordered text-center">
         <thead>
             <tr class="active text-info">

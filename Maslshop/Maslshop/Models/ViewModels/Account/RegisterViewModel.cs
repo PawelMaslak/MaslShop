@@ -22,7 +22,7 @@ namespace Maslshop.Models.ViewModels.Account
         [Required(ErrorMessage = "Password confirmation is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        [Compare("Password", ErrorMessage = "Passwords do not match!")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords do not match!")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
@@ -41,7 +41,6 @@ namespace Maslshop.Models.ViewModels.Account
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Postcode is required")]
-        //[StringLength(6, ErrorMessage = "Enter valid post code - maximum 6 letters")]
         [RegularExpression("([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? [0-9][A-Za-z]{2}|[Gg][Ii][Rr] 0[Aa]{2})", ErrorMessage = "Enter valid postcode with space between inward and outward parts")]
         [DataType(DataType.PostalCode)]
         [Display(Name = "Postcode")]

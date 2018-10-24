@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Maslshop.Models.Core
 {
@@ -6,13 +7,13 @@ namespace Maslshop.Models.Core
     {
         public int Id { get; set; }
 
-        [Display(Name = "Nazwa")]
-        [Required(ErrorMessage = "Pole nazwa nie może być puste")]
         [StringLength(50)]
+        [Required]
         public string Name { get; set; }
 
-        [Display(Name = "Cena")]
-        [Required(ErrorMessage = "Proszę podać cenę")]
+        [Required]
         public double Price { get; set; }
+
+        public virtual List<Order> Orders { get; set; }
     }
 }

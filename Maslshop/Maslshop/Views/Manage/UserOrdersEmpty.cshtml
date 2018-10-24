@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@model Maslshop.Models.ViewModels.Order.OrdersListViewModel
+
+@{
+    ViewBag.Title = "My Account - Your Orders";
+}
+
+<div id="view-account">
+    <h1>My Account</h1>
+    <hr />
+    <h2>Your orders</h2>
+    <hr />
+    <p class="alert alert-info">Click order's ID to see the details.</p>
+</div>
+<div id="ProductsList" style="overflow-x: auto">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr class="active text-info">
+            <th>Ref. No.</th>
+            <th>Order Date</th>
+            <th>Delivery Type</th>
+            <th>Status</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">          
+        </tbody>
+    </table>
+</div>
+
+<p>You have not placed any orders yet! Click <a href="@Url.Action("Index", "Home")"><span style="text-decoration: underline">here</span></a> to buy something.</p>
+
+
+
+
+
+
+

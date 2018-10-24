@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace Maslshop.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class DeliveryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,24 +18,26 @@ namespace Maslshop.Controllers
         {
             var viewModel = new DeliveriesViewModel()
             {
-                Heading = "Lista Opcji Przesyłki",
-                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList()
+                Heading = "Maslshop - Deliveries Panel",
+                Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
             };
 
             return View(viewModel);
         }
 
+        
         public ActionResult AddDeliveryType()
         {
             var viewModel = new DeliveryFormViewModel()
             {
-                Heading = "Dodaj nowy typ przesyłki",
+                Heading = "Maslshop - Add New Delivery Type",
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddDeliveryType(DeliveryFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -60,7 +63,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new DeliveryFormViewModel()
             {
-                Heading = "Edytuj typ przesyłki",
+                Heading = "Maslshop - Edit Delivery Type",
                 Id = deliveryId,
                 Name = deliveryType.Name,
                 Price = deliveryType.Price
@@ -70,6 +73,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditDeliveryType(DeliveryFormViewModel viewModel)
         {
             if (ModelState.IsValid)

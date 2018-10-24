@@ -1,7 +1,7 @@
-﻿using Maslshop.Models.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Maslshop.Models.DTOs;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Users
 {
     public class UserListViewModel
     {

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Maslshop.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -23,11 +24,11 @@ namespace Maslshop.Controllers
 
         public ActionResult Checkout()
         {
-            var thisUser = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());
+            var thisUser = _unitOfWork.Admin.GetUserById(HttpContext.User.Identity.GetUserId());            
 
             var viewModel = new OrderFormViewModel()
             {
-                Heading = "Zamówienie",
+                Heading = "Maslshop - Checkout",
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                 Payments = _unitOfWork.Payments.GetPaymentTypes(),
                 ThisUser = thisUser,
@@ -43,6 +44,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Checkout(OrderFormViewModel viewModel)
         {
 
@@ -257,11 +259,6 @@ namespace Maslshop.Controllers
                 OrderDetails = _unitOfWork.Orders.GetOrderDetailsListByOrderId(order.OrderId)
             };
 
-            if (User.IsInRole("Administrator"))
-            {
-                viewModel.Heading = "Order's details";
-            }
- 
             return View(viewModel);
         }
 
@@ -284,7 +281,7 @@ namespace Maslshop.Controllers
             {
                 var viewModel = new OrdersListViewModel()
                 {
-                    Heading = "Lista wyszukanych zamówień",
+                    Heading = "Maslshop - Search Orders Results",
                     Orders = _unitOfWork.Orders.GetSearchedOrders(query),
                     Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                     Payments = _unitOfWork.Payments.GetPaymentTypes(),
@@ -300,7 +297,7 @@ namespace Maslshop.Controllers
             {
                 var viewModel = new OrdersListViewModel()
                 {
-                    Heading = "Lista zamówień",
+                    Heading = "Maslshop - List Of Orders",
                     Orders = _unitOfWork.Orders.GetOrdersList(),
                     Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                     Payments = _unitOfWork.Payments.GetPaymentTypes(),
@@ -315,11 +312,13 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult SearchOrder(OrdersListViewModel viewModel)
         {
             return RedirectToAction("ViewOrders", new { query = viewModel.SearchTerm });
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult EditOrder(int orderId)
         {
             var order = _unitOfWork.Orders.GetOrderById(orderId);
@@ -329,7 +328,7 @@ namespace Maslshop.Controllers
             var viewModel = new EditOrderFormViewModel()
             {
                 OrderId = orderId,
-                Heading = "Edytuj zamówienie",
+                Heading = "Maslshop - Edit Order no " + orderId,
                 Name = order.Name,
                 Surname = order.Surname,
                 Address = order.Address,
@@ -350,6 +349,7 @@ namespace Maslshop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
         public ActionResult EditOrder(EditOrderFormViewModel viewModel)
         {
             var errors = ModelState.Values.Select(v => v.Errors);
@@ -398,7 +398,6 @@ namespace Maslshop.Controllers
 
         public ActionResult DeleteOrderDetailEntry(int orderDetailId)
         {
-
             var detail = _unitOfWork.Orders.SelectOrderDetail(orderDetailId);
 
             var order = _unitOfWork.Orders.SelectOrderMatchingOrderDetailId(detail);
@@ -406,6 +405,11 @@ namespace Maslshop.Controllers
             _unitOfWork.Orders.RemoveOrderDetail(detail);
 
             _unitOfWork.Complete();
+
+            if (order.OrderDetails.Count == 0)
+            {
+                return RedirectToAction("ViewOrders");
+            }
 
             return RedirectToAction("EditOrder", new { orderId = order.OrderId });
         }

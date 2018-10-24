@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-3">
                     <div id="left-column">
-                        @if (User.IsInRole("User") || User.IsInRole("Super User"))
+                        @if (User.Identity.IsAuthenticated)
                         {
 
                             @Html.Partial("_ManageAccountSideMenuPartial")

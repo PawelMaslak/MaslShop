@@ -1,10 +1,23 @@
-﻿@model Maslshop.Models.ViewModels.ProductsListViewModel
+﻿@model Maslshop.Models.ViewModels.Product.ProductsListViewModel
 
 @{
     ViewBag.Title = Model.Heading;
 }
-
-<div class="row">
+<div id="view-account" class="visible-xs">
+    @using (Html.BeginForm("SearchProducts", "Product", FormMethod.Post, new { id = "submitForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="input-group"  id="mobile-searchbar">
+                @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by the name etc..." })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" id="SearchButton">Search</button>
+                </span>
+            </div>
+        </div>
+    }
+</div>
+<div class="row" id="row-xs">
     <div class="col-sm-12">
         @foreach (var product in Model.Products)
         {
@@ -25,7 +38,7 @@
                     </div>
                     <div class="inner-box grey-background">
                         <p class="name">
-                            <a href="@Url.Action("ViewProduct", "Product", new {productId = product.Id})">@product.Name</a>
+                            <a href="@Url.Action("ViewProduct", "Product", new {productId = product.Id})">@product.Year @product.Name</a>
                         </p>
                         <p class="stock-message">
                             @if (product.StockAmount > 0)

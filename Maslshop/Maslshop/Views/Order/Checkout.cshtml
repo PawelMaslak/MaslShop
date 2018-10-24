@@ -2,125 +2,90 @@
 @model Maslshop.Models.ViewModels.Order.OrderFormViewModel
 
 @{
-    ViewBag.Title = "Zamówienie";
+    ViewBag.Title = Model.Heading;
 }
+<div id="view-account">
+    <h1>Checkout</h1>
+    <hr />
+    <h2>Fill all the details in order to proceed</h2>
+    <hr />
 
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-
-    <form>
-
-
-        Address 1:
-
-        <input type="text" id="address_1">
-
-        Address 2:
-        <input type="text" id="address_2">
-
-        <input type="checkbox" id="toshipping_checkbox">
-        <em>Check this box if Shipping Address and Billing Address are the same.</em>
-        <b>Shipping Address</b>
-
-        Address 1:
-        <input type="text" id="shipping_address_1">
-
-        Address 2:
-        <input type="text" id="shipping_address_2">
-
-    </form>*@
-
-
-
-
-@*<p>Twoje obecne dane adresowe</p>
-
-    <p>Imie: @Model.ThisUser.Name</p>
-    <p>Nazwisko: @Model.ThisUser.Surname</p>
-    <p>Adres: @Model.ThisUser.Address @Model.ThisUser.City @Model.ThisUser.PostCode</p>
-    <p>Adres email: @Model.ThisUser.Email</p>*@
-
-@using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @id="myForm", @class = "form-horizontal", role = "form" }))
-{
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
-    var deliveryInfo = Model.Deliveries.Select(x => new
+    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @id = "myForm", @class = "form-horizontal", role = "form" }))
     {
-        x.Id,
-        Name = x.Name + " - " + x.Price.ToString("C")
-    });
+        @Html.AntiForgeryToken()
 
+        var deliveryInfo = Model.Deliveries.Select(x => new
+        {
+            x.Id,
+            Name = x.Name + " - " + x.Price.ToString("C")
+        });
 
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @id = "myInput", @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control"})
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name@*new { @id = "myInput" }*@)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Surname)
             @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address)
+
             @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PostCode, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.PostCode)
             @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PostCode, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.City)
             @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.DeliveryId, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.DeliveryId)
             @Html.DropDownListFor(m => m.DeliveryId, new SelectList(deliveryInfo, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DeliveryId, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PaymentId, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.PaymentId)
             @Html.DropDownListFor(m => m.PaymentId, new SelectList(Model.Payments, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PaymentId, "", new { @class = "text-danger" })
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.TermsAndConditionsAccepted, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(m => m.TermsAndConditionsAccepted)
             @Html.CheckBoxFor(m => m.TermsAndConditionsAccepted)
             @Html.Hidden(nameof(Model.IsTrue), "true")
+            @Html.ValidationMessageFor(m => m.TermsAndConditionsAccepted, "", new { @class = "text-danger" })
         </div>
-    </div>
+        <div>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-arrow-right"></span> Next</button>
+            <button class="btn btn-danger" onclick="resetFields(form)"><span class="glyphicon glyphicon glyphicon-remove"></span> Clear Fields</button>
+        </div>       
+    }
 
-    <button type="submit" class="btn btn-primary btn-lg">Dalej</button>
-}
+    
 
-<button class="btn btn-primary btn-lg" onclick="resetFields(form)">Wyczyść pola</button>
+</div>
+
 
 <script type="text/javascript">
     function resetFields(form) {
-        $(':input', form).each(function() {
+        $(':input', form).each(function () {
             var type = this.type;
             var tag = this.tagName.toLowerCase(); // normalize case
             // to reset the value attr of text inputs,
             // password inputs, fileUpload and textareas
-            if (type == 'text' || type == 'password' || tag == 'textarea' || type=='file')
+            if (type == 'text' || type == 'password' || tag == 'textarea' || type == 'file')
                 this.value = "";
             // checkboxes and radios need to have their checked state cleared
             else if (type == 'checkbox' || type == 'radio')

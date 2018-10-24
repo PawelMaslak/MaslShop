@@ -23,7 +23,6 @@ namespace Maslshop.Models.Core
         public string Address { get; set; }
 
         [Required]
-        [StringLength(6)]
         public string PostCode { get; set; }
 
         [Required]

@@ -1,9 +1,8 @@
 ﻿using Maslshop.Models.Core;
-using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Roles;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Linq;
-using Maslshop.Models.ViewModels.Roles;
 
 namespace Maslshop.Repositories
 {

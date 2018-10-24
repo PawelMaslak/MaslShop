@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Maslshop.Models.ViewModels.Product;
 
 namespace Maslshop.Repositories
 {

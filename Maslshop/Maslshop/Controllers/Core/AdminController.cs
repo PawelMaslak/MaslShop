@@ -1,10 +1,10 @@
-﻿using Maslshop.Repositories;
+﻿using System.Web.Mvc;
+using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Users;
+using Maslshop.Repositories;
 
-namespace Maslshop.Controllers
+namespace Maslshop.Controllers.Core
 {
-    using Models.ViewModels;
-    using System.Web.Mvc;
-
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {

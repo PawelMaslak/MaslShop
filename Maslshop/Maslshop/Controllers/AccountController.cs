@@ -1,6 +1,5 @@
 ﻿using Maslshop.Models.Core;
 using Maslshop.Models.DTOs;
-using Maslshop.Models.ViewModels;
 using Maslshop.Models.ViewModels.Account;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
@@ -166,6 +165,8 @@ namespace Maslshop.Controllers
         {
             var user = GetUser(userId);
 
+            var userRole = GetUserRole(user);
+
             if (user == null)
                 return HttpNotFound();
 
@@ -179,8 +180,8 @@ namespace Maslshop.Controllers
                 PostCode = user.PostCode,
                 Address = user.Address,
                 Email = user.Email,
-                Roles = GetRoles(),
-                Role_Name = GetUserRole(user)
+                Roles = GetRolesWithoutAdmin(),
+                Role_Name = userRole
             };
 
             return View("Edit", viewModel);
@@ -233,14 +234,14 @@ namespace Maslshop.Controllers
 
             if (userRole != null)
             {
-                var roleID = userRole.RoleId;
-                userRoleName = _unitOfWork.Roles.GetUserRoleName(roleID);
+                var roleId = userRole.RoleId;
+                userRoleName = _unitOfWork.Roles.GetUserRoleName(roleId);
             }
 
             return userRoleName;
         }
 
-        public IEnumerable<IdentityRole> GetRoles()
+        public IEnumerable<IdentityRole> GetRolesWithoutAdmin()
         {
             return _unitOfWork.Roles.GetRolesListWithoutAdmin();
         }
@@ -253,7 +254,7 @@ namespace Maslshop.Controllers
             var viewModel = new RegisterViewModel
             {
                 Heading = "Maslshop - Register New User",
-                Roles = GetRoles()
+                Roles = GetRolesWithoutAdmin()
             };
 
             if (User.IsInRole("Administrator"))
@@ -282,7 +283,7 @@ namespace Maslshop.Controllers
                     Address = model.Address,
                     PostCode = model.PostCode,
                     City = model.City,
-                    RegistrationDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -354,7 +355,7 @@ namespace Maslshop.Controllers
                 AddErrors(result);
             }
 
-            model.Roles = GetRoles();
+            model.Roles = GetRolesWithoutAdmin();
 
             return View(model);
         }

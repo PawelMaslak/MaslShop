@@ -11,29 +11,17 @@ namespace Maslshop.Models.Core
         public string UserId { get; set; }
 
         public string UserName { get; set; }
-
-        [Required(ErrorMessage = "Pole imie jest wymagane")]
-        [Display(Name= "Imie")]
+        [Required]
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Pole nazwisko jest wymagane")]
-        [Display(Name = "Nazwisko")]
+        [Required]
         public string Surname { get; set; }
-
-        [Required(ErrorMessage = "Pole adres jest wymagane")]
-        [Display(Name = "Adres")]
+        [Required]
         public string Address { get; set; }
-
-        [Required(ErrorMessage = "Pole kod pocztowy jest wymagane")]
-        [Display(Name = "Kod Pocztowy")]
+        [Required]
         public string PostCode { get; set; }
-
-        [Required(ErrorMessage = "Pole email jest wymagane")]
-        [Display(Name = "Adres Email")]
+        [Required]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Pole miasto jest wymagane")]
-        [Display(Name = "Miasto")]
+        [Required]
         public string City { get; set; }
 
         public double OrderTotal { get; set; }

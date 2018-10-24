@@ -222,7 +222,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Core\AdminController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Core\InfoController.cs" />
     <Compile Include="Controllers\Core\RolesController.cs" />
@@ -447,6 +447,14 @@
     <Compile Include="Migrations\201810072058175_RestoringAdmin.Designer.cs">
       <DependentUpon>201810072058175_RestoringAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810102025413_ChangeDeliveryModel.cs" />
+    <Compile Include="Migrations\201810102025413_ChangeDeliveryModel.Designer.cs">
+      <DependentUpon>201810102025413_ChangeDeliveryModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810141808064_UpdateApplicationUser.cs" />
+    <Compile Include="Migrations\201810141808064_UpdateApplicationUser.Designer.cs">
+      <DependentUpon>201810141808064_UpdateApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -457,42 +465,41 @@
     <Compile Include="Models\DTOs\UserDTO.cs" />
     <Compile Include="Models\ViewModels\Delivery\DeliveriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Delivery\DeliveryFormViewModel.cs" />
-    <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Models\ViewModels\AddPhoneNumberViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Core\ApplicationDbContext.cs" />
     <Compile Include="Models\Core\ApplicationUser.cs" />
-    <Compile Include="Models\ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="Models\ViewModels\ConfigureTwoFactorViewModel.cs" />
-    <Compile Include="Models\ViewModels\ExternalLoginListViewModel.cs" />
-    <Compile Include="Models\ViewModels\FactorViewModel.cs" />
-    <Compile Include="Models\ViewModels\ForgotPasswordViewModel.cs" />
-    <Compile Include="Models\ViewModels\ForgotViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\FactorViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ForgotViewModel.cs" />
     <Compile Include="Models\ViewModels\Info\AboutViewModel.cs" />
-    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\ManageLoginsViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ManageLoginsViewModel.cs" />
     <Compile Include="Models\ViewModels\IndexViewModel.cs" />
     <Compile Include="Models\Core\Category.cs" />
     <Compile Include="Models\Core\File.cs" />
     <Compile Include="Models\Core\Product.cs" />
     <Compile Include="Models\ViewModels\Order\EditOrderFormViewModel.cs" />
-    <Compile Include="Models\ViewModels\Order\EditOrderStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\Order\OrderFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Order\OrdersListViewModel.cs" />
     <Compile Include="Models\ViewModels\Order\OrderViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProductsListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductsListViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\RegisterViewModel.cs" />
-    <Compile Include="Models\ViewModels\ResetPasswordViewModel.cs" />
-    <Compile Include="Models\ViewModels\SendCodeViewModel.cs" />
-    <Compile Include="Models\ViewModels\SetPasswordViewModel.cs" />
-    <Compile Include="Models\ViewModels\VerifyCodeViewModel.cs" />
-    <Compile Include="Models\ViewModels\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\SendCodeViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\SetPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Models\ViewModels\Category\CategoriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Category\CategoryFormViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProductFormViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProductsViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductFormViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductsViewModel.cs" />
     <Compile Include="Models\ViewModels\Roles\RoleFormViewModel.cs" />
     <Compile Include="Models\ViewModels\Roles\RolesListViewModel.cs" />
-    <Compile Include="Models\ViewModels\UserListViewModel.cs" />
+    <Compile Include="Models\ViewModels\Users\UserListViewModel.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -653,10 +660,10 @@
     <Content Include="Views\Shared\_SearchBarPartial.cshtml" />
     <Content Include="Views\Product\NoResultsFound.cshtml" />
     <Content Include="Views\Info\About.cshtml" />
-    <Content Include="Views\Info\Faq.cshtml" />
     <Content Include="Views\Product\ViewProducts.cshtml" />
     <Content Include="Views\Shared\_ManageAccountSideMenuPartial.cshtml" />
     <Content Include="Views\Shared\_AdminSideMenuPartial.cshtml" />
+    <Content Include="Views\Manage\UserOrdersEmpty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -824,6 +831,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810072058175_RestoringAdmin.resx">
       <DependentUpon>201810072058175_RestoringAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810102025413_ChangeDeliveryModel.resx">
+      <DependentUpon>201810102025413_ChangeDeliveryModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810141808064_UpdateApplicationUser.resx">
+      <DependentUpon>201810141808064_UpdateApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

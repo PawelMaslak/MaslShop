@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using Maslshop.Models.ViewModels.Product;
 using File = Maslshop.Models.Core.File;
 
 namespace Maslshop.Controllers
@@ -56,7 +57,7 @@ namespace Maslshop.Controllers
 
             var viewModel = new ProductFormViewModel()
             {
-                Heading = "Edytuj produkt",
+                Heading = "Maslshop - Edit Product",
                 Name = product.Name,
                 Id = product.Id,
                 Description = product.Description,
@@ -182,6 +183,12 @@ namespace Maslshop.Controllers
                 SearchTerm = query
             };
 
+            if (!viewModel.Categories.Any(i =>
+                string.Equals(i.Name.ToLower(), query.ToLower(), StringComparison.CurrentCultureIgnoreCase)))
+            {
+                viewModel.Heading = "Maslshop - Search Results";
+            }          
+
             if (!viewModel.Products.Any())
             {
                 return View("NoResultsFound", viewModel);
@@ -191,6 +198,7 @@ namespace Maslshop.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SearchProducts(ProductsViewModel viewModel)
         {
             return RedirectToAction("ViewProducts", new { query = viewModel.SearchTerm });
@@ -233,7 +241,7 @@ namespace Maslshop.Controllers
         {
             var viewModel = new ProductFormViewModel()
             {
-                Heading = "Dodaj produkt",
+                Heading = "Maslshop - Add New Product",
                 Categories = _unitOfWork.Category.GetCategoriesList()
             };
 

@@ -1,4 +1,4 @@
-﻿namespace Maslshop.Models.ViewModels
+﻿namespace Maslshop.Models.ViewModels.Account
 {
     public class FactorViewModel
     {

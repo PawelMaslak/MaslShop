@@ -1,12 +1,12 @@
-﻿using Maslshop.Models.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Maslshop.Models.Core;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Product
 {
     public class ProductsViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Core.Product> Products { get; set; }
 
         public string SearchTerm { get; set; }
 

@@ -7,7 +7,7 @@ namespace Maslshop.Models.ViewModels.Category
     {
         public IEnumerable<Core.Category> Categories { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Core.Product> Products { get; set; }
 
         public string Heading { get; set; }
 

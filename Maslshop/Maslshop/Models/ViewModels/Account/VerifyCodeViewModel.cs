@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Maslshop.Models.ViewModels
+namespace Maslshop.Models.ViewModels.Account
 {
     public class VerifyCodeViewModel
     {
@@ -12,7 +12,7 @@ namespace Maslshop.Models.ViewModels
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Zapamietac ta przeglądarkę?")]
+        [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }

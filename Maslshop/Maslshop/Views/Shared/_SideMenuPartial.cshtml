@@ -11,18 +11,6 @@
             <li>
                 <a href="@Url.Action("About", "Info")" title="About Us">About Us</a>
             </li>
-            @if (User.IsInRole("Administrator"))
-            {
-                <li class="menu-special-offers">
-                    <a href="#" title="Recently Added">Admin Panel</a>
-                    <ul>
-                        <li><a href="@Url.Action("Index", "Admin")">Users List</a></li>
-                        <li><a href="@Url.Action("Index", "Roles")">Roles</a></li>
-                        <li><a href="@Url.Action("Index", "Category")">Categories</a></li>
-                        <li><a href="@Url.Action("Index", "Product")">Products</a></li>
-                    </ul>
-                </li>
-            }
         </ul>
     </div>
 </div>

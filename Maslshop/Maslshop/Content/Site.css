@@ -1,31 +1,8 @@
 ﻿
 body {
-    background-image: url(/Content/Images/texture.png);
+    background-color: rgba(0, 0, 0, 0.03);
     font-size: 16px;
 }
-
-/*Screen width overrides*/
-
-/*@media (min-width: 1200px) {
-    .col-lg-2 {
-        width: 16.66666667%;
-        float: left;
-    } 
-}*/
-
-/*@media (min-width: 992px) {
-    .col-md-3 {
-        width: 33%;
-        float: left;
-    }
-}*/
-
-/*@media (min-width: 768px) {
-    .col-sm-3 {
-        width: 25%;
-        float: left;
-    }
-}*/
 
 @media (max-width: 1199px) and (min-width: 992px) {
     #header .logo img {
@@ -47,6 +24,10 @@ body {
     #header .logo .delivery-tagline {
         margin-left: 60px !important;
         font-size: 1.2em !important;
+    }
+
+    #caption {
+        padding-right: 50px !important;
     }
 }
 
@@ -71,12 +52,21 @@ body {
         font-size: 1em !important;
         margin-left: 42px !important;
     }
+
+    #caption {
+        padding-right: 50px !important;
+    }
 }
 
 
 @media (max-width: 767px) {
-    .text-xs-center {
-        text-align: center !important;
+
+    #row-xs {
+        margin-top: 10px;
+    }
+
+    .modal-content {
+        width: 100%;
     }
 
     .mobile-logo div img {
@@ -91,31 +81,37 @@ body {
         white-space: nowrap;
     }
 
-        .mobile-logo #inner {
-            width: 250px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .myImg {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+    }
 
-        .mobile-logo .img-center {
-            display: block;
-            height: 75px;
-            padding-top: 12px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .mobile-logo #inner {
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        .mobile-logo p {
-            color: #393b41;
-            letter-spacing: .068em;
-            font-size: 2em;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .mobile-logo .img-center {
+        display: block;
+        height: 75px;
+        padding-top: 12px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-            .mobile-logo p .gold {
-                color: #ca9200;
-            }
+    .mobile-logo p {
+        color: #393b41;
+        letter-spacing: .068em;
+        font-size: 2em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .mobile-logo p .gold {
+            color: #ca9200;
+        }
 }
 
 /*Account Manage Page*/
@@ -159,7 +155,7 @@ h2 {
 
 #main-headers h1 {
     font-size: 1.625em;
-    margin: 0; 
+    margin: 0;
 }
 
 #main-headers hr {
@@ -278,10 +274,6 @@ ul li ul {
     display: none;
 }
 
-
-
-
-
 /* Top bar styles */
 
 #top-bar {
@@ -359,7 +351,6 @@ header.mobile-header {
 }
 
     #header .logo a img {
-        /*display: inline-block;*/
         max-width: 150px;
         float: left;
         margin-top: 13px;
@@ -432,6 +423,22 @@ header.mobile-header .mobile-panels-holder {
     margin-top: 10px;
 }
 
+@media (max-width: 767px) {
+
+    #mobile-searchbar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 991px) {
+
+    #mobile-searchbar-medium {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+}
+
 #SearchButton {
     padding: 6px 18px !important;
 }
@@ -446,7 +453,7 @@ header.mobile-header .mobile-panels-holder {
 }
 
 .form-group .input-group {
-    width: 70%;
+    width: 65%;
     float: right;
 }
 
@@ -647,8 +654,6 @@ nav #menu ul {
             text-align: center;
         }
 
-
-
 /*Buttons Overrides*/
 
 .btn-xs {
@@ -788,12 +793,6 @@ td {
     padding-bottom: 20px;
 }
 
-/*.inner-box {
-    position: relative;
-    padding: 4px;
-    height: 118px;
-}*/
-
 .bottom {
     bottom: 10px;
     position: absolute;
@@ -822,6 +821,7 @@ td {
     font-size: 1.25em;
     text-align: center;
     margin: -2px;
+    padding-bottom: 3px;
 }
 
 .category-panel .grey-background p.stock-message, .category-panel .horizontal-table tr th p.stock-message, .horizontal-table tr .category-panel th p.stock-message {
@@ -855,6 +855,7 @@ td {
     border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
+    padding-bottom: 10px;
 }
 
     .myImg:hover {
@@ -882,7 +883,7 @@ td {
     display: block;
     border: none;
     border-radius: 0;
-    width: 80%;
+    width: 90%;
     max-width: 700px;
     box-shadow: none;
 }
@@ -929,11 +930,9 @@ td {
 
 /* The Close Button */
 .close {
-    position: absolute;
-    top: 60px;
-    right: 365px;
+    padding-right: 20px;
     color: black;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     transition: 0.3s;
 }
@@ -945,9 +944,6 @@ td {
         cursor: pointer;
     }
 
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px) {
-    .modal-content {
-        width: 100%;
-    }
+.modal-header {
+    border-bottom: none;
 }

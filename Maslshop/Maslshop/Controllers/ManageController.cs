@@ -1,4 +1,5 @@
 ﻿using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Account;
 using Maslshop.Models.ViewModels.Order;
 using Maslshop.Persistence;
 using Microsoft.AspNet.Identity;
@@ -29,7 +30,6 @@ namespace Maslshop.Controllers
             SignInManager = signInManager;
         }
 
-        [Authorize]
         public ActionResult UserOrders()
         {
             var viewModel = new OrdersListViewModel()
@@ -41,6 +41,11 @@ namespace Maslshop.Controllers
                 OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
                 OrderStats = _unitOfWork.Orders.GetOrderStatsList()
             };
+
+            if (!viewModel.Orders.Any())
+            {
+                return View("UserOrdersEmpty");
+            }
 
             return View(viewModel);
         }

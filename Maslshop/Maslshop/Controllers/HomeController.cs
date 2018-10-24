@@ -1,6 +1,7 @@
 ﻿using Maslshop.Models.ViewModels;
 using Maslshop.Persistence;
 using System.Web.Mvc;
+using Maslshop.Models.ViewModels.Product;
 
 namespace Maslshop.Controllers
 {
