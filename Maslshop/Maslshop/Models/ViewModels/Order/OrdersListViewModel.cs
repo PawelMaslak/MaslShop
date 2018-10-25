@@ -12,6 +12,8 @@ namespace Maslshop.Models.ViewModels.Order
 
         public IEnumerable<OrderViewModel> Orders { get; set; }
 
+        public IEnumerable<Core.Order> OrdersList { get; set; }
+
         public IEnumerable<Core.Delivery> Deliveries { get; set; }
 
         public IEnumerable<Payment> Payments { get; set; }

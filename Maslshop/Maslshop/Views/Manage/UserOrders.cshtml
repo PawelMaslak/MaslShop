@@ -2,7 +2,9 @@
 @model Maslshop.Models.ViewModels.Order.OrdersListViewModel
 
 @{
-    ViewBag.Title = "My Account - Your Orders";
+                /**/
+
+                ViewBag.Title = "My Account - Your Orders";
 }
 
 <div id="view-account">
@@ -24,7 +26,7 @@
             </tr>
         </thead>
         <tbody class="text-center">
-            
+
             @foreach (var order in Model.Orders)
             {
                 <tr>
@@ -38,6 +40,11 @@
         </tbody>
     </table>
 </div>
+
+@if (!Model.OrdersList.Any())
+{
+    <p>You have not placed any orders yet! Click <a href="@Url.Action("Index", "Home")"><span style="text-decoration: underline">here</span></a> to buy something.</p>
+}
 
 
 

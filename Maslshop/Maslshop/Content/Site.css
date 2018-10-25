@@ -848,7 +848,7 @@ td {
     margin: auto;
 }
 
-/*Modal Styles*/
+/*dStyles*/
 
 /* Style the Image Used to Trigger the Modal */
 .myImg {
@@ -863,7 +863,7 @@ td {
     }
 
 /* The Modal (background) */
-.modal {
+.modal-image {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -878,7 +878,7 @@ td {
 }
 
 /* Modal Content (Image) */
-.modal-content {
+.modal-content-image {
     margin: auto;
     display: block;
     border: none;
@@ -889,7 +889,7 @@ td {
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
+#caption-image {
     margin: auto;
     display: block;
     width: 80%;
@@ -901,7 +901,7 @@ td {
     height: 150px;
 }
 
-.modal-content, #caption {
+.modal-content-image, #caption-image {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;

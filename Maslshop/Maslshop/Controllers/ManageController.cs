@@ -40,20 +40,12 @@ namespace Maslshop.Controllers
                 Deliveries = _unitOfWork.Deliveries.GetDeliveriesOptionsList(),
                 Payments = _unitOfWork.Payments.GetPaymentTypes(),
                 OrderDetails = _unitOfWork.Orders.GetOrderDetailsList(),
-                OrderStats = _unitOfWork.Orders.GetOrderStatsList()
+                OrderStats = _unitOfWork.Orders.GetOrderStatsList(),
+                OrdersList = _unitOfWork.Orders.UserOrders(HttpContext.User.Identity.GetUserId())
             };
-
-            var userOrdersList = _unitOfWork.Orders.UserOrders(HttpContext.User.Identity.GetUserId());
-
-            if (!userOrdersList.Any())
-            {
-                return View("UserOrdersEmpty");
-            }
 
             return View(viewModel);
         }
-
-
 
         public ApplicationSignInManager SignInManager
         {
@@ -61,9 +53,9 @@ namespace Maslshop.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -370,7 +362,7 @@ namespace Maslshop.Controllers
 
 
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -421,6 +413,6 @@ namespace Maslshop.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

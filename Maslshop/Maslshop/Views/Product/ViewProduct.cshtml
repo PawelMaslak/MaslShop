@@ -23,11 +23,11 @@
                     {
                         <img src="~/Content/Images/@Model.Files[2].FileName" alt="@Model.Name - @Model.CategoryName Coin" title="@Model.Name - @Model.CategoryName Coin" class="myImg img-responsive"/>
                     }
-                    <div id="myModal" class="modal">
+                    <div id="myModal" class="modal-image">
                         <div>
                             <span class="close" onclick="document.getElementById('myModal').style.display = 'none'">&times;</span>
                         </div>
-                        <img class="modal-content" id="img01">
+                        <img class="modal-content-image" id="img01">
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
 // Get the image and insert it inside the modal - use its "alt" text as a caption
     var img = $('.myImg');
     var modalImg = $("#img01");
-    var captionText = document.getElementById("caption");
+    var captionText = document.getElementById("caption-image");
     $('.myImg').click(function(){
         modal.style.display = "block";
         var newSrc = this.src;
