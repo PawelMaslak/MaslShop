@@ -1,0 +1,69 @@
+﻿@model Maslshop.Models.ViewModels.Product.ProductFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+<div id="view-account">
+    <h1>Admin Panel</h1>
+    <hr />
+    <h2>Add New Product</h2>
+    <hr />
+    @using (Html.BeginForm("Add", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "eg. Sovereign" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, "{0:#.#}", new { @class = "form-control", placeholder = "eg. 20,00" })
+            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.StockAmount)
+            @Html.TextBoxFor(m => m.StockAmount, "{0:#.#}", new { @class = "form-control", placeholder = "eg. 10" })
+            @Html.ValidationMessageFor(m => m.StockAmount, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "eg. fineness 999.99" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Year)
+            @Html.TextBoxFor(m => m.Year, "{0:#.#}", new { @class = "form-control", placeholder = "eg. 2018" })
+            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Dimensions)
+            @Html.TextBoxFor(m => m.Dimensions, new { @class = "form-control", placeholder = "eg. 2018" })
+            @Html.ValidationMessageFor(m => m.Dimensions, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Manufacturer)
+            @Html.TextBoxFor(m => m.Manufacturer, new { @class = "form-control", placeholder = "eg. Royal Mint" })
+            @Html.ValidationMessageFor(m => m.Manufacturer, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Category)
+            @Html.DropDownListFor(m => m.Category, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Category)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UploadedFiles, "Product Photo no 1")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UploadedFiles, "Product Photo no 2")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UploadedFiles, "Product Photo no 3")
+            @Html.TextBoxFor(m => m.UploadedFiles, new { type = "file", name = "Files" })
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>
+

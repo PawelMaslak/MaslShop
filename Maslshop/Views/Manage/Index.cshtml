@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity
+@model Maslshop.Models.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "My Account";
+
+
+}
+
+<div id="view-account">
+    <h1>@ViewBag.Title</h1>
+    <hr />
+    <h2>Personal Information</h2>
+    <hr />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <td>
+                    @Model.User.Name @Model.User.Surname
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Address
+                </th>
+                <td>
+                    @Model.User.Address
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    City
+                </th>
+                <td>
+                    @Model.User.City
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Postcode
+                </th>
+                <td>
+                    @Model.User.PostCode
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="personal-information">
+        <a href="@Url.Action("ChangePassword")" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span> Change Password</a>
+        <a href="@Url.Action("Edit", "Account", new {userId = Model.Id})" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Edit Your Details</a>
+    </div>
+</div>
+<p class="text-success">@ViewBag.StatusMessage</p>

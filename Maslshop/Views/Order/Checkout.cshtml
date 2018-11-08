@@ -1,0 +1,116 @@
+﻿@using System.Web.UI.WebControls
+@model Maslshop.Models.ViewModels.Order.OrderFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+<div id="view-account">
+    <h1>Checkout</h1>
+    <hr />
+    <h2>Fill all the details in order to proceed</h2>
+    <hr />
+
+    @using (Html.BeginForm("Checkout", "Order", FormMethod.Post, new { @id = "myForm", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        var deliveryInfo = Model.Deliveries.Select(x => new
+        {
+            x.Id,
+            Name = x.Name + " - " + x.Price.ToString("C")
+        });
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name@*new { @id = "myInput" }*@)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Surname)
+            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address)
+
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PostCode)
+            @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PostCode, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.DeliveryId)
+            @Html.DropDownListFor(m => m.DeliveryId, new SelectList(deliveryInfo, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DeliveryId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PaymentId)
+            @Html.DropDownListFor(m => m.PaymentId, new SelectList(Model.Payments, "Id", "Name"), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PaymentId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TermsAndConditionsAccepted)
+            @Html.CheckBoxFor(m => m.TermsAndConditionsAccepted)
+            @Html.Hidden(nameof(Model.IsTrue), "true")
+            @Html.ValidationMessageFor(m => m.TermsAndConditionsAccepted, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-arrow-right"></span> Next</button>
+            <button class="btn btn-danger" onclick="resetFields(form)"><span class="glyphicon glyphicon glyphicon-remove"></span> Clear Fields</button>
+        </div>       
+    }
+
+    
+
+</div>
+
+
+<script type="text/javascript">
+    function resetFields(form) {
+        $(':input', form).each(function () {
+            var type = this.type;
+            var tag = this.tagName.toLowerCase(); // normalize case
+            // to reset the value attr of text inputs,
+            // password inputs, fileUpload and textareas
+            if (type == 'text' || type == 'password' || tag == 'textarea' || type == 'file')
+                this.value = "";
+            // checkboxes and radios need to have their checked state cleared
+            else if (type == 'checkbox' || type == 'radio')
+                this.checked = false;
+            // select elements need to have their 'selectedIndex' property set to -1
+            // (this works for both single and multiple select elements)
+            else if (tag == 'select')
+                this.selectedIndex = 0;
+        });
+    }
+
+</script>
+
+<script>
+    $("#toshipping_checkbox").on("click", function () {
+        var ship = $(this).is(":checked");
+        $("[id^='shipping_']").each(function () {
+            var tmpID = this.id.split('shipping_')[1];
+            $(this).val(ship ? $("#" + tmpID).val() : "");
+        });
+    });
+</script>
+
+<script>
+    function resetform() {
+        document.getElementById("myform").reset();
+    }
+</script>

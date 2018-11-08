@@ -1,0 +1,53 @@
+﻿@model Maslshop.Models.ViewModels.Users.UserListViewModel
+
+@{
+    ViewBag.Title = "Maslshop - List Of Users";
+}
+<div id="view-account">
+    <h1>Admin Panel</h1>
+    <hr />
+    <h2>List Of Users</h2>
+    <hr/>
+    @using (Html.BeginForm("SearchUser", "Admin"))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group" id="SearchBar">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by the name etc..." })
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary" id="SearchButton-Admin">Search</button>
+                </span>
+            </div>
+        </div>
+    }
+    <p><a href="@Url.Action("Register", "Account")" class="btn btn-primary" role="button">Add User</a></p>
+</div>
+
+<div style="overflow-x:auto">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr class="active text-info">
+            <th>Name & Surname</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Registration Date</th>
+            <th>Role</th>
+            <th>Edit User</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Name @user.Surname</td>
+                <td>@user.Address @user.PostCode @user.City</td>
+                <td>@user.Email</td>
+                <td>@user.RegistrationDate</td>
+                <td>@user.Role_Name</td>
+                <td><a href="@Url.Action("Edit", "Account", new {userId = user.Id})" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

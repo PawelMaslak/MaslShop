@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Order Sent Confirmation Email</title>
+</head>
+<body>
+
+    <p>Dear {userName}!</p>
+    <p>
+        Your order has been dispatched!
+        <br />
+        Plaease find order's details below:
+    </p>
+    <p>
+        Order Id: {orderId}
+        <br />
+        Status: {orderStatus}
+    </p>
+    <p>
+        Delivery Address: {userName} {userSurname}, {userAddress} {userPostCode} {userCity}.
+    </p>
+    <p>Ordered goods:</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>{pName}</td>
+            <td>{pQuantity}</td>
+            <td>{pSubtotal}</td>
+        </tr>
+    </table>
+    <br />
+    Delivery type: {pDeliveryType}
+    <br />
+    Delivery price: {pDeliveryPrice}
+    <br />
+    Total: {pTotal}
+    <br />
+    Payment type: {pPaymentType}
+    <p>Team Maslshop</p>
+</body>
+</html>

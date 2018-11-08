@@ -1,0 +1,8 @@
+﻿@model Maslshop.Models.ViewModels.Category.CategoriesViewModel
+
+@foreach (var category in Model.Categories)
+{
+    <li>
+        <a href="@Url.Action("ViewProducts", "Product", new {query = category.Name})" title="@category.Name Coins">@category.Name Coins</a>
+    </li>
+}

@@ -1,0 +1,33 @@
+﻿@model Maslshop.Models.ViewModels.Delivery.DeliveryFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+<div id="view-account">
+    <h1>Admin Panel</h1>
+    <hr />
+    <h2>Add New Delivery Type</h2>
+    <hr />
+    @using (Html.BeginForm("AddDeliveryType", "Delivery", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Eg. Royal Mail Parcel" })
+            @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, "{0:#.#}", new { @class = "form-control", placeholder = "eg. 20,00" })
+            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>
+
+
+
+
+
+

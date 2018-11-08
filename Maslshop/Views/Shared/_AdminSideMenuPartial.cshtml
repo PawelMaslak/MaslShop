@@ -1,0 +1,21 @@
+﻿<div class="small-box left-nav-categories hidden-xs">
+    <div class="inner-box title">
+        <a href="@Url.Action("Index", "Admin")">Admin Panel</a>
+    </div>
+    <div class="inner-box">
+        <ul class="list">
+            <li><a href="@Url.Action("Index", "Product")" title="Products">Products</a></li>
+            <li><a href="@Url.Action("Index", "Category")" title="Categories">Categories</a></li>
+            <li><a href="@Url.Action("ViewOrders", "Order")" title="Orders">Orders</a></li>
+            <li><a href="@Url.Action("Deliveries", "Delivery")" title="Deliveries">Deliveries</a></li>
+            <li><a href="@Url.Action("Index", "Admin")" title="Users">Users</a></li>
+            <li><a href="@Url.Action("Index", "Roles")" title="Roles">Roles</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    $('.list > li a').click(function () {
+        $(this).parent().find('ul').toggle();
+    });
+</script>

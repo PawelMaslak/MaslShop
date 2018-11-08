@@ -1,0 +1,21 @@
+﻿@model Maslshop.Models.ViewModels.Roles.RoleFormViewModel
+
+@{
+    ViewBag.Title = Model.Heading;
+}
+<div id="view-account">
+    <h1>Admin Panel</h1>
+    <hr/>
+    <h2>Create New Role</h2>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(m => m.RoleName, "Role Name")
+            @Html.TextBoxFor(m => m.RoleName, new { @class = "form-control", placeholder = "eg. Administrator"})
+            @Html.ValidationMessageFor(m => m.RoleName, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    }
+</div>

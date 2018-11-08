@@ -1,0 +1,106 @@
+﻿@using Maslshop.Models.Core
+@using Maslshop.Models.ViewModels
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <a href="/">
+                <div class="mobile-logo">
+                    <div id="inner">
+                        <img src="~/Content/Images/logo.jpg">
+                        <p>
+                            <span class="gold">Masl</span>Shop
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-menu-holder">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="mobile-menu">
+                    <div class="mobile-menu-button" id="first-panel">
+                        <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse" onclick="myFunction()"
+                               data-target="#bs-example-navbar-collapse-1" id="first-panel-span"><img src="/Content/Images/menu.png" />Menu</label>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav" id="nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu-trigger">Buy Bullion</a>
+                                    <ul class="dropdown-menu" id="menu">
+                                        @Html.Action("CategoriesList", "Category")
+                                    </ul>
+                                </li>
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu-trigger"><span class="text-danger">Admin Panel</span></a>
+                                        <ul class="dropdown-menu" id="menu">
+                                            <li><a href="@Url.Action("Index", "Product")" title="Products">Products</a></li>
+                                            <li><a href="@Url.Action("Index", "Category")" title="Categories">Categories</a></li>
+                                            <li><a href="@Url.Action("ViewOrders", "Order")" title="Orders">Orders</a></li>
+                                            <li><a href="@Url.Action("Deliveries", "Delivery")" title="Deliveries">Deliveries</a></li>
+                                            <li><a href="@Url.Action("Index", "Admin")" title="Users">Users</a></li>
+                                            <li><a href="@Url.Action("Index", "Roles")" title="Roles">Roles</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a href="@Url.Action("UserOrders", "Manage")" title="My Orders">My Orders</a></li>
+                                }                                
+                                <li><a href="@Url.Action("About", "Info")" title="About Us">About Us</a></li>
+
+                                @if (Session[HttpContext.Current.User.Identity.Name] != null)
+                                {
+                                    var cart = (List<CartItem>)Session[HttpContext.Current.User.Identity.Name];
+
+                                    var value = cart.Sum(i => i.Quantity);
+
+                                    if (value > 0)
+                                    {
+                                        <li class="nav-link"><a href="@Url.Action("Index", "ShoppingCart")"><strong>My Basket (@value)</strong></a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="mobile-menu-button">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse"
+                                   data-target="#bs-example-navbar-collapse-2"><img src="~/Content/Images/login.png" /><span>Account</span></label>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                <div class="row">
+                                    <a href="@Url.Action("Index", "Manage")" class="btn btn-primary btn-sm pull-left" id="create_account">Account</a>
+                                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-danger btn-sm pull-right" id="create_account">Log Out</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <label for="toggle_menu" class="navbar-toggle collapsed" data-toggle="collapse"
+                                   data-target="#bs-example-navbar-collapse-2">
+                                <img src="~/Content/Images/login.png" /><span>Login</span>
+                            </label>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                @Html.Partial("_MobileLogin", new ViewDataDictionary())
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

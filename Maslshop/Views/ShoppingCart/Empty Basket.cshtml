@@ -1,0 +1,33 @@
+﻿@using Maslshop.Controllers
+@using Maslshop.Models.Core
+@model Maslshop.Models.Core.CartItem
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        ViewBag.Title = "My Basket";
+    }
+    else
+    {
+        ViewBag.Title = "Basket";
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="row-xs">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr class="active text-info">
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        </tbody>
+    </table>
+
+    <p>Your basket is currently empty. Click <a href="@Url.Action("Index", "Home")"><span style="text-decoration: underline">here</span></a> to buy something</p>
+</div>
+
+
+
