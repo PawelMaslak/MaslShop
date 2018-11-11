@@ -72,7 +72,7 @@ namespace Maslshop.Controllers
 
             _unitOfWork.Orders.CreateOrder(order);
 
-            SendConfirmationEmail(order);
+            SendConfirmationEmail(order);                
 
             Session.RemoveAll();
 

@@ -14,7 +14,7 @@ namespace Maslshop.Models.ViewModels.Account
         public string Heading { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(100, ErrorMessage = "Password {0} has to consist at least of {2} letters.", MinimumLength = 6)]
+        [RegularExpression("((?=.*\\d).{6,20})", ErrorMessage = "Password has to conisist at least of 6 characters and contain at least one digit")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -22,7 +22,7 @@ namespace Maslshop.Models.ViewModels.Account
         [Required(ErrorMessage = "Password confirmation is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords do not match!")]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Name is required")]

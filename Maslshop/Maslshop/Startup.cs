@@ -15,6 +15,7 @@ namespace Maslshop
         {
             ConfigureAuth(app);
             CreateUserAndRoles();
+            CreateDeliveryTypes();
             CreateOrderStatus();
             CreatePaymentTypes();
         }
@@ -41,11 +42,12 @@ namespace Maslshop
                     Name = "Admin",
                     Surname = "Admin",
                     Address = "Admin 1/3",
-                    PostCode = "00-000",
+                    PostCode = "SL2 2BL",
                     City = "Admin",
                     RegistrationDate = DateTime.Now,
                     UserName = "admin@maslshop.com",
-                    Email = "admin@maslshop.com"
+                    Email = "admin@maslshop.com",
+                    EmailConfirmed = true
                 };
 
                 var password = "Admin123";
@@ -88,6 +90,42 @@ namespace Maslshop
                 roleManager.Create(role);
             }
 
+        }
+
+        private void CreateDeliveryTypes()
+        {
+            ApplicationDbContext _context = new ApplicationDbContext();
+
+            var deliveriesTypesList = _context.Deliveries.ToList();
+
+            if (deliveriesTypesList.Count == 0)
+            {
+                var deliveryType = new Delivery()
+                {
+                    Name = "Collection",
+                    Price = 0
+                };
+
+                _context.Deliveries.Add(deliveryType);
+
+                var deliveryType1 = new Delivery()
+                {
+                    Name = "Courier",
+                    Price = 25
+                };
+
+                _context.Deliveries.Add(deliveryType1);
+
+                var deliveryType2 = new Delivery()
+                {
+                    Name = "Royal Mail Parcel",
+                    Price = 12
+                };
+
+                _context.Deliveries.Add(deliveryType2);
+
+                _context.SaveChanges();
+            }
         }
 
         private void CreateOrderStatus()
@@ -137,7 +175,7 @@ namespace Maslshop
             }
         }
 
-        public void CreatePaymentTypes()
+        private void CreatePaymentTypes()
         {
             ApplicationDbContext _context = new ApplicationDbContext();
 

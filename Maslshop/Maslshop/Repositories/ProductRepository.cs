@@ -1,11 +1,10 @@
 ﻿using Maslshop.Models.Core;
-using Maslshop.Models.ViewModels;
+using Maslshop.Models.ViewModels.Product;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Maslshop.Models.ViewModels.Product;
 
 namespace Maslshop.Repositories
 {
@@ -37,31 +36,6 @@ namespace Maslshop.Repositories
         {
             return _context.ShoppingCartItems.SingleOrDefault(c => c.ProductId == id && c.CartId == HttpContext.Current.User.Identity.Name.ToString());
         }
-
-        //public IEnumerable<Product> GetSearchedProducts(string searchTerm = null)
-        //{
-        //    var products = GetProductsInStockList();
-
-        //    if (!string.IsNullOrWhiteSpace(searchTerm))
-        //    {
-        //        return products.Where(
-        //            s => s.Name.ToLower().Contains(searchTerm.ToLower()) ||
-        //                 s.Category.Name.ToLower().Contains(searchTerm.ToLower()));
-        //    }
-
-        //    return products;
-        //}
-
-        //public IEnumerable<Product> GetProducts()
-        //{
-        //    var products = _context.Products
-        //        .Include(s => s.Category)
-        //        .Include(s => s.Files).Where(s => s.StockAmount > 0)
-        //        .OrderByDescending(u => u.AddedDate)
-        //        .ToList().Take(3);
-
-        //    return products;
-        //}
 
         public IEnumerable<ProductsViewModel> GetSearchedProducts(string query, string searchTerm = null)
         {

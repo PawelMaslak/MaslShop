@@ -295,13 +295,10 @@ namespace Maslshop.Controllers
 
                         ResizeBigImage(upload.InputStream, Path.Combine(Server.MapPath("~/Content/Images/"), productPhoto.FileName));
 
-                        //var path = Path.Combine(Server.MapPath("~/Content/Images/"), productPhoto.FileName);
-
                         Resize(100, 100, upload.InputStream, Path.Combine(Server.MapPath("~/Content/Images/Thumbnails/" + productPhoto.FileName)));
 
                         productFiles.Add(productPhoto);
 
-                        //upload.SaveAs(path);
                     }
                     else if (upload != null && !upload.ContentType.Contains("image"))
                     {

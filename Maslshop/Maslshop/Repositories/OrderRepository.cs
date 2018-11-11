@@ -64,6 +64,19 @@ namespace Maslshop.Repositories
                 _context.OrderDetails.Add(orderDetail);
             }
 
+            _context.SaveChanges();
+
+            var orderDetailsList = _context.OrderDetails.Where(i => i.OrderId == order.OrderId).ToList();
+
+            foreach (var orderedProduct in orderDetailsList)
+            {
+                var product = _context.Products.SingleOrDefault(i => i.Id == orderedProduct.ProductId);
+
+                product.StockAmount = product.StockAmount - orderedProduct.Quantity;
+
+                _context.SaveChanges();
+            }
+
             var total = order.OrderTotal + deliveryType.Price;
 
             order.OrderTotal = total;

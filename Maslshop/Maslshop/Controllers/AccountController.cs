@@ -288,12 +288,14 @@ namespace Maslshop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.Role);
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
                     var callBackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
                         protocol: Request.Url.Scheme);
 
-                    string body = string.Empty;
+                    string body;
 
                     using (StreamReader reader =
                         new StreamReader(Server.MapPath("~/Views/Emails/AccountConfirmationEmail.cshtml")))
@@ -304,8 +306,7 @@ namespace Maslshop.Controllers
                     body = body.Replace("{userName}", user.Name);
                     body = body.Replace("{callbackUrl}", callBackUrl);
 
-                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);
-                    UserManager.AddToRole(user.Id, model.Role);
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - confirm your email", body);                    
 
                     return RedirectToAction("Index", "Admin");
                 }
@@ -327,6 +328,8 @@ namespace Maslshop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "User");
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
                     var callBackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
@@ -343,9 +346,7 @@ namespace Maslshop.Controllers
                     body = body.Replace("{userName}", user.Name);
                     body = body.Replace("{callbackUrl}", callBackUrl);
 
-                    await UserManager.SendEmailAsync(user.Id, "Maslshop - Confirm Your Email", body);
-
-                    UserManager.AddToRole(user.Id, "User");
+                    await UserManager.SendEmailAsync(user.Id, "Maslshop - Confirm Your Email", body);                    
 
                     ViewBag.Message = "Check your email and confirm your account. It must be confirmed "
                                       + "before you can log in.";
