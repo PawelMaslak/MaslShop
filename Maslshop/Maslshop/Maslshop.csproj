@@ -459,6 +459,10 @@
     <Compile Include="Migrations\201810241739513_FinalModelChanges.Designer.cs">
       <DependentUpon>201810241739513_FinalModelChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811111102477_removalOfConstraints.cs" />
+    <Compile Include="Migrations\201811111102477_removalOfConstraints.Designer.cs">
+      <DependentUpon>201811111102477_removalOfConstraints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Core\CartItem.cs" />
     <Compile Include="Models\Core\Delivery.cs" />
@@ -852,6 +856,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810241739513_FinalModelChanges.resx">
       <DependentUpon>201810241739513_FinalModelChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811111102477_removalOfConstraints.resx">
+      <DependentUpon>201811111102477_removalOfConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
