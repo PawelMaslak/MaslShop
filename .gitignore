@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Maslshop/.vs
+/Maslshop/packages
+/Maslshop/Maslshop/bin
+/Maslshop/Maslshop/obj/Debug
+/Maslshop/Maslshop/Maslshop.csproj.user

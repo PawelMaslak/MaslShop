@@ -21,7 +21,7 @@
         });
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Name@*new { @id = "myInput" }*@)
+            @Html.LabelFor(m => m.Name)
             @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
         </div>
