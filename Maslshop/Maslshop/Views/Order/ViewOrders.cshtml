@@ -56,7 +56,7 @@
 
             <tr>
                 <td>@order.OrderId</td>
-                <td>@($"{order.OrderDate:d}")</td>
+                <td>@string.Format("{0:d}", order.OrderDate)</td>
                 <td>@order.UserName</td>
                 <td>@order.OrderTotal.ToString("C")</td>
                 <td>

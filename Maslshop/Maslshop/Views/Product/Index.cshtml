@@ -43,7 +43,7 @@
             {
                 <tr>
                     <td>@product.Id</td>
-                    <td>@($"{product.AddedDate:d}")</td>
+                    <td>@string.Format("{0:d}", product.AddedDate)</td>
                     <td>@product.Name</td>
                     <td>@product.Price.ToString("C")</td>
                     <td>@product.StockAmount</td>

@@ -31,7 +31,7 @@
             {
                 <tr>
                     <td><a style="text-decoration-line: underline" href="@Url.Action("ViewOrder", "Order", new {orderId = order.OrderId})">@order.OrderId</a></td>
-                    <td>@($"{order.OrderDate:d}")</td>
+                    <td>@string.Format("{0:d}", order.OrderDate)</td>
                     <td>@order.DeliveryTypeName</td>
                     <td>@order.OrderStatusName</td>
                     <td>@order.OrderTotal.ToString("C")</td>
