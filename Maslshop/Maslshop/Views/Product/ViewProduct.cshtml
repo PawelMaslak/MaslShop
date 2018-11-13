@@ -44,13 +44,17 @@
                 <p align="center"><strong>Price: @Model.Price.ToString("C")</strong>
                 </p>
                 <p>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated && Model.StockAmount > 0)
                     {
                         <a class="btn2 btn-primary center-block" href="@Url.Action("AddToCart", "ShoppingCart", new {Id = @Model.Id})"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
                     }
+                    else if(Model.StockAmount == 0)
+                    {
+                    <a class="btn2 btn-danger center-block" href="#">Coming Soon</a>
+                    }
                     else
                     {
-                        <a class="btn2 btn-primary center-block" href="@Url.Action("Login", "Account")">Login to buy</a>
+                    <a class="btn2 btn-primary center-block" href="@Url.Action("Login", "Account")">Login to buy</a>
                     }
                 </p>
             </div>
