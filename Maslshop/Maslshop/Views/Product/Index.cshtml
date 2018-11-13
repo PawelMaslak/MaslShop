@@ -43,7 +43,7 @@
             {
                 <tr>
                     <td>@product.Id</td>
-                    <td>@string.Format("{0:d}", product.AddedDate)</td>
+                    <td>@($"{product.AddedDate:d}")</td>
                     <td>@product.Name</td>
                     <td>@product.Price.ToString("C")</td>
                     <td>@product.StockAmount</td>
@@ -57,7 +57,7 @@
                     else
                     {
                         <td>
-                            <img src="~/Content/Images/Thumbnails/no-pic.png" alt="photo" />
+                            <img src="~/Content/Master/no-pic.png" alt="photo" />
                         </td>
                     }
                     <td><a href="@Url.Action("Edit", "Product", new {productId = product.Id})" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
