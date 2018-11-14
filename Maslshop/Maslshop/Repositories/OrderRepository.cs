@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Maslshop.Repositories
 {
@@ -12,9 +13,9 @@ namespace Maslshop.Repositories
     {
         private readonly ApplicationDbContext _context;
 
-        public string ShoppingCartId { get; set; }
+        private string ShoppingCartId { get; set; }
 
-        public const string CartSessionKey = "CartId";
+        private const string CartSessionKey = "CartId";
 
         public OrderRepository(ApplicationDbContext context)
         {
@@ -52,6 +53,8 @@ namespace Maslshop.Repositories
 
             foreach (var item in shoppingCartItems)
             {
+                var checkedProduct = _context.Products.SingleOrDefault(i => i.Id == item.ProductId);
+
                 var orderDetail = new OrderDetail()
                 {
                     ProductId = item.Product.Id,
@@ -59,7 +62,13 @@ namespace Maslshop.Repositories
                     Price = item.Product.Price,
                     OrderId = order.OrderId
                 };
-                order.OrderTotal += (item.Quantity * item.Product.Price);
+
+                if (orderDetail.Quantity > checkedProduct.StockAmount)
+                {
+                    orderDetail.Quantity = checkedProduct.StockAmount;
+                }
+
+                order.OrderTotal += (orderDetail.Quantity * item.Product.Price);
 
                 _context.OrderDetails.Add(orderDetail);
             }
