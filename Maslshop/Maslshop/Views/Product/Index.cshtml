@@ -50,8 +50,10 @@
                     <td>@product.CategoryName</td>
                     @if (product.FileName != null)
                     {
+                        var products = Model.Files.Where(i => i.ProductId == product.Id).ToList();
+
                         <td>
-                            <img src="~/Content/Images/Thumbnails/@product.FileName" alt="photo" />
+                            <img src="~/Content/Images/Thumbnails/@products[0].FileName" alt="photo" />
                         </td>
                     }
                     else

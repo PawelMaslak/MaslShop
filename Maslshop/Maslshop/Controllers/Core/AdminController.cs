@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
-using Maslshop.Models.ViewModels;
-using Maslshop.Models.ViewModels.Users;
+﻿using Maslshop.Models.ViewModels.Users;
 using Maslshop.Repositories;
+using System.Web.Mvc;
 
 namespace Maslshop.Controllers.Core
 {

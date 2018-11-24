@@ -283,6 +283,12 @@ namespace Maslshop.Controllers
 
             if (uploads != null)
             {
+                if (!Directory.Exists("~/Content/Images/") && !Directory.Exists("~/Content/Images/Thumbnails/"))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Images/"));
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Images/Thumbnails/"));
+                }
+               
                 foreach (var upload in uploads)
                 {
                     if (upload != null && upload.ContentType.Contains("image"))
