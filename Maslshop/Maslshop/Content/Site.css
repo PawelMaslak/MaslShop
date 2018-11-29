@@ -772,178 +772,193 @@ td {
     height: 260px;
 }
 
-.medium-box {
-    background-color: #fff;
-    border-radius: 12px;
-    border: 1px solid #d5d5d5;
-    overflow: hidden;
-    margin: 0 4px 20px;
-    padding: 0;
-}
-
-.image {
-    height: 145px;
-    padding: 10px 42px;
-    line-height: 115px;
-    text-align: center;
-}
-
-.thumbnail-image {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.bottom {
-    bottom: 10px;
-    position: absolute;
-    width: 96%;
-}
-
-.grey-background {
-    position: relative;
-    padding: 4px;
-    height: 120px;
-    background-color: #f1f1f1;
-}
-
-#accounts-referrals .category-panel .referral-panel p.name a, #accounts-referrals .category-panel .referral-panel-home p.name a, .category-panel #accounts-referrals .referral-panel p.name a, .category-panel #accounts-referrals .referral-panel-home p.name a, .category-panel .grey-background p.name a, .category-panel .horizontal-table tr th p.name a, .horizontal-table tr .category-panel th p.name a {
-    font-size: 16px;
-    line-height: 1.3em;
-    overflow: hidden;
-    display: block;
-    max-height: 48px;
-    color: #474747;
-    text-align: center;
-    padding-top: 1px;
-}
-
-.category-panel .grey-background p.from, .category-panel .horizontal-table tr th p.from, .horizontal-table tr .category-panel th p.from {
-    font-size: 1.25em;
-    text-align: center;
-    margin: -2px;
-    padding-bottom: 3px;
-}
-
-.category-panel .grey-background p.stock-message, .category-panel .horizontal-table tr th p.stock-message, .horizontal-table tr .category-panel th p.stock-message {
-    margin-bottom: 8px;
-    line-height: 10px;
-    pointer-events: none;
-    text-align: center;
-}
-
-.category-panel .grey-background .btn, .category-panel .horizontal-table tr th .btn, .horizontal-table tr .category-panel th .btn {
-    padding: 2px 15px;
-    height: 26px;
-    width: 60%;
-}
-
-.center-block {
-    display: block;
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
-.center-block2 {
-    display: block;
-    margin: auto;
-}
-
-/*dStyles*/
-
-/* Style the Image Used to Trigger the Modal */
-.myImg {
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    padding-bottom: 10px;
-}
-
-    .myImg:hover {
-        opacity: 0.7;
+@media (max-width: 480px) {
+    .category-panel {
+        height: 300px;
     }
 
-/* The Modal (background) */
-.modal-image {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: white; /* Black w/ opacity */
+        .category-panel .grey-background p.name a {
+            padding-top: 15px !important;
+            max-height: 60px !important;
+        }
+
+        .grey-background {
+            height: 158px !important;
+        }
 }
 
-/* Modal Content (Image) */
-.modal-content-image {
-    margin: auto;
-    display: block;
-    border: none;
-    border-radius: 0;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: none;
-}
-
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption-image {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #999999;
-    font-size: 20px;
-    padding: 10px 0;
-    height: 150px;
-}
-
-.modal-content-image, #caption-image {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-    from {
-        -webkit-transform: scale(0)
+    .medium-box {
+        background-color: #fff;
+        border-radius: 12px;
+        border: 1px solid #d5d5d5;
+        overflow: hidden;
+        margin: 0 4px 20px;
+        padding: 0;
     }
 
-    to {
-        -webkit-transform: scale(1)
-    }
-}
-
-@keyframes zoom {
-    from {
-        transform: scale(0)
+    .image {
+        height: 145px;
+        padding: 10px 42px;
+        line-height: 115px;
+        text-align: center;
     }
 
-    to {
-        transform: scale(1)
+    .thumbnail-image {
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
-}
 
-/* The Close Button */
-.close {
-    padding-right: 20px;
-    color: black;
-    font-size: 50px;
-    font-weight: bold;
-    transition: 0.3s;
-}
+    .bottom {
+        bottom: 10px;
+        position: absolute;
+        width: 96%;
+    }
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
+    .grey-background {
+        position: relative;
+        padding: 4px;
+        height: 120px;
+        background-color: #f1f1f1;
+    }
+
+    #accounts-referrals .category-panel .referral-panel p.name a, #accounts-referrals .category-panel .referral-panel-home p.name a, .category-panel #accounts-referrals .referral-panel p.name a, .category-panel #accounts-referrals .referral-panel-home p.name a, .category-panel .grey-background p.name a, .category-panel .horizontal-table tr th p.name a, .horizontal-table tr .category-panel th p.name a {
+        font-size: 16px;
+        line-height: 1.3em;
+        overflow: hidden;
+        display: block;
+        max-height: 48px;
+        color: #474747;
+        text-align: center;
+        padding-top: 1px;
+    }
+
+    .category-panel .grey-background p.from, .category-panel .horizontal-table tr th p.from, .horizontal-table tr .category-panel th p.from {
+        font-size: 1.25em;
+        text-align: center;
+        margin: -2px;
+        padding-bottom: 3px;
+    }
+
+    .category-panel .grey-background p.stock-message, .category-panel .horizontal-table tr th p.stock-message, .horizontal-table tr .category-panel th p.stock-message {
+        margin-bottom: 8px;
+        line-height: 10px;
+        pointer-events: none;
+        text-align: center;
+    }
+
+    .category-panel .grey-background .btn, .category-panel .horizontal-table tr th .btn, .horizontal-table tr .category-panel th .btn {
+        padding: 2px 15px;
+        height: 26px;
+        width: 60%;
+    }
+
+    .center-block {
+        display: block;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    .center-block2 {
+        display: block;
+        margin: auto;
+    }
+
+    /*dStyles*/
+
+    /* Style the Image Used to Trigger the Modal */
+    .myImg {
+        border-radius: 10px;
         cursor: pointer;
+        transition: 0.3s;
+        padding-bottom: 10px;
     }
 
-.modal-header {
-    border-bottom: none;
-}
+        .myImg:hover {
+            opacity: 0.7;
+        }
+
+    /* The Modal (background) */
+    .modal-image {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: white; /* Black w/ opacity */
+    }
+
+    /* Modal Content (Image) */
+    .modal-content-image {
+        margin: auto;
+        display: block;
+        border: none;
+        border-radius: 0;
+        width: 90%;
+        max-width: 700px;
+        box-shadow: none;
+    }
+
+    /* Caption of Modal Image (Image Text) - Same Width as the Image */
+    #caption-image {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #999999;
+        font-size: 20px;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    .modal-content-image, #caption-image {
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @keyframes zoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* The Close Button */
+    .close {
+        padding-right: 20px;
+        color: black;
+        font-size: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .modal-header {
+        border-bottom: none;
+    }
