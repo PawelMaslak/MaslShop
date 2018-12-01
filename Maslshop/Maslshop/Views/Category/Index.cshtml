@@ -10,29 +10,31 @@
     <hr/>
     <p><a href="@Url.Action("Add", "Category")" class="btn btn-primary" role="button">Add Category</a></p>
 </div>
-
-<table id="table" class="table table-striped table-bordered text-center">
-    <thead>
-    <tr class="active text-info">
-        <th>Id</th>
-        <th>Name</th>
-        <th>Number of Products</th>
-        <th>Edit</th>
-        <th>Remove</th>      
-    </tr>
-    </thead>
-    <tbody class="text-center">
-    @foreach (var category in Model.Categories)
-    {
-        <tr>
-            <td>@category.Id</td>
-            <td><a href="@Url.Action("Index", "Product", new {query = category.Name} )">@category.Name</a></td>
-            <td>
-                @category.Products.Count
-            </td>
-            <td><a href="@Url.Action("Edit", "Category", new {categoryId = category.Id})" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
-            <td><a href="@Url.Action("Delete", "Category", new {categoryId = category.Id})" class="btn btn-primary glyphicon glyphicon-remove" role="button"></a></td>
+<div style="overflow-x: auto">
+    <table id="table" class="table table-striped table-bordered text-center">
+        <thead>
+        <tr class="active text-info">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Number of Products</th>
+            <th>Edit</th>
+            <th>Remove</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody class="text-center">
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td><a href="@Url.Action("Index", "Product", new {query = category.Name} )">@category.Name</a></td>
+                <td>
+                    @category.Products.Count
+                </td>
+                <td><a href="@Url.Action("Edit", "Category", new {categoryId = category.Id})" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
+                <td><a href="@Url.Action("Delete", "Category", new {categoryId = category.Id})" class="btn btn-primary glyphicon glyphicon-remove" role="button"></a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

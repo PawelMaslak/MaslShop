@@ -773,19 +773,23 @@ td {
 }
 
 @media (max-width: 480px) {
-    .category-panel {
-        height: 300px;
+    .category-panel { height: 300px; }
+
+    .category-panel .grey-background p.name a {
+        padding-top: 15px !important;
+        max-height: 60px !important;
     }
 
-        .category-panel .grey-background p.name a {
-            padding-top: 15px !important;
-            max-height: 60px !important;
-        }
+    .grey-background { height: 158px !important; }
 
-        .grey-background {
-            height: 158px !important;
-        }
-}
+    .bottom { bottom: 6px !important; }
+
+    .btn { font-size: 12px; }
+
+    #view-account .personal-information { margin: 4%; }
+
+    .form-control { height: 31px; }
+    }
 
     .medium-box {
         background-color: #fff;
